@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/subcategoriesConstraint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <EditText
+            android:id="@+id/inputSubCategory"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:hint="Subcategory name..."
+            android:importantForAutofill="no"
+            android:inputType="text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="TextContrastCheck" />
+
+        <Button
+            android:id="@+id/btnDeleteCategory"
+            android:layout_width="42dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:text="x"
+            app:layout_constraintStart_toEndOf="@+id/inputSubCategory"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <EditText
+            android:id="@+id/inputSubGoal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="0.00"
+            android:importantForAutofill="no"
+            android:inputType="numberDecimal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/inputSubCategory"
+            tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/mainCategoryConstraint"
+        android:id="@+id/categoriesConstraint"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent">
@@ -46,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:hint="0.00"
                 android:importantForAutofill="no"
-                android:inputType="numberDecimal"
+                android:inputType="none"
                 android:textAlignment="center"
                 android:textSize="16sp"
                 android:textStyle="bold"
@@ -85,56 +85,11 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/subCategoryConstraint"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/vhCategoriesRecycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/mainCategoryConstraint">
-
-        <TextView
-            android:id="@+id/subCategoryTV"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Sub Category" />
-
-        <EditText
-            android:id="@+id/inputAssigned"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="32dp"
-            android:hint="0.00"
-            android:importantForAutofill="no"
-            android:inputType="numberDecimal"
-            android:paddingStart="4dp"
-            android:paddingEnd="4dp"
-            android:textAlignment="center"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toStartOf="@+id/outputAvailable"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
-
-        <EditText
-            android:id="@+id/outputAvailable"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:hint="0.00"
-            android:importantForAutofill="no"
-            android:inputType="numberDecimal"
-            android:paddingStart="4dp"
-            android:paddingEnd="4dp"
-            android:textAlignment="center"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck,TextContrastCheck,DuplicateSpeakableTextCheck" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintTop_toBottomOf="@+id/categoriesConstraint"
+        tools:layout_editor_absoluteX="1dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

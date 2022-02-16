@@ -10,16 +10,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newleaf2022.adapters.AccountsAdapter
 import com.example.newleaf2022.databinding.FragmentAccountsBinding
 import com.example.newleaf2022.viewmodels.AccountsViewModel
+import com.example.newleaf2022.viewmodels.Budgets
+import com.example.newleaf2022.viewmodels.BudgetsViewModel
 
 class AccountsFragment : Fragment() {
 
+    private lateinit var currentBudget: Budgets
     private var fragmentBinding: FragmentAccountsBinding? = null
     private val binding get() = fragmentBinding!!
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         fragmentBinding = FragmentAccountsBinding.inflate(inflater,container,false)
         return binding.root
     }
@@ -27,13 +27,19 @@ class AccountsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val accountsVM: AccountsViewModel by activityViewModels()
+        val budgetsVM: BudgetsViewModel by activityViewModels()
+        val mainActivity = (context as MainActivity)
         binding.fragAccountsRecycler.layoutManager = LinearLayoutManager(activity)
+
+
+        budgetsVM.currentBudget
+
 
 
         binding.fragAccountsRecycler.adapter = AccountsAdapter(accountsVM.accounts.value)
 
         binding.btnAddAccount.setOnClickListener {
-            (context as MainActivity).changeFragment("main", NewAccountFragment())
+            mainActivity.changeFragment("main", NewAccountFragment())
         }
 
     }
