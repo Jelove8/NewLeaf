@@ -25,7 +25,7 @@ class NewTransactionFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnCancelTransaction.setOnClickListener {
-
+            (context as MainActivity).changeFragment("remove", this)
         }
 
     }

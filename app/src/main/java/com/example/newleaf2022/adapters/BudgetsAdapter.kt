@@ -7,9 +7,8 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newleaf2022.R
-import com.example.newleaf2022.viewmodels.Trees
 
-class BudgetsAdapter(private val trees: Trees) : RecyclerView.Adapter<BudgetsAdapter.BudgetsViewHolder>() {
+class BudgetsAdapter() : RecyclerView.Adapter<BudgetsAdapter.BudgetsViewHolder>() {
 
     class BudgetsViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
         val mainCategory: TextView = itemView.findViewById(R.id.mainCategoryTV)
@@ -29,11 +28,11 @@ class BudgetsAdapter(private val trees: Trees) : RecyclerView.Adapter<BudgetsAda
 
     override fun onBindViewHolder(holder: BudgetsViewHolder, position: Int) {
 
-        holder.mainCategory.text = trees.branches[position].name
+        holder.mainCategory.text = ""
         holder.totalAssigned.setText("")
         holder.totalAvailable.setText("")
 
-        holder.subCategory.text = trees.branches[position].name
+        holder.subCategory.text = ""
         holder.subAssigned.setText("")
         holder.subAvailable.setText("")
     }

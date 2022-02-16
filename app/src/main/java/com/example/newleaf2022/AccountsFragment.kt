@@ -9,7 +9,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newleaf2022.adapters.AccountsAdapter
 import com.example.newleaf2022.databinding.FragmentAccountsBinding
-import com.example.newleaf2022.viewmodels.Accounts
 import com.example.newleaf2022.viewmodels.AccountsViewModel
 
 class AccountsFragment : Fragment() {
@@ -33,8 +32,8 @@ class AccountsFragment : Fragment() {
 
         binding.fragAccountsRecycler.adapter = AccountsAdapter(accountsVM.accounts.value)
 
-        binding.fragAccountsButton2.setOnClickListener {
-            (context as MainActivity).changeFragment(NewAccountFragment())
+        binding.btnAddAccount.setOnClickListener {
+            (context as MainActivity).changeFragment("main", NewAccountFragment())
         }
 
     }

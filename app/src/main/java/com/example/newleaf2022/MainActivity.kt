@@ -3,71 +3,62 @@ package com.example.newleaf2022
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newleaf2022.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    fun changeFragment(fragment: Fragment) {
+    fun changeFragment(container: String, fragment: Fragment) {
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction
-            .replace(R.id.mainFragment, fragment)
-            .addToBackStack(null)
-            .commit()
+        when (container) {
+            "main" -> {
+                fragmentTransaction
+                    .replace(R.id.mainFragment, fragment)
+                    .addToBackStack(null)
+                    .commit()
+            }
+            "sub" -> {
+                fragmentTransaction
+                    .replace(R.id.subFragment, fragment)
+                    .addToBackStack(null)
+                    .commit()
+            }
+            else -> {
+                fragmentTransaction
+                    .remove(fragment)
+                    .commit()
+            }
+        }
     }
-
-    val newButton: Button = findViewById(R.id.miscButton1)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        fun setMainUI(display: String) {
-            when (display) {
-                "Budgets" -> {
-                    binding.headerTV.text = "feb2022"
-                    binding.miscButton1.visibility = View.INVISIBLE
-                    binding.miscButton2.visibility = View.VISIBLE
-                    binding.mainConstraint3.visibility = View.VISIBLE
-                    changeFragment(BudgetsFragment())
-                }
-                "Accounts" -> {
-                    binding.headerTV.text = "Accounts"
-                    binding.miscButton1.visibility = View.INVISIBLE
-                    binding.miscButton2.visibility = View.VISIBLE
-                    binding.mainConstraint3.visibility = View.VISIBLE
-                    changeFragment(AccountsFragment())
-                }
-                "Add Transaction" -> {
-                    val fragmentManager = supportFragmentManager
-                    val fragmentTransaction = fragmentManager.beginTransaction()
-                    fragmentTransaction
-                        .replace(R.id.subFragment, NewTransactionFragment())
-                        .addToBackStack(null)
-                        .commit()
-                }
-                else -> {}
-            }
-        }
 
 
-        binding.miscButton1.setOnClickListener {
-
-        }
-        binding.miscButton2.setOnClickListener {
-
-        }
-
+        // Main Button Logic
         binding.mainButton1.setOnClickListener {
-            setMainUI("Budgets")
+            changeFragment("main", BudgetsFragment())
         }
 
         binding.mainButton2.setOnClickListener {
-            setMainUI("Accounts")
+            changeFragment("main", AccountsFragment())
+        }
+
+        binding.mainButton3.setOnClickListener {
+            binding.subFragment.visibility = View.VISIBLE
+            changeFragment("sub", NewTransactionFragment())
+        }
+
+        binding.mainButton4.setOnClickListener {
+
+        }
+
+        binding.mainButton5.setOnClickListener {
+
         }
     }
 }

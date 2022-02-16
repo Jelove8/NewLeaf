@@ -8,8 +8,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newleaf2022.databinding.FragmentBudgetsBinding
-import com.example.newleaf2022.viewmodels.AccountsViewModel
-import com.example.newleaf2022.viewmodels.TreesViewModel
 
 class BudgetsFragment : Fragment() {
 
@@ -23,21 +21,24 @@ class BudgetsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val treesVM: TreesViewModel by activityViewModels()
+        val budgetsVM : BudgetsViewModel by activityViewModels()
         binding.fragTreesRecycler.layoutManager = LinearLayoutManager(activity)
 
-        val currentTree = treesVM.currentTreeDisplayed.value
 
 
+        binding.btnMisc1.setOnClickListener {
+
+        }
+        binding.btnChangeDate.setOnClickListener {
+
+        }
+        binding.btnEditBranches.setOnClickListener {
 
 
+        }
+        binding.btnAssignMoney.setOnClickListener {
 
-
-
-
-
-
-
+        }
 
     }
 

@@ -2,21 +2,53 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/fragBudgetsConstraint0"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".BudgetsFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/fragBudgetsConstraint1"
+        android:id="@+id/fragNewAccountHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/btnMisc1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="misc"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btnChangeDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="feb2022"
+            app:layout_constraintEnd_toStartOf="@+id/btnEditBranches"
+            app:layout_constraintStart_toEndOf="@+id/btnMisc1"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btnEditBranches"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="edit"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/fragTreesConstraint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:padding="8dp"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fragNewAccountHeader"
         tools:layout_editor_absoluteX="411dp">
 
         <TextView
-            android:id="@+id/fragBudgetsTV1"
+            android:id="@+id/tvTotalUnassigned"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="$1,785.18"
@@ -25,16 +57,16 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/fragBudgetsTV2"
+            android:id="@+id/tvReadyToAssign"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Ready to Assign"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fragBudgetsTV1" />
+            app:layout_constraintTop_toBottomOf="@+id/tvTotalUnassigned" />
 
         <Button
-            android:id="@+id/fragBudgetsButton0"
+            android:id="@+id/btnAssignMoney"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Assign Money"
@@ -47,8 +79,7 @@
         android:id="@+id/fragTreesRecycler"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragBudgetsConstraint1"
+        app:layout_constraintTop_toBottomOf="@+id/fragTreesConstraint"
         tools:layout_editor_absoluteX="1dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

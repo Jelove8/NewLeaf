@@ -29,15 +29,12 @@ class NewAccountFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val accountsVM: AccountsViewModel by activityViewModels()
 
+        binding.btnMisc2.setOnClickListener {
+            (context as MainActivity).changeFragment("main", AccountsFragment())
+        }
+
         binding.btnAddAcount.setOnClickListener {
-            val newType = binding.inputAccountType.text.toString()
-            val newName = binding.inputAccountName.text.toString()
-            val newBalance = binding.inputBalance.text.toString().toDouble()
 
-            val newAccount = Accounts(newName, newType, newBalance)
-            accountsVM.addAccount(newAccount)
-
-            (context as MainActivity).changeFragment(AccountsFragment())
         }
 
     }
