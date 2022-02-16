@@ -15,6 +15,7 @@ import com.example.newleaf2022.viewmodels.Subcategories
 
 class BudgetsFragment : Fragment() {
 
+    "HEllo>"
     private var fragmentBinding: FragmentBudgetsBinding? = null
     private val binding get() = fragmentBinding!!
 
