@@ -55,7 +55,6 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-
         binding.miscButton1.setOnClickListener {
 
         }
