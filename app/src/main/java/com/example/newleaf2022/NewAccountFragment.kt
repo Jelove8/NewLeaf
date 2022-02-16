@@ -5,8 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.newleaf2022.databinding.FragmentAccountsBinding
+import androidx.fragment.app.activityViewModels
+
 import com.example.newleaf2022.databinding.FragmentNewAccountBinding
+import com.example.newleaf2022.viewmodels.Accounts
+import com.example.newleaf2022.viewmodels.AccountsViewModel
 
 class NewAccountFragment : Fragment() {
 
@@ -24,7 +27,18 @@ class NewAccountFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val accountsVM: AccountsViewModel by activityViewModels()
 
+        binding.btnAddAcount.setOnClickListener {
+            val newType = binding.inputAccountType.text.toString()
+            val newName = binding.inputAccountName.text.toString()
+            val newBalance = binding.inputBalance.text.toString().toDouble()
+
+            val newAccount = Accounts(newName, newType, newBalance)
+            accountsVM.addAccount(newAccount)
+
+            (context as MainActivity).changeFragment(AccountsFragment())
+        }
 
     }
 

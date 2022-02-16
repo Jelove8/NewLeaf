@@ -1,15 +1,20 @@
 package com.example.newleaf2022.viewmodels
 
 import android.accounts.Account
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class AccountsViewModel : ViewModel() {
 
-    private val accounts: MutableLiveData<ArrayList<Class<Account>>> by lazy { MutableLiveData<ArrayList<Class<Account>>>() }
+     val accounts: MutableLiveData<ArrayList<Accounts>> by lazy { MutableLiveData<ArrayList<Accounts>>() }
 
-    fun addAccount(newAccount: Class<Account>) {
+    fun addAccount(newAccount: Accounts) {
+        if (accounts.value.isNullOrEmpty()) {
+            accounts.value = arrayListOf()
+        }
         accounts.value!!.add(newAccount)
     }
+
+
+
 }

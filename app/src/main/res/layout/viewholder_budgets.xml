@@ -45,7 +45,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="0.00"
-                android:hintTextColor="#757575"
                 android:importantForAutofill="no"
                 android:inputType="numberDecimal"
                 android:textAlignment="center"
@@ -106,22 +105,6 @@
             tools:text="Sub Category" />
 
         <EditText
-            android:id="@+id/outputAvailable"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:hint="0.00"
-            android:hintTextColor="#757575"
-            android:importantForAutofill="no"
-            android:inputType="numberDecimal"
-            android:paddingStart="4dp"
-            android:paddingEnd="4dp"
-            android:textAlignment="center"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck,TextContrastCheck,DuplicateSpeakableTextCheck" />
-
-        <EditText
             android:id="@+id/inputAssigned"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
@@ -136,6 +119,21 @@
             app:layout_constraintEnd_toStartOf="@+id/outputAvailable"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
+
+        <EditText
+            android:id="@+id/outputAvailable"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:hint="0.00"
+            android:importantForAutofill="no"
+            android:inputType="numberDecimal"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
+            android:textAlignment="center"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck,TextContrastCheck,DuplicateSpeakableTextCheck" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
