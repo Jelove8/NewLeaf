@@ -889,8 +889,12 @@ class CategoryAdapter(private val categories: ArrayList<Categories>, private val
             initializeVHData(0)
         }
         else {
-            // Sets category name
+            // Sets category data
             holder.mainCategory.text = categories[position].name
+            holder.totalAssigned.text = categories[position].totalAssigned.toString()
+            holder.totalAvailable.text = categories[position].totalAvailable.toString()
+
+
             // Sets subcategory names
             val limit = categories[position].subcategories.size
             for (i in 0 until limit) {

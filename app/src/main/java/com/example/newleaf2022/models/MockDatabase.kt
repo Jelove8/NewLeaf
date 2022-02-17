@@ -18,18 +18,18 @@ class MockDatabase {
     // Mock Subcategories
     private val databaseSubcategory1 = Subcategories("Rent", 1000.00, 1000.00)
     private val databaseSubcategory2 = Subcategories("Student Loans", 300.00, 300.00)
-    private val databaseSubcategory3 = Subcategories("Groceries")
-    private val databaseSubcategory4 = Subcategories("Gas")
-    private val databaseSubcategory5 = Subcategories("Toiletries")
-    private val databaseSubcategory6 = Subcategories("Clothes")
+    private val databaseSubcategory3 = Subcategories("Groceries", 200.00, 200.00)
+    private val databaseSubcategory4 = Subcategories("Gas", 120.00, 120.00)
+    private val databaseSubcategory5 = Subcategories("Toiletries", 30.00, 30.00)
+    private val databaseSubcategory6 = Subcategories("Clothes", 100.00, 100.00)
     private val subcategoriesList1 = arrayListOf(databaseSubcategory1, databaseSubcategory2)
     private val subcategoriesList2 = arrayListOf(databaseSubcategory3, databaseSubcategory4)
     private val subcategoriesList3 = arrayListOf(databaseSubcategory5, databaseSubcategory6)
 
     // Mock Categories
-    private val databaseCategory1 = Categories("Savings", subcategoriesList1)
-    private val databaseCategory2 = Categories("Frequent", subcategoriesList2)
-    private val databaseCategory3 = Categories("Shopping", subcategoriesList3)
+    private val databaseCategory1 = Categories("Savings", subcategoriesList1, 1300.00, 1300.00)
+    private val databaseCategory2 = Categories("Frequent", subcategoriesList2, 320.00, 320.00)
+    private val databaseCategory3 = Categories("Shopping", subcategoriesList3, 130.00, 130.00)
 
     fun initializeMockDatabase() {
 
