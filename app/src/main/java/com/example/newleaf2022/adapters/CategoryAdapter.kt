@@ -1,5 +1,6 @@
 package com.example.newleaf2022.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,11 +10,12 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.RecyclerView
+import com.example.newleaf2022.MainActivity
 import com.example.newleaf2022.R
 import com.example.newleaf2022.dataclasses.Categories
 import com.example.newleaf2022.viewmodels.BudgetsViewModel
 
-class CategoryAdapter(private val categories: ArrayList<Categories>, private val budgetsVM: BudgetsViewModel) : RecyclerView.Adapter<CategoryAdapter.BudgetsViewHolder>() {
+class CategoryAdapter(private val categories: ArrayList<Categories>, private val budgetsVM: BudgetsViewModel, private val mainActivity: MainActivity) : RecyclerView.Adapter<CategoryAdapter.BudgetsViewHolder>() {
 
     class BudgetsViewHolder(ItemView: View, budgetsVM: BudgetsViewModel) : RecyclerView.ViewHolder(ItemView) {
         val mainCategory: TextView = itemView.findViewById(R.id.mainCategoryTV)
@@ -104,8 +106,14 @@ class CategoryAdapter(private val categories: ArrayList<Categories>, private val
 
         var subAssignedInputs = arrayListOf<EditText>()
         var subAvailableInputs = arrayListOf<EditText>()
+
         var importAssignedInputs = arrayListOf<String>()
         var importAvailableInputs = arrayListOf<String>()
+
+        var newAssignedInputs = arrayListOf<Double>()
+        var newAvailableInputs = arrayListOf<Double>()
+
+
         // Hides unused views
         fun initializeVHData(interval: Int) {
             when (interval) {
@@ -943,10 +951,20 @@ class CategoryAdapter(private val categories: ArrayList<Categories>, private val
             // Sets other subcategory data
             subAssignedInputs.withIndex().forEach { (itemCount, item) ->
                 item.setText(categories[position].subcategories[itemCount].assigned.toString())
+                item.doAfterTextChanged {
+                    categories[position].subcategories[itemCount].assigned = item.text.toString().toDouble()
+                    budgetsVM.updateCategories(categories, mainActivity)
+                }
             }
             subAvailableInputs.withIndex().forEach { (itemCount, item) ->
                 item.setText(categories[position].subcategories[itemCount].available.toString())
+                item.doAfterTextChanged {
+                     categories[position].subcategories[itemCount].available = item.text.toString().toDouble()
+                    budgetsVM.updateCategories(categories, mainActivity)
+                }
             }
+
+
 
         }
 

@@ -2,6 +2,7 @@ package com.example.newleaf2022.models
 
 import com.example.newleaf2022.dataclasses.Accounts
 import com.example.newleaf2022.dataclasses.Budgets
+import com.example.newleaf2022.dataclasses.Categories
 
 class Model {
 
@@ -32,6 +33,10 @@ class Model {
            currentBudget.accounts = arrayListOf()
        }
         currentBudget.accounts.add(new)
+    }
+
+    fun changeCategories(new: ArrayList<Categories>) {
+        currentBudget.categories = new
     }
 
     fun getData(): ArrayList<Any> {

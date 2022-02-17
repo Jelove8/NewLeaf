@@ -6,6 +6,7 @@ import com.example.newleaf2022.MainActivity
 import com.example.newleaf2022.dataclasses.Accounts
 import com.example.newleaf2022.dataclasses.Budgets
 import com.example.newleaf2022.dataclasses.Categories
+import com.example.newleaf2022.dataclasses.Subcategories
 
 class BudgetsViewModel : ViewModel() {
 
@@ -26,6 +27,10 @@ class BudgetsViewModel : ViewModel() {
 
     fun getBudget(mainActivity: MainActivity): Budgets? {
         return mainActivity.model.getCurrentBudget()
+    }
+
+    fun updateCategories(categories: ArrayList<Categories>, mainActivity: MainActivity) {
+        mainActivity.model.changeCategories(categories)
     }
 
 

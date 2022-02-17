@@ -33,7 +33,7 @@ class BudgetsFragment : Fragment() {
         if (currentCategories.isNullOrEmpty()) {
             currentCategories = arrayListOf(Categories("NULL!", arrayListOf(Subcategories("NULL!"))))
         }
-        binding.fragBudgetsRecycler.adapter = CategoryAdapter(currentCategories, budgetsVM)
+        binding.fragBudgetsRecycler.adapter = CategoryAdapter(currentCategories, budgetsVM, (context as MainActivity))
 
 
         binding.btnMisc1.setOnClickListener {
