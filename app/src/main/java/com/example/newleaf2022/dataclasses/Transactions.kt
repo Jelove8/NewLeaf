@@ -1,4 +1,6 @@
-package com.example.newleaf2022.viewmodels
+package com.example.newleaf2022.dataclasses
+
+import com.example.newleaf2022.dataclasses.Accounts
 
 data class Transactions(val sign: Boolean,
                         val amount: Double,

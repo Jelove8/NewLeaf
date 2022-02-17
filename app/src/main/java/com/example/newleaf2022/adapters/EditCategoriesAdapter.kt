@@ -7,7 +7,7 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newleaf2022.R
-import com.example.newleaf2022.viewmodels.Categories
+import com.example.newleaf2022.dataclasses.Categories
 
 class EditCategoriesAdapter(private val categories: ArrayList<Categories>) : RecyclerView.Adapter<EditCategoriesAdapter.EditCategoriesViewHolder>() {
 

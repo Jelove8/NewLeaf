@@ -2,15 +2,11 @@ package com.example.newleaf2022
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import com.example.newleaf2022.databinding.ActivityMainBinding
 import com.example.newleaf2022.models.Model
-import com.example.newleaf2022.viewmodels.AccountsViewModel
-import com.example.newleaf2022.viewmodels.Budgets
 import com.example.newleaf2022.viewmodels.BudgetsViewModel
 
 class MainActivity : AppCompatActivity() {

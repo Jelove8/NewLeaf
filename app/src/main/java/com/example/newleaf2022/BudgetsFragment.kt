@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newleaf2022.adapters.CategoryAdapter
 import com.example.newleaf2022.databinding.FragmentBudgetsBinding
 import com.example.newleaf2022.viewmodels.BudgetsViewModel
-import com.example.newleaf2022.viewmodels.Categories
-import com.example.newleaf2022.viewmodels.Subcategories
+import com.example.newleaf2022.dataclasses.Categories
+import com.example.newleaf2022.dataclasses.Subcategories
 
 class BudgetsFragment : Fragment() {
 

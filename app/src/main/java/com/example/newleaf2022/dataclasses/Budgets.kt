@@ -1,4 +1,4 @@
-package com.example.newleaf2022.viewmodels
+package com.example.newleaf2022.dataclasses
 
 data class Budgets(val name: String,
                    val dateCreated: String) {

@@ -1,6 +1,7 @@
 package com.example.newleaf2022.models
 
-import com.example.newleaf2022.viewmodels.*
+import com.example.newleaf2022.dataclasses.Accounts
+import com.example.newleaf2022.dataclasses.Budgets
 
 class Model {
 

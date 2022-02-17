@@ -1,6 +1,6 @@
 package com.example.newleaf2022.models
 
-import com.example.newleaf2022.viewmodels.*
+import com.example.newleaf2022.dataclasses.*
 
 class MockDatabase {
 

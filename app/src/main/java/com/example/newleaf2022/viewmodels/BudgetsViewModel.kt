@@ -3,7 +3,9 @@ package com.example.newleaf2022.viewmodels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.newleaf2022.MainActivity
-import com.example.newleaf2022.models.Model
+import com.example.newleaf2022.dataclasses.Accounts
+import com.example.newleaf2022.dataclasses.Budgets
+import com.example.newleaf2022.dataclasses.Categories
 
 class BudgetsViewModel : ViewModel() {
 

@@ -10,7 +10,7 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newleaf2022.R
-import com.example.newleaf2022.viewmodels.Categories
+import com.example.newleaf2022.dataclasses.Categories
 
 class CategoryAdapter(private val categories: ArrayList<Categories>) : RecyclerView.Adapter<CategoryAdapter.BudgetsViewHolder>() {
 

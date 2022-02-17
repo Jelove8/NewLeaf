@@ -1,13 +1,12 @@
 package com.example.newleaf2022.adapters
 
-import android.accounts.Account
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newleaf2022.R
-import com.example.newleaf2022.viewmodels.Accounts
+import com.example.newleaf2022.dataclasses.Accounts
 
 class AccountsAdapter(private val accounts: ArrayList<Accounts>) : RecyclerView.Adapter<AccountsAdapter.AccountsViewHolder>() {
 
