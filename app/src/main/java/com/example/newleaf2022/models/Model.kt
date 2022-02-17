@@ -5,27 +5,36 @@ import com.example.newleaf2022.viewmodels.*
 class Model {
 
     private lateinit var currentBudget: Budgets
-    private lateinit var currentAccounts: ArrayList<Accounts>
-    private lateinit var currentCategories: ArrayList<Categories>
+
+
 
     fun initializeModel() {
         val database = MockDatabase()
         database.initializeMockDatabase()
         currentBudget = database.getMockBudget()
-        currentAccounts = currentBudget.accounts
-        currentCategories = currentBudget.categories
     }
-
     fun getCurrentBudget(): Budgets {
         return currentBudget
     }
 
-    fun getCurrentCategories(): ArrayList<Categories> {
-        return currentCategories
+    fun addAccount(new: Accounts) {
+       if (currentBudget.accounts.isNullOrEmpty()) {
+           currentBudget.accounts = arrayListOf()
+       }
+        currentBudget.accounts.add(new)
     }
 
-    fun getCurrentAccounts(): ArrayList<Accounts> {
-        return currentAccounts
-    }
+    fun getData(): ArrayList<Any> {
 
+        // Calculating the current Account Balance
+        var currentAccountsBalance = 0.00
+        for (i in 0 until currentBudget.accounts.size) {
+            currentAccountsBalance += currentBudget.accounts[i].balance
+        }
+
+        // Calculating a list of
+
+
+        return arrayListOf(currentAccountsBalance)
+    }
 }

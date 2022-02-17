@@ -10,6 +10,7 @@ import androidx.fragment.app.activityViewModels
 import com.example.newleaf2022.databinding.FragmentNewAccountBinding
 import com.example.newleaf2022.viewmodels.Accounts
 import com.example.newleaf2022.viewmodels.AccountsViewModel
+import com.example.newleaf2022.viewmodels.BudgetsViewModel
 
 class NewAccountFragment : Fragment() {
 
@@ -27,14 +28,20 @@ class NewAccountFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val accountsVM: AccountsViewModel by activityViewModels()
+        val budgetsVM: BudgetsViewModel by activityViewModels()
+        val mainActivity = (context as MainActivity)
 
-        binding.btnMisc2.setOnClickListener {
-            (context as MainActivity).changeFragment("main", AccountsFragment())
+        //
+        binding.btnCancelNewAccount.setOnClickListener {
+            mainActivity.changeFragment("main", AccountsFragment())
         }
 
         binding.btnAddAcount.setOnClickListener {
-
+            val newAccount = Accounts(binding.inputAccountName.text.toString(),
+                                      binding.inputAccountType.text.toString(),
+                                      binding.inputBalance.text.toString().toDouble())
+            budgetsVM.addNewAccount(newAccount, mainActivity)
+            mainActivity.changeFragment("main", AccountsFragment())
         }
 
     }

@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.newleaf2022.R
 import com.example.newleaf2022.viewmodels.Accounts
 
-class AccountsAdapter(private val accounts: ArrayList<Accounts>?) : RecyclerView.Adapter<AccountsAdapter.AccountsViewHolder>() {
+class AccountsAdapter(private val accounts: ArrayList<Accounts>) : RecyclerView.Adapter<AccountsAdapter.AccountsViewHolder>() {
 
     class AccountsViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
         val accountName: TextView = itemView.findViewById(R.id.accountName)
@@ -24,7 +24,15 @@ class AccountsAdapter(private val accounts: ArrayList<Accounts>?) : RecyclerView
     }
 
     override fun onBindViewHolder(holder: AccountsViewHolder, position: Int) {
-        holder.accountName.text = accounts?.get(position)?.name
+
+        if (accounts[0].name.contentEquals("NULL!")) {
+            holder.accountName.text = null
+            holder.accountBalance.text = null
+        }
+        else {
+            holder.accountName.text = accounts[position].name
+            holder.accountBalance.text = accounts[position].balance.toString()
+        }
 
     }
 

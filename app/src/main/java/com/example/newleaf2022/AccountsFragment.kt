@@ -7,11 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.newleaf2022.adapters.AccountsAdapter
+import com.example.newleaf2022.adapters.CategoryAdapter
 import com.example.newleaf2022.databinding.FragmentAccountsBinding
-import com.example.newleaf2022.viewmodels.AccountsViewModel
-import com.example.newleaf2022.viewmodels.Budgets
-import com.example.newleaf2022.viewmodels.BudgetsViewModel
+import com.example.newleaf2022.viewmodels.*
 
 class AccountsFragment : Fragment() {
 
@@ -26,18 +26,19 @@ class AccountsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val accountsVM: AccountsViewModel by activityViewModels()
         val budgetsVM: BudgetsViewModel by activityViewModels()
         val mainActivity = (context as MainActivity)
         binding.fragAccountsRecycler.layoutManager = LinearLayoutManager(activity)
 
+        // Getting a list of Accounts from BudgetsViewModel
+        var currentAccounts = budgetsVM.getAccounts(mainActivity)
+        if (currentAccounts.isNullOrEmpty()) {
+            currentAccounts = arrayListOf(Accounts("NULL!", "NULL!", 0.00))
+        }
+        // Populating the RecyclerView
+        binding.fragAccountsRecycler.adapter = AccountsAdapter(currentAccounts)
 
-        budgetsVM.currentBudget
-
-
-
-        binding.fragAccountsRecycler.adapter = AccountsAdapter(accountsVM.accounts.value)
-
+        // Button: Confirms the new account
         binding.btnAddAccount.setOnClickListener {
             mainActivity.changeFragment("main", NewAccountFragment())
         }
