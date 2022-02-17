@@ -9,15 +9,24 @@ import com.example.newleaf2022.dataclasses.Categories
 
 class BudgetsViewModel : ViewModel() {
 
-    val currentBudget: MutableLiveData<Budgets> by lazy { MutableLiveData<Budgets>()}
     val currentCategories: MutableLiveData<ArrayList<Categories>> by lazy { MutableLiveData<ArrayList<Categories>>()}
+    val assignedValues: MutableLiveData<ArrayList<Double>> by lazy { MutableLiveData<ArrayList<Double>>()}
 
     fun addNewAccount(newAccount: Accounts, mainActivity: MainActivity) {
         mainActivity.model.addAccount(newAccount)
     }
 
-    fun getAccounts(mainActivity: MainActivity): ArrayList<Accounts> {
-        return mainActivity.model.getCurrentBudget().accounts
+    fun getAccounts(mainActivity: MainActivity): ArrayList<Accounts>? {
+        return mainActivity.model.getCurrentBudget()?.accounts
     }
+
+    fun initializeBudget(mainActivity: MainActivity) {
+        mainActivity.model.initializeModel()
+    }
+
+    fun getBudget(mainActivity: MainActivity): Budgets? {
+        return mainActivity.model.getCurrentBudget()
+    }
+
 
 }

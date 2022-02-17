@@ -16,8 +16,8 @@ class MockDatabase {
     private val transactionsList = arrayListOf(databaseTransaction1, databaseTransaction2, databaseTransaction3, databaseTransaction4)
 
     // Mock Subcategories
-    private val databaseSubcategory1 = Subcategories("Rent")
-    private val databaseSubcategory2 = Subcategories("Student Loans")
+    private val databaseSubcategory1 = Subcategories("Rent", 1000.00, 1000.00)
+    private val databaseSubcategory2 = Subcategories("Student Loans", 300.00, 300.00)
     private val databaseSubcategory3 = Subcategories("Groceries")
     private val databaseSubcategory4 = Subcategories("Gas")
     private val databaseSubcategory5 = Subcategories("Toiletries")

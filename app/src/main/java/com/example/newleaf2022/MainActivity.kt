@@ -36,21 +36,18 @@ class MainActivity : AppCompatActivity() {
     }
 
     lateinit var model: Model
+    lateinit var budgetsVM: BudgetsViewModel
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityMainBinding.inflate(layoutInflater)
         model = Model()
-        val budgetsVM = ViewModelProvider(this)[BudgetsViewModel::class.java]
+        budgetsVM  = ViewModelProvider(this)[BudgetsViewModel::class.java]
         setContentView(binding.root)
-        model.initializeModel()
 
-        // Initializing D
 
-        budgetsVM.currentBudget.value = model.getCurrentBudget()
-        budgetsVM.currentCategories.value = model.getCurrentBudget().categories
-
-        //Initialize Accounts
+        budgetsVM.initializeBudget(this)
 
 
         // Main Button Logic

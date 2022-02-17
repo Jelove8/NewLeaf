@@ -29,12 +29,11 @@ class BudgetsFragment : Fragment() {
         binding.fragBudgetsRecycler.layoutManager = LinearLayoutManager(activity)
 
         // Populating RecyclerView
-        var currentCategories = budgetsVM.currentCategories.value
-
+        var currentCategories = budgetsVM.getBudget((context as MainActivity))?.categories
         if (currentCategories.isNullOrEmpty()) {
             currentCategories = arrayListOf(Categories("NULL!", arrayListOf(Subcategories("NULL!"))))
         }
-        binding.fragBudgetsRecycler.adapter = CategoryAdapter(currentCategories)
+        binding.fragBudgetsRecycler.adapter = CategoryAdapter(currentCategories, budgetsVM)
 
 
         binding.btnMisc1.setOnClickListener {

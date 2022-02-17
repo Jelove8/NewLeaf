@@ -13,9 +13,18 @@ class Model {
         val database = MockDatabase()
         database.initializeMockDatabase()
         currentBudget = database.getMockBudget()
+
+        if (currentBudget.name.isEmpty()) {
+            currentBudget = Budgets("New Budget", "02162022")
+        }
     }
-    fun getCurrentBudget(): Budgets {
-        return currentBudget
+    fun getCurrentBudget(): Budgets? {
+        return if (currentBudget.name.isEmpty()) {
+            null
+        } else {
+            currentBudget
+        }
+
     }
 
     fun addAccount(new: Accounts) {
