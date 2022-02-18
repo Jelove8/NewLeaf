@@ -16,9 +16,9 @@ import com.example.newleaf2022.dataclasses.Categories
 import com.example.newleaf2022.models.Model
 import com.example.newleaf2022.viewmodels.BudgetsViewModel
 
-class CategoryAdapter(private val categories: ArrayList<Categories>, private val budgetsVM: BudgetsViewModel, private val mainActivity: MainActivity, private val model: Model) : RecyclerView.Adapter<CategoryAdapter.BudgetsViewHolder>() {
+class CategoryAdapter(private val categories: ArrayList<Categories>, private val budgetsVM: BudgetsViewModel, private val mainActivity: MainActivity, private val model: Model, private val readyToAssignTV: TextView) : RecyclerView.Adapter<CategoryAdapter.BudgetsViewHolder>() {
 
-    class BudgetsViewHolder(ItemView: View, listener: OnTextChangedListener, budgetsVM: BudgetsViewModel, categories: ArrayList<Categories>, model: Model) : RecyclerView.ViewHolder(ItemView) {
+    class BudgetsViewHolder(ItemView: View, listener: OnTextChangedListener, budgetsVM: BudgetsViewModel, categories: ArrayList<Categories>, model: Model, readyToAssignTV: TextView) : RecyclerView.ViewHolder(ItemView) {
         val mainCategory: TextView = itemView.findViewById(R.id.mainCategoryTV)
         val categoriesConstraint: ConstraintLayout = itemView.findViewById(R.id.categoriesConstraint)
         val subcategoriesConstraint: LinearLayout = itemView.findViewById(R.id.subcategoriesLinearLayout)
@@ -115,6 +115,9 @@ class CategoryAdapter(private val categories: ArrayList<Categories>, private val
                         listOfAvailable[i].setText(currentSubcategory.available.toString())
                         totalAssigned.text = currentCategory.totalAssigned.toString()
                         totalAvailable.text = currentCategory.totalAvailable.toString()
+
+                        budgetsVM.updateCategories(categories, model)
+                        readyToAssignTV.text = budgetsVM.getCurrentBudget().unassigned.toString()
                     }
                     else {
                         val newAssigned = item.text.toString().toDouble()
@@ -128,6 +131,7 @@ class CategoryAdapter(private val categories: ArrayList<Categories>, private val
                         totalAvailable.text = currentCategory.totalAvailable.toString()
 
                         budgetsVM.updateCategories(categories, model)
+                        readyToAssignTV.text = budgetsVM.getCurrentBudget().unassigned.toString()
                         Log.d("Meow", "After: ${budgetsVM.getCurrentBudget().categories[bindingAdapterPosition].totalAssigned}")
                     }
 
@@ -149,7 +153,7 @@ class CategoryAdapter(private val categories: ArrayList<Categories>, private val
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.viewholder_categories, parent, false)
 
-        return BudgetsViewHolder(view, textChangeListener, budgetsVM, categories, model)
+        return BudgetsViewHolder(view, textChangeListener, budgetsVM, categories, model, readyToAssignTV)
     }
 
     override fun onBindViewHolder(holder: BudgetsViewHolder, position: Int) {

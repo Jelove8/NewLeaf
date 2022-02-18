@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     lateinit var model: Model
-    lateinit var budgetsVM: BudgetsViewModel
+    private lateinit var budgetsVM: BudgetsViewModel
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
