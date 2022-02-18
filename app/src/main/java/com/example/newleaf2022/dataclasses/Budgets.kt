@@ -1,8 +1,6 @@
 package com.example.newleaf2022.dataclasses
 
 data class Budgets(val name: String,
-                   val dateCreated: String) {
-
-    lateinit var categories: ArrayList<Categories>
-    lateinit var accounts: ArrayList<Accounts>
-}
+                   var unassigned: Double = 0.00,
+                   var categories: ArrayList<Categories> = arrayListOf(),
+                   var accounts: ArrayList<Accounts> = arrayListOf())

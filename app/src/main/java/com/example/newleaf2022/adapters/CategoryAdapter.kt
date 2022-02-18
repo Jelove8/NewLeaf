@@ -19,7 +19,6 @@ class CategoryAdapter(private val categories: ArrayList<Categories>, private val
 
     class BudgetsViewHolder(ItemView: View, budgetsVM: BudgetsViewModel) : RecyclerView.ViewHolder(ItemView) {
         val mainCategory: TextView = itemView.findViewById(R.id.mainCategoryTV)
-        val categoriesConstraint: ConstraintLayout = itemView.findViewById(R.id.categoriesConstraint)
         val subcategoriesConstraint: LinearLayout = itemView.findViewById(R.id.subcategoriesLinearLayout)
 
         val subcategory1: ConstraintLayout = itemView.findViewById(R.id.subcategory1)
@@ -56,8 +55,8 @@ class CategoryAdapter(private val categories: ArrayList<Categories>, private val
         val sub15: TextView = itemView.findViewById(R.id.sub15)
         val sub16: TextView = itemView.findViewById(R.id.sub16)
 
-        val totalAssigned: TextView = itemView.findViewById(R.id.outputTotalAssigned)
-        val totalAvailable: TextView = itemView.findViewById(R.id.outputTotalAvailable)
+        val totalAssigned: EditText = itemView.findViewById(R.id.outputTotalAssigned)
+        val totalAvailable: EditText = itemView.findViewById(R.id.outputTotalAvailable)
 
         val assigned1: EditText = itemView.findViewById(R.id.assigned1)
         val assigned2: EditText = itemView.findViewById(R.id.assigned2)
@@ -92,6 +91,7 @@ class CategoryAdapter(private val categories: ArrayList<Categories>, private val
         val available14: EditText = itemView.findViewById(R.id.available14)
         val available15: EditText = itemView.findViewById(R.id.available15)
         val available16: EditText = itemView.findViewById(R.id.available16)
+
     }
 
 
@@ -104,15 +104,12 @@ class CategoryAdapter(private val categories: ArrayList<Categories>, private val
 
     override fun onBindViewHolder(holder: BudgetsViewHolder, position: Int) {
 
+
         var subAssignedInputs = arrayListOf<EditText>()
         var subAvailableInputs = arrayListOf<EditText>()
 
         var importAssignedInputs = arrayListOf<String>()
         var importAvailableInputs = arrayListOf<String>()
-
-        var newAssignedInputs = arrayListOf<Double>()
-        var newAvailableInputs = arrayListOf<Double>()
-
 
         // Hides unused views
         fun initializeVHData(interval: Int) {
@@ -884,20 +881,22 @@ class CategoryAdapter(private val categories: ArrayList<Categories>, private val
         initializeVHData(categories[position].subcategories.size)
 
         // Logic for each individual viewholder
-        if (categories[position].name.contentEquals("NULL!")) {
-            // Hides all views
+        if (categories[0].equals(null)) {
             initializeVHData(0)
         }
         else {
-            // Sets category data
+            // Sets Category data
             holder.mainCategory.text = categories[position].name
-            holder.totalAssigned.text = categories[position].totalAssigned.toString()
-            holder.totalAvailable.text = categories[position].totalAvailable.toString()
+            holder.totalAssigned.setText(categories[position].totalAssigned.toString())
+            holder.totalAvailable.setText(categories[position].totalAvailable.toString())
+
+            // Sets Subcategory names
+            if (categories[position].subcategories[0].equals(null)) {
+                
+            }
 
 
-            // Sets subcategory names
-            val limit = categories[position].subcategories.size
-            for (i in 0 until limit) {
+            for (i in 0 until categories[position].subcategories.size) {
                 val name = categories[position].subcategories[i].name
                 when (i) {
                     0 -> {
@@ -956,15 +955,26 @@ class CategoryAdapter(private val categories: ArrayList<Categories>, private val
             subAssignedInputs.withIndex().forEach { (itemCount, item) ->
                 item.setText(categories[position].subcategories[itemCount].assigned.toString())
                 item.doAfterTextChanged {
+                    // Updating "assigned" values for current Subcategory and its parent Category
+                    categories[position].totalAssigned += categories[position].subcategories[itemCount].assigned
                     categories[position].subcategories[itemCount].assigned = item.text.toString().toDouble()
-                    budgetsVM.updateCategories(categories, mainActivity)
+                    categories[position].totalAssigned -= categories[position].subcategories[itemCount].assigned
+
+                    // Updating Model data
+
+
+
+
+                    // Updating subcategory UI
+
                 }
             }
             subAvailableInputs.withIndex().forEach { (itemCount, item) ->
                 item.setText(categories[position].subcategories[itemCount].available.toString())
                 item.doAfterTextChanged {
                      categories[position].subcategories[itemCount].available = item.text.toString().toDouble()
-                    budgetsVM.updateCategories(categories, mainActivity)
+
+                    holder.totalAvailable.setText(budgetsVM.getBudget(mainActivity)?.categories?.get(position)?.totalAvailable.toString())
                 }
             }
 
@@ -972,13 +982,6 @@ class CategoryAdapter(private val categories: ArrayList<Categories>, private val
 
         }
 
-
-
-
-        holder.assigned1.doAfterTextChanged {
-            budgetsVM.assignedValues.value?.set(position, holder.assigned1.text.toString().toDouble())
-            val meow = budgetsVM.assignedValues.value?.get(position)?.toString()
-        }
 
     }
 

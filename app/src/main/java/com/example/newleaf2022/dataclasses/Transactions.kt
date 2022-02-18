@@ -1,13 +1,13 @@
 package com.example.newleaf2022.dataclasses
 
 import com.example.newleaf2022.dataclasses.Accounts
+import java.util.*
 
-data class Transactions(val sign: Boolean,
-                        val amount: Double,
-                        val payee: String,
-                        val account: Accounts,
-                        val subcategories: String,
-                        val dateCreated: String,
-                        val clearedCheck: Boolean,
-                        val memo: String?)
+data class Transactions(var sign: Boolean = false,
+                        var amount: Double = 0.00,
+                        var payee: String = "Unassigned",
+                        var account: String,
+                        var subcategory: String,
+                        var cleared: Boolean = false,
+                        var memo: String? = null)
 

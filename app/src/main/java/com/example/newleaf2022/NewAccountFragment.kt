@@ -36,11 +36,7 @@ class NewAccountFragment : Fragment() {
         }
 
         binding.btnAddAcount.setOnClickListener {
-            val newAccount = Accounts(binding.inputAccountName.text.toString(),
-                                      binding.inputAccountType.text.toString(),
-                                      binding.inputBalance.text.toString().toDouble())
-            budgetsVM.addNewAccount(newAccount, mainActivity)
-            mainActivity.changeFragment("main", AccountsFragment())
+
         }
 
     }

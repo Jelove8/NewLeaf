@@ -1,55 +1,40 @@
 package com.example.newleaf2022.models
 
+import android.util.Log
 import com.example.newleaf2022.dataclasses.Accounts
 import com.example.newleaf2022.dataclasses.Budgets
 import com.example.newleaf2022.dataclasses.Categories
+import com.example.newleaf2022.dataclasses.Users
+import com.google.firebase.database.FirebaseDatabase
+import java.util.*
 
 class Model {
+    private val database = FirebaseDatabase.getInstance()
 
-    private lateinit var currentBudget: Budgets
+    private lateinit var currentUser : Users
 
+    fun initializeUser() {
 
+        val mockDB = MockDatabase()
+        val mockUser = mockDB.getMockUser()
 
-    fun initializeModel() {
-        val database = MockDatabase()
-        database.initializeMockDatabase()
-        currentBudget = database.getMockBudget()
-
-        if (currentBudget.name.isEmpty()) {
-            currentBudget = Budgets("New Budget", "02162022")
+        if (mockUser == null) {
+            val guestUser = Users("Guest User")
+            guestUser.setBudgets(arrayListOf())
+            currentUser = guestUser
+        }
+        else {
+            currentUser = mockUser
         }
     }
-    fun getCurrentBudget(): Budgets? {
-        return if (currentBudget.name.isEmpty()) {
-            null
-        } else {
-            currentBudget
-        }
 
+    // The "current budget" is always User.budgets[0]
+    fun getCurrentBudget(): Budgets {
+        return currentUser.getBudget(0)
     }
 
-    fun addAccount(new: Accounts) {
-       if (currentBudget.accounts.isNullOrEmpty()) {
-           currentBudget.accounts = arrayListOf()
-       }
-        currentBudget.accounts.add(new)
+    fun updateCurrentBudget(newBudget: Budgets, replacement: String) {
+        currentUser.setNewCurrentBudget(newBudget, replacement)
     }
 
-    fun changeCategories(new: ArrayList<Categories>) {
-        currentBudget.categories = new
-    }
-
-    fun getData(): ArrayList<Any> {
-
-        // Calculating the current Account Balance
-        var currentAccountsBalance = 0.00
-        for (i in 0 until currentBudget.accounts.size) {
-            currentAccountsBalance += currentBudget.accounts[i].balance
-        }
-
-        // Calculating a list of
-
-
-        return arrayListOf(currentAccountsBalance)
-    }
 }
