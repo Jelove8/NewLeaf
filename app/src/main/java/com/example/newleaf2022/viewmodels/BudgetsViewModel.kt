@@ -2,6 +2,7 @@ package com.example.newleaf2022.viewmodels
 
 import androidx.lifecycle.ViewModel
 import com.example.newleaf2022.dataclasses.Budgets
+import com.example.newleaf2022.dataclasses.Categories
 import com.example.newleaf2022.models.Model
 
 class BudgetsViewModel : ViewModel() {
@@ -17,6 +18,10 @@ class BudgetsViewModel : ViewModel() {
     // Budgets
     fun getCurrentBudget(): Budgets {
         return currentBudget
+    }
+
+    fun updateCategories(newCategories: ArrayList<Categories>) {
+        currentBudget.categories = newCategories
     }
 
 }

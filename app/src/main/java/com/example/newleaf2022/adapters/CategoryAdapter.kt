@@ -17,7 +17,7 @@ import com.example.newleaf2022.viewmodels.BudgetsViewModel
 
 class CategoryAdapter(private val categories: ArrayList<Categories>, private val budgetsVM: BudgetsViewModel, private val mainActivity: MainActivity) : RecyclerView.Adapter<CategoryAdapter.BudgetsViewHolder>() {
 
-    class BudgetsViewHolder(ItemView: View, budgetsVM: BudgetsViewModel) : RecyclerView.ViewHolder(ItemView) {
+    class BudgetsViewHolder(ItemView: View, listener: OnTextChangedListener, budgetsVM: BudgetsViewModel, categories: ArrayList<Categories>) : RecyclerView.ViewHolder(ItemView) {
         val mainCategory: TextView = itemView.findViewById(R.id.mainCategoryTV)
         val categoriesConstraint: ConstraintLayout = itemView.findViewById(R.id.categoriesConstraint)
         val subcategoriesConstraint: LinearLayout = itemView.findViewById(R.id.subcategoriesLinearLayout)
@@ -93,14 +93,62 @@ class CategoryAdapter(private val categories: ArrayList<Categories>, private val
         val available15: EditText = itemView.findViewById(R.id.available15)
         val available16: EditText = itemView.findViewById(R.id.available16)
 
+        private val listOfAssigned = arrayListOf(assigned1, assigned2, assigned3, assigned4, assigned5, assigned6, assigned7, assigned8, assigned9, assigned10, assigned11, assigned12, assigned13, assigned14, assigned15, assigned16)
+        private val listOfAvailable = arrayListOf(available1, available2, available3, available4, available5, available6, available7, available8, available9, available10, available11, available12, available13, available14, available15, available16)
+
+        init {
+
+            for ((i, item) in listOfAssigned.withIndex()) {
+                item.doAfterTextChanged {
+                    listener.onTextChanged(bindingAdapterPosition)
+                    val currentCategory = categories[bindingAdapterPosition]
+                    val currentSubcategory = currentCategory.subcategories[i]
+
+                    val oldAssigned = currentSubcategory.assigned
+                    val oldAvailable = currentSubcategory.available
+
+                    if (item.text.isNullOrEmpty()) {
+                        currentCategory.subcategories[i].assigned = 0.00
+                        currentCategory.subcategories[i].available -= oldAssigned
+                        currentCategory.totalAssigned -= oldAssigned
+                        currentCategory.totalAvailable -= oldAssigned
+
+                        listOfAvailable[i].setText(currentSubcategory.available.toString())
+                        totalAssigned.text = currentCategory.totalAssigned.toString()
+                        totalAvailable.text = currentCategory.totalAvailable.toString()
+                    }
+                    else {
+                        val newAssigned = item.text.toString().toDouble()
+                        currentCategory.subcategories[i].assigned = newAssigned
+                        currentCategory.subcategories[i].available = currentCategory.subcategories[i].available - oldAssigned + newAssigned
+                        currentCategory.totalAssigned = currentCategory.totalAssigned - oldAssigned + newAssigned
+                        currentCategory.totalAvailable = currentCategory.totalAvailable - oldAssigned + newAssigned
+
+                        listOfAvailable[i].setText(currentSubcategory.available.toString())
+                        totalAssigned.text = currentCategory.totalAssigned.toString()
+                        totalAvailable.text = currentCategory.totalAvailable.toString()
+                    }
+
+
+                }
+            }
+
+        }
     }
 
+    private lateinit var textChangeListener: OnTextChangedListener
+    interface OnTextChangedListener {
+        fun onTextChanged(position: Int)
+    }
+    fun setOnTextChangedListener(listener: OnTextChangedListener) {
+        textChangeListener = listener
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BudgetsViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.viewholder_categories, parent, false)
 
-        return BudgetsViewHolder(view, budgetsVM)
+        return BudgetsViewHolder(view, textChangeListener, budgetsVM, categories)
     }
 
     override fun onBindViewHolder(holder: BudgetsViewHolder, position: Int) {

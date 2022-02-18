@@ -34,7 +34,14 @@ class BudgetsFragment : Fragment() {
         // Getting Budget data from ViewModel
         val currentBudget = budgetsVM.getCurrentBudget()
 
-        binding.fragBudgetsRecycler.adapter = CategoryAdapter(currentBudget.categories, budgetsVM, mainActivity)
+        val newAdapter = CategoryAdapter(currentBudget.categories, budgetsVM, mainActivity)
+        binding.fragBudgetsRecycler.adapter = newAdapter
+
+        newAdapter.setOnTextChangedListener(object: CategoryAdapter.OnTextChangedListener{
+            override fun onTextChanged(position: Int) {
+
+            }
+        })
 
 
 
