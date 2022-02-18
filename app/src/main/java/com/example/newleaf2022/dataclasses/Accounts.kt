@@ -5,8 +5,6 @@ import kotlin.collections.ArrayList
 
 data class Accounts(val name: String,
                     val type: String,
-                    val balanceSign: Boolean = false,
-                    val balance: Double,
-                    var transactions: ArrayList<Transactions> = arrayListOf()) {
+                    val balance: Double) {
 
 }

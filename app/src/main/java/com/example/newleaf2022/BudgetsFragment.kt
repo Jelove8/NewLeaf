@@ -32,6 +32,7 @@ class BudgetsFragment : Fragment() {
 
         // Getting Budget data from ViewModel
         val currentBudget = budgetsVM.getCurrentBudget()
+        Log.d("Meow", "unassigned: ${budgetsVM.getCurrentBudget().unassigned}")
 
         val newAdapter = CategoryAdapter(currentBudget.categories, budgetsVM, mainActivity, mainActivity.model, binding.outputTotalUnassigned)
         binding.fragBudgetsRecycler.adapter = newAdapter

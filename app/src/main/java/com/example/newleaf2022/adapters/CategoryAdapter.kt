@@ -132,9 +132,7 @@ class CategoryAdapter(private val categories: ArrayList<Categories>, private val
 
                         budgetsVM.updateCategories(categories, model)
                         readyToAssignTV.text = budgetsVM.getCurrentBudget().unassigned.toString()
-                        Log.d("Meow", "After: ${budgetsVM.getCurrentBudget().categories[bindingAdapterPosition].totalAssigned}")
                     }
-
                 }
             }
 

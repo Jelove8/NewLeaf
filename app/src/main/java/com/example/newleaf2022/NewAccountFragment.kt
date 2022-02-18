@@ -1,6 +1,7 @@
 package com.example.newleaf2022
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -36,7 +37,9 @@ class NewAccountFragment : Fragment() {
         }
 
         binding.btnAddAcount.setOnClickListener {
-
+            val newAccount = Accounts(binding.inputAccountName.text.toString(), binding.inputAccountType.text.toString(), binding.inputBalance.text.toString().toDouble())
+            budgetsVM.addAccount(newAccount, mainActivity.model)
+            mainActivity.changeFragment("main", AccountsFragment())
         }
 
     }

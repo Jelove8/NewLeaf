@@ -1,6 +1,7 @@
 package com.example.newleaf2022.viewmodels
 
 import androidx.lifecycle.ViewModel
+import com.example.newleaf2022.dataclasses.Accounts
 import com.example.newleaf2022.dataclasses.Budgets
 import com.example.newleaf2022.dataclasses.Categories
 import com.example.newleaf2022.models.Model
@@ -36,6 +37,12 @@ class BudgetsViewModel : ViewModel() {
 
         currentBudget.categories = newCategories
         currentBudget.unassigned = newUnassigned
+        model.updateCurrentBudget(currentBudget)
+    }
+
+    fun addAccount(newAccount: Accounts, model: Model) {
+        currentBudget.accounts.add(newAccount)
+        currentBudget.unassigned += newAccount.balance
         model.updateCurrentBudget(currentBudget)
     }
 
