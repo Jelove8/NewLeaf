@@ -33,8 +33,8 @@ class Model {
         return currentUser.getBudget(0)
     }
 
-    fun updateCurrentBudget(newBudget: Budgets, replacement: String) {
-        currentUser.setNewCurrentBudget(newBudget, replacement)
+    fun updateCurrentBudget(newBudget: Budgets) {
+        currentUser.setNewCurrentBudget(newBudget, "update")
     }
 
 }

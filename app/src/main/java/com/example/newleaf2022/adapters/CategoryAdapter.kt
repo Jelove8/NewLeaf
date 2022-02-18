@@ -13,11 +13,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.newleaf2022.MainActivity
 import com.example.newleaf2022.R
 import com.example.newleaf2022.dataclasses.Categories
+import com.example.newleaf2022.models.Model
 import com.example.newleaf2022.viewmodels.BudgetsViewModel
 
-class CategoryAdapter(private val categories: ArrayList<Categories>, private val budgetsVM: BudgetsViewModel, private val mainActivity: MainActivity) : RecyclerView.Adapter<CategoryAdapter.BudgetsViewHolder>() {
+class CategoryAdapter(private val categories: ArrayList<Categories>, private val budgetsVM: BudgetsViewModel, private val mainActivity: MainActivity, private val model: Model) : RecyclerView.Adapter<CategoryAdapter.BudgetsViewHolder>() {
 
-    class BudgetsViewHolder(ItemView: View, listener: OnTextChangedListener, budgetsVM: BudgetsViewModel, categories: ArrayList<Categories>) : RecyclerView.ViewHolder(ItemView) {
+    class BudgetsViewHolder(ItemView: View, listener: OnTextChangedListener, budgetsVM: BudgetsViewModel, categories: ArrayList<Categories>, model: Model) : RecyclerView.ViewHolder(ItemView) {
         val mainCategory: TextView = itemView.findViewById(R.id.mainCategoryTV)
         val categoriesConstraint: ConstraintLayout = itemView.findViewById(R.id.categoriesConstraint)
         val subcategoriesConstraint: LinearLayout = itemView.findViewById(R.id.subcategoriesLinearLayout)
@@ -103,10 +104,8 @@ class CategoryAdapter(private val categories: ArrayList<Categories>, private val
                     listener.onTextChanged(bindingAdapterPosition)
                     val currentCategory = categories[bindingAdapterPosition]
                     val currentSubcategory = currentCategory.subcategories[i]
-
                     val oldAssigned = currentSubcategory.assigned
-                    val oldAvailable = currentSubcategory.available
-
+                
                     if (item.text.isNullOrEmpty()) {
                         currentCategory.subcategories[i].assigned = 0.00
                         currentCategory.subcategories[i].available -= oldAssigned
@@ -127,8 +126,10 @@ class CategoryAdapter(private val categories: ArrayList<Categories>, private val
                         listOfAvailable[i].setText(currentSubcategory.available.toString())
                         totalAssigned.text = currentCategory.totalAssigned.toString()
                         totalAvailable.text = currentCategory.totalAvailable.toString()
-                    }
 
+                        budgetsVM.updateCategories(categories, model)
+                        Log.d("Meow", "After: ${budgetsVM.getCurrentBudget().categories[bindingAdapterPosition].totalAssigned}")
+                    }
 
                 }
             }
@@ -148,7 +149,7 @@ class CategoryAdapter(private val categories: ArrayList<Categories>, private val
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.viewholder_categories, parent, false)
 
-        return BudgetsViewHolder(view, textChangeListener, budgetsVM, categories)
+        return BudgetsViewHolder(view, textChangeListener, budgetsVM, categories, model)
     }
 
     override fun onBindViewHolder(holder: BudgetsViewHolder, position: Int) {

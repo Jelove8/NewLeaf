@@ -20,8 +20,23 @@ class BudgetsViewModel : ViewModel() {
         return currentBudget
     }
 
-    fun updateCategories(newCategories: ArrayList<Categories>) {
+    fun updateCategories(newCategories: ArrayList<Categories>, model: Model) {
+        // Updating unassigned value
+        var totalAvailable = 0.00
+        for (item in newCategories) {
+            totalAvailable += item.totalAvailable
+        }
+
+        var totalBalance = 0.00
+        for (item in currentBudget.accounts) {
+            totalBalance += item.balance
+        }
+
+        val newUnassigned = totalBalance - totalAvailable
+
         currentBudget.categories = newCategories
+        currentBudget.unassigned = newUnassigned
+        model.updateCurrentBudget(currentBudget)
     }
 
 }

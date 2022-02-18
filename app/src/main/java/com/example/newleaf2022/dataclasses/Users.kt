@@ -28,6 +28,9 @@ data class Users(val name: String,
                 budgets[0] = newBudget
                 budgets.add(oldBudget)
             }
+            "update" -> {
+                budgets[0] = newBudget
+            }
             else -> {}
         }
     }

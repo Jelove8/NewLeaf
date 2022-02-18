@@ -10,9 +10,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newleaf2022.adapters.CategoryAdapter
 import com.example.newleaf2022.databinding.FragmentBudgetsBinding
+import com.example.newleaf2022.databinding.FragmentBudgetsBinding.inflate
 import com.example.newleaf2022.viewmodels.BudgetsViewModel
-import com.example.newleaf2022.dataclasses.Categories
-import com.example.newleaf2022.dataclasses.Subcategories
 
 class BudgetsFragment : Fragment() {
 
@@ -20,7 +19,7 @@ class BudgetsFragment : Fragment() {
     private val binding get() = fragmentBinding!!
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        fragmentBinding = FragmentBudgetsBinding.inflate(inflater,container,false)
+        fragmentBinding = inflate(inflater,container,false)
         return binding.root
     }
 
@@ -34,7 +33,7 @@ class BudgetsFragment : Fragment() {
         // Getting Budget data from ViewModel
         val currentBudget = budgetsVM.getCurrentBudget()
 
-        val newAdapter = CategoryAdapter(currentBudget.categories, budgetsVM, mainActivity)
+        val newAdapter = CategoryAdapter(currentBudget.categories, budgetsVM, mainActivity, mainActivity.model)
         binding.fragBudgetsRecycler.adapter = newAdapter
 
         newAdapter.setOnTextChangedListener(object: CategoryAdapter.OnTextChangedListener{
