@@ -40,7 +40,7 @@ class MockDatabase {
     private val databaseCategories = arrayListOf(databaseCategory1, databaseCategory2, databaseCategory3)
 
     fun getMockUser(): Users {
-        databaseBudget = Budgets("Test Budget", 1250.00)
+        databaseBudget = Budgets("Test Budget", 1250.00, databaseCategories)
 
         // Initializing transactions
         databaseAccount1.transactions = arrayListOf(databaseTransaction1, databaseTransaction3, databaseTransaction5)

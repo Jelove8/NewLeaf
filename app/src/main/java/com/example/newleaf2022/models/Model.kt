@@ -9,13 +9,18 @@ class Model {
 
     fun initializeUser() {
         val guestUser = Users("Guest User")
-        guestUser.setBudgets(arrayListOf(Budgets("Guest Budget")))
+        guestUser.setBudgets(arrayListOf(Budgets("Guest Budget", 0.00, arrayListOf())))
+        guestUser.setCurrentBudget(guestUser.getBudget(0))
         currentUser = guestUser
+    }
+    fun getUser(): Users {
+        return currentUser
     }
 
 
+
     fun updateCurrentBudget(newBudget: Budgets) {
-        currentUser.setNewCurrentBudget(newBudget, "update")
+        currentUser.setCurrentBudget(newBudget)
     }
 
 }

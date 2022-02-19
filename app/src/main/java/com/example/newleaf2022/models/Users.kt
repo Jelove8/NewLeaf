@@ -6,32 +6,20 @@ data class Users(val name: String,
                  val password: String? = null) {
 
     private lateinit var budgets: ArrayList<Budgets>
+    private lateinit var currentBudget: Budgets
 
     fun getBudget(index: Int): Budgets {
         return budgets[index]
     }
-    fun getAllBudgets(): ArrayList<Budgets> {
-        return budgets
+    fun getCurrentBudget(): Budgets {
+        return currentBudget
     }
+
     fun setBudgets(newBudgets: ArrayList<Budgets>) {
         budgets = newBudgets
     }
-    fun setNewCurrentBudget(newBudget: Budgets, replacement: String) {
-
-        when (replacement) {
-            "delete" -> {
-                budgets[0] = newBudget
-            }
-            "add" -> {
-                val oldBudget = budgets[0]
-                budgets[0] = newBudget
-                budgets.add(oldBudget)
-            }
-            "update" -> {
-                budgets[0] = newBudget
-            }
-            else -> {}
-        }
+    fun setCurrentBudget(newBudget: Budgets) {
+        currentBudget = newBudget
     }
 
 }

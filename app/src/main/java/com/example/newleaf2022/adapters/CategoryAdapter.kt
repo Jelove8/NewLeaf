@@ -15,7 +15,7 @@ import com.example.newleaf2022.models.Categories
 import com.example.newleaf2022.models.Model
 import com.example.newleaf2022.viewmodels.BudgetsViewModel
 
-class CategoryAdapter(private val categories: ArrayList<Categories>, private val budgetsVM: BudgetsViewModel, private val mainActivity: MainActivity, private val model: Model, private val readyToAssignTV: TextView) : RecyclerView.Adapter<CategoryAdapter.BudgetsViewHolder>() {
+class CategoryAdapter(private val categories: ArrayList<Categories>, private val budgetsVM: BudgetsViewModel, private val model: Model, private val readyToAssignTV: TextView) : RecyclerView.Adapter<CategoryAdapter.BudgetsViewHolder>() {
 
     class BudgetsViewHolder(ItemView: View, listener: OnTextChangedListener, budgetsVM: BudgetsViewModel, categories: ArrayList<Categories>, model: Model, readyToAssignTV: TextView) : RecyclerView.ViewHolder(ItemView) {
         val mainCategory: TextView = itemView.findViewById(R.id.mainCategoryTV)
@@ -102,35 +102,36 @@ class CategoryAdapter(private val categories: ArrayList<Categories>, private val
                 item.doAfterTextChanged {
                     listener.onTextChanged(bindingAdapterPosition)
                     val currentCategory = categories[bindingAdapterPosition]
-                    val currentSubcategory = currentCategory.subcategories[i]
-                    val oldAssigned = currentSubcategory.assigned
+                    val oldAssigned = currentCategory.subcategories[i].assigned
                 
                     if (item.text.isNullOrEmpty()) {
+                        // Updating currentCategory
                         currentCategory.subcategories[i].assigned = 0.00
                         currentCategory.subcategories[i].available -= oldAssigned
                         currentCategory.totalAssigned -= oldAssigned
                         currentCategory.totalAvailable -= oldAssigned
-
-                        listOfAvailable[i].setText(currentSubcategory.available.toString())
+                        // Updating views
+                        listOfAvailable[i].setText(currentCategory.subcategories[i].available.toString())
                         totalAssigned.text = currentCategory.totalAssigned.toString()
                         totalAvailable.text = currentCategory.totalAvailable.toString()
-
-                        budgetsVM.updateCategories(categories, model)
                         readyToAssignTV.text = budgetsVM.getCurrentBudget().unassigned.toString()
+                        // Updating viewmodel and model
+                        budgetsVM.updateCategory(currentCategory, bindingAdapterPosition, model)
                     }
                     else {
+                        // Updating currentCategory
                         val newAssigned = item.text.toString().toDouble()
                         currentCategory.subcategories[i].assigned = newAssigned
                         currentCategory.subcategories[i].available = currentCategory.subcategories[i].available - oldAssigned + newAssigned
                         currentCategory.totalAssigned = currentCategory.totalAssigned - oldAssigned + newAssigned
                         currentCategory.totalAvailable = currentCategory.totalAvailable - oldAssigned + newAssigned
-
-                        listOfAvailable[i].setText(currentSubcategory.available.toString())
+                        // Updating views
+                        listOfAvailable[i].setText(currentCategory.subcategories[i].available.toString())
                         totalAssigned.text = currentCategory.totalAssigned.toString()
                         totalAvailable.text = currentCategory.totalAvailable.toString()
-
-                        budgetsVM.updateCategories(categories, model)
                         readyToAssignTV.text = budgetsVM.getCurrentBudget().unassigned.toString()
+                        // Updating viewmodel and model
+                        budgetsVM.updateCategory(currentCategory, bindingAdapterPosition, model)
                     }
                 }
             }
@@ -165,21 +166,22 @@ class CategoryAdapter(private val categories: ArrayList<Categories>, private val
         // Setting up initial display
         when {
             categorySize == 0 -> {
+                // Hides entire viewholder
                 holder.categoriesConstraint.visibility = View.GONE
                 holder.subcategoriesConstraint.visibility = View.GONE
             }
             currentCategory.subcategories.size == 0 -> {
+                // Hides only the subcategory views
                 holder.mainCategory.text = currentCategory.name
                 holder.totalAssigned.text = currentCategory.totalAssigned.toString()
                 holder.totalAvailable.text = currentCategory.totalAvailable.toString()
                 holder.subcategoriesConstraint.visibility = View.GONE
             }
             else -> {
-                // Displaying data
+                // Displays and populates all necessary views
                 holder.mainCategory.text = currentCategory.name
                 holder.totalAssigned.text = currentCategory.totalAssigned.toString()
                 holder.totalAvailable.text = currentCategory.totalAvailable.toString()
-
                 for (i in 0 until currentCategory.subcategories.size) {
                     val currentSubcategory = currentCategory.subcategories[i]
                     subcategoryNameViews[i].text = currentSubcategory.name

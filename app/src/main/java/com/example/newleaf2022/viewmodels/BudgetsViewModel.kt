@@ -11,13 +11,20 @@ class BudgetsViewModel : ViewModel() {
 
     private lateinit var currentBudget: Budgets
 
-    // Initializes currentBudget with data from Database.
+
     fun initializeBudget(model: Model) {
         model.initializeUser()
-        currentBudget = model.getCurrentBudget()
+        currentBudget = model.getUser().getCurrentBudget()
     }
 
-    // Budgets
+    fun updateCategory(newCategory: Categories, position: Int, model: Model) {
+        // Updating unassigned value
+        currentBudget.unassigned += currentBudget.categories[position].totalAssigned - newCategory.totalAssigned
+        currentBudget.categories[position] = newCategory
+        model.updateCurrentBudget(currentBudget)
+    }
+
+
     fun getCurrentBudget(): Budgets {
         return currentBudget
     }
@@ -28,6 +35,7 @@ class BudgetsViewModel : ViewModel() {
         model.updateCurrentBudget(currentBudget)
     }
 
+    /*
     fun updateCategories(newCategories: ArrayList<Categories>, model: Model) {
         // Updating unassigned value
         var totalAvailable = 0.00
@@ -46,6 +54,8 @@ class BudgetsViewModel : ViewModel() {
         currentBudget.unassigned = newUnassigned
         model.updateCurrentBudget(currentBudget)
     }
+    */
+
 
     fun newTransaction(newTransaction: Transactions, model: Model) {
 

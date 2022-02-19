@@ -50,7 +50,6 @@ class MainActivity : AppCompatActivity() {
         budgetsVM.initializeBudget(model)
 
 
-
         // Main Button Logic
         binding.mainButton1.setOnClickListener {
             changeFragment("main", BudgetsFragment())
