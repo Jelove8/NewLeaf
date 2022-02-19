@@ -15,7 +15,6 @@ import com.example.newleaf2022.viewmodels.*
 
 class AccountsFragment : Fragment() {
 
-    private lateinit var currentBudget: Budgets
     private var fragmentBinding: FragmentAccountsBinding? = null
     private val binding get() = fragmentBinding!!
 
