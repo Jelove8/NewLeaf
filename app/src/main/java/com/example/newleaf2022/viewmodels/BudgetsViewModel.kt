@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.example.newleaf2022.dataclasses.Accounts
 import com.example.newleaf2022.dataclasses.Budgets
 import com.example.newleaf2022.dataclasses.Categories
+import com.example.newleaf2022.dataclasses.Transactions
 import com.example.newleaf2022.models.Model
 
 class BudgetsViewModel : ViewModel() {
@@ -19,6 +20,12 @@ class BudgetsViewModel : ViewModel() {
     // Budgets
     fun getCurrentBudget(): Budgets {
         return currentBudget
+    }
+
+    fun addAccount(newAccount: Accounts, model: Model) {
+        currentBudget.accounts.add(newAccount)
+        currentBudget.unassigned += newAccount.balance
+        model.updateCurrentBudget(currentBudget)
     }
 
     fun updateCategories(newCategories: ArrayList<Categories>, model: Model) {
@@ -40,10 +47,12 @@ class BudgetsViewModel : ViewModel() {
         model.updateCurrentBudget(currentBudget)
     }
 
-    fun addAccount(newAccount: Accounts, model: Model) {
-        currentBudget.accounts.add(newAccount)
-        currentBudget.unassigned += newAccount.balance
-        model.updateCurrentBudget(currentBudget)
-    }
+    fun newTransaction(newTransaction: Transactions, model: Model) {
 
+        for (item in currentBudget.transactions) {
+
+        }
+
+
+    }
 }

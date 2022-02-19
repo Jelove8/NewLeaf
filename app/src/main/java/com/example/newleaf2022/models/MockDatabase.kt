@@ -17,11 +17,11 @@ class MockDatabase {
     private val databaseAccount2 = Accounts("Credit", "Credit",  -77.34)
 
     // Mock Transactions
-    private val databaseTransaction1 = Transactions(false, 150.00, "FAFSA", "Checkings", "Student Loans" , true)
-    private val databaseTransaction2 = Transactions(false, 41.17, "Royal Farms", "Credit", "Gas",  true)
-    private val databaseTransaction3 = Transactions(false, 20.57, "Target", "Checkings", "Clothes" , true, "Bought jeans")
-    private val databaseTransaction4 = Transactions(false, 36.17, "Royal Farms", "Credit", "Gas")
-    private val databaseTransaction5 = Transactions(true, 654.18, "Income", "Checkings", "Unassigned")
+    private val databaseTransaction1 = Transactions( -150.00, "FAFSA",  "Student Loans" , true)
+    private val databaseTransaction2 = Transactions(-41.17, "Royal Farms",  "Gas",  true)
+    private val databaseTransaction3 = Transactions(-20.57, "Target",  "Clothes" , true, "Bought jeans")
+    private val databaseTransaction4 = Transactions( -36.17, "Royal Farms", "Gas")
+    private val databaseTransaction5 = Transactions( 654.18, "Income",  "Unassigned")
     private val databaseTransactions = arrayListOf(databaseTransaction1, databaseTransaction2, databaseTransaction3, databaseTransaction4, databaseTransaction5)
 
     // Mock Subcategories
@@ -44,6 +44,9 @@ class MockDatabase {
     fun getMockUser(): Users {
         databaseBudget = Budgets("Test Budget", 1250.00)
 
+        // Initializing transactions
+        databaseAccount1.transactions = arrayListOf(databaseTransaction1, databaseTransaction3, databaseTransaction5)
+        databaseAccount2.transactions = arrayListOf(databaseTransaction2, databaseTransaction4)
         databaseBudget.transactions = databaseTransactions
 
         //Initializing Accounts
