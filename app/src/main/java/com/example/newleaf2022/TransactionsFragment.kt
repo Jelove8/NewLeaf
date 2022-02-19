@@ -8,8 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import com.example.newleaf2022.adapters.TransactionAdapter
 import com.example.newleaf2022.databinding.FragmentTransactionsBinding
-import com.example.newleaf2022.dataclasses.Accounts
-import com.example.newleaf2022.dataclasses.Transactions
+import com.example.newleaf2022.models.Accounts
 import com.example.newleaf2022.viewmodels.BudgetsViewModel
 
 class TransactionsFragment(private val currentAccount: Accounts) : Fragment() {

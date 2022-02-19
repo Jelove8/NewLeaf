@@ -1,6 +1,5 @@
 package com.example.newleaf2022.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +11,7 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newleaf2022.MainActivity
 import com.example.newleaf2022.R
-import com.example.newleaf2022.dataclasses.Categories
+import com.example.newleaf2022.models.Categories
 import com.example.newleaf2022.models.Model
 import com.example.newleaf2022.viewmodels.BudgetsViewModel
 

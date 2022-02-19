@@ -1,6 +1,5 @@
-package com.example.newleaf2022.dataclasses
+package com.example.newleaf2022.models
 
-import java.util.*
 import kotlin.collections.ArrayList
 
 data class Accounts(val name: String,

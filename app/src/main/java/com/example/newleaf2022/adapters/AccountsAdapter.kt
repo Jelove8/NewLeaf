@@ -1,6 +1,5 @@
 package com.example.newleaf2022.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.newleaf2022.MainActivity
 import com.example.newleaf2022.R
 import com.example.newleaf2022.TransactionsFragment
-import com.example.newleaf2022.dataclasses.Accounts
+import com.example.newleaf2022.models.Accounts
 
 class AccountsAdapter(private val accounts: ArrayList<Accounts>, private val mainActivity: MainActivity) : RecyclerView.Adapter<AccountsAdapter.AccountsViewHolder>() {
 

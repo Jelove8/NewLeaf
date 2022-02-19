@@ -3,15 +3,12 @@ package com.example.newleaf2022.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
 import android.widget.RadioButton
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newleaf2022.R
-import com.example.newleaf2022.dataclasses.Categories
-import com.example.newleaf2022.dataclasses.Transactions
+import com.example.newleaf2022.models.Transactions
 
 class TransactionAdapter(private val transactions: ArrayList<Transactions>) : RecyclerView.Adapter<TransactionAdapter.TransactionsViewHolder>() {
 

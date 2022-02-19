@@ -1,10 +1,10 @@
 package com.example.newleaf2022.viewmodels
 
 import androidx.lifecycle.ViewModel
-import com.example.newleaf2022.dataclasses.Accounts
-import com.example.newleaf2022.dataclasses.Budgets
-import com.example.newleaf2022.dataclasses.Categories
-import com.example.newleaf2022.dataclasses.Transactions
+import com.example.newleaf2022.models.Accounts
+import com.example.newleaf2022.models.Budgets
+import com.example.newleaf2022.models.Categories
+import com.example.newleaf2022.models.Transactions
 import com.example.newleaf2022.models.Model
 
 class BudgetsViewModel : ViewModel() {
