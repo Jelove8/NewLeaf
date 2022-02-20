@@ -12,20 +12,17 @@ class NewTransactionFragment : Fragment() {
     private var fragmentBinding: FragmentNewTransactionBinding? = null
     private val binding get() = fragmentBinding!!
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         fragmentBinding = FragmentNewTransactionBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val mainActivity = context as MainActivity
 
         binding.btnCancelTransaction.setOnClickListener {
-            (context as MainActivity).changeFragment("remove", this)
+            mainActivity.changeFragment("remove", this)
         }
 
     }

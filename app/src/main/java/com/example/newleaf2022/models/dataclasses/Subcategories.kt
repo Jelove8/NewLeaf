@@ -1,4 +1,4 @@
-package com.example.newleaf2022.models
+package com.example.newleaf2022.models.dataclasses
 
 data class Subcategories(val name: String,
                          var assigned: Double = 0.00,

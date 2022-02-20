@@ -1,4 +1,4 @@
-package com.example.newleaf2022.models
+package com.example.newleaf2022.models.dataclasses
 
 data class Budgets(val name: String,
                    var unassigned: Double = 0.00,

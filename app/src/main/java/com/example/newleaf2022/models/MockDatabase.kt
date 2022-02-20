@@ -1,63 +1,44 @@
 package com.example.newleaf2022.models
 
+import com.example.newleaf2022.models.dataclasses.*
+
 
 class MockDatabase {
 
+    private val user0 = Users("Anjelo", "password")
 
-    // Mock User
-    private val anjelo = Users("Anjelo", "1.Ilfitmourirparlepee")
+    private val budget0 = Budgets("Test Budget", 1250.00, arrayListOf(), arrayListOf(), arrayListOf())
 
-    // Mock Budget & Account
-    private lateinit var databaseBudget : Budgets
+    private val account1 = Accounts("Checkings", "Checkings", 3000.00, arrayListOf())
+    private val account2 = Accounts("Credit", "Credit",  0.00, arrayListOf())
 
-    // Mock Accounts
-    private val databaseAccount1 = Accounts("Checkings", "Checkings", 3000.00 )
-    private val databaseAccount2 = Accounts("Credit", "Credit",  -77.34)
+    private val category1 = Categories("Savings", 1300.00, 1300.00)
+    private val category2 = Categories("Frequent", 320.00, 320.00)
+    private val category3 = Categories("Shopping", 130.00, 130.00)
 
-    // Mock Transactions
-    private val databaseTransaction1 = Transactions( -150.00, "FAFSA",  "Student Loans" , true)
-    private val databaseTransaction2 = Transactions(-41.17, "Royal Farms",  "Gas",  true)
-    private val databaseTransaction3 = Transactions(-20.57, "Target",  "Clothes" , true, "Bought jeans")
-    private val databaseTransaction4 = Transactions( -36.17, "Royal Farms", "Gas")
-    private val databaseTransaction5 = Transactions( 654.18, "Income",  "Unassigned")
-    private val databaseTransactions = arrayListOf(databaseTransaction1, databaseTransaction2, databaseTransaction3, databaseTransaction4, databaseTransaction5)
+    private val subcategory1 = Subcategories("Rent", 1000.00, 1000.00)
+    private val subcategory2 = Subcategories("Student Loans", 300.00, 300.00)
+    private val subcategory3 = Subcategories("Groceries", 200.00, 200.00)
+    private val subcategory4 = Subcategories("Gas", 120.00, 120.00)
+    private val subcategory5 = Subcategories("Toiletries", 30.00, 30.00)
+    private val subcategory6 = Subcategories("Clothes", 100.00, 100.00)
 
-    // Mock Subcategories
-    private val databaseSubcategory1 = Subcategories("Rent", 1000.00, 1000.00)
-    private val databaseSubcategory2 = Subcategories("Student Loans", 300.00, 150.00)
-    private val databaseSubcategory3 = Subcategories("Groceries", 200.00, 200.00)
-    private val databaseSubcategory4 = Subcategories("Gas", 120.00, 42.66)
-    private val databaseSubcategory5 = Subcategories("Toiletries", 30.00, 30.00)
-    private val databaseSubcategory6 = Subcategories("Clothes", 100.00, 79.43)
-    private val subcategoriesList1 = arrayListOf(databaseSubcategory1, databaseSubcategory2)
-    private val subcategoriesList2 = arrayListOf(databaseSubcategory3, databaseSubcategory4)
-    private val subcategoriesList3 = arrayListOf(databaseSubcategory5, databaseSubcategory6)
-
-    // Mock Categories
-    private val databaseCategory1 = Categories("Savings", 1300.00, 1300.00)
-    private val databaseCategory2 = Categories("Frequent", 320.00, 320.00)
-    private val databaseCategory3 = Categories("Shopping", 130.00, 130.00)
-    private val databaseCategories = arrayListOf(databaseCategory1, databaseCategory2, databaseCategory3)
+    private val savingsSubcategories = arrayListOf(subcategory1, subcategory2)
+    private val frequentSubcategories = arrayListOf(subcategory3, subcategory4)
+    private val shoppingSubcategories = arrayListOf(subcategory5, subcategory6)
 
     fun getMockUser(): Users {
-        databaseBudget = Budgets("Test Budget", 1250.00, databaseCategories)
 
-        // Initializing transactions
-        databaseAccount1.transactions = arrayListOf(databaseTransaction1, databaseTransaction3, databaseTransaction5)
-        databaseAccount2.transactions = arrayListOf(databaseTransaction2, databaseTransaction4)
-        databaseBudget.transactions = databaseTransactions
+        category1.subcategories = savingsSubcategories
+        category2.subcategories = frequentSubcategories
+        category3.subcategories = shoppingSubcategories
 
-        //Initializing Accounts
-        databaseBudget.accounts = arrayListOf(databaseAccount1, databaseAccount2)
+        budget0.categories = arrayListOf(category1, category2, category3)
+        budget0.accounts = arrayListOf(account1, account2)
 
-        //Initializing Categories
-        databaseCategory1.subcategories = subcategoriesList1
-        databaseCategory2.subcategories = subcategoriesList2
-        databaseCategory3.subcategories = subcategoriesList3
-        databaseBudget.categories = databaseCategories
+        user0.setBudgets(arrayListOf(budget0))
+        user0.setCurrentBudget(budget0)
 
-        anjelo.setBudgets(arrayListOf(databaseBudget))
-
-        return anjelo
+        return user0
     }
 }

@@ -9,9 +9,8 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.RecyclerView
-import com.example.newleaf2022.MainActivity
 import com.example.newleaf2022.R
-import com.example.newleaf2022.models.Categories
+import com.example.newleaf2022.models.dataclasses.Categories
 import com.example.newleaf2022.models.Model
 import com.example.newleaf2022.viewmodels.BudgetsViewModel
 

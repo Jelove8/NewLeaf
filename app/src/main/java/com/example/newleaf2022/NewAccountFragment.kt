@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 
 import com.example.newleaf2022.databinding.FragmentNewAccountBinding
-import com.example.newleaf2022.models.Accounts
+import com.example.newleaf2022.models.dataclasses.Accounts
 import com.example.newleaf2022.viewmodels.BudgetsViewModel
 
 class NewAccountFragment : Fragment() {

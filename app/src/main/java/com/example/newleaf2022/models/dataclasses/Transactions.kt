@@ -1,4 +1,4 @@
-package com.example.newleaf2022.models
+package com.example.newleaf2022.models.dataclasses
 
 data class Transactions(var amount: Double = 0.00,
                         var payee: String = "Unassigned",

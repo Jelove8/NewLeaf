@@ -35,6 +35,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+
     lateinit var model: Model
     private lateinit var budgetsVM: BudgetsViewModel
 
@@ -53,10 +54,12 @@ class MainActivity : AppCompatActivity() {
         // Main Button Logic
         binding.mainButton1.setOnClickListener {
             changeFragment("main", BudgetsFragment())
+            binding.subFragment.visibility = View.GONE
         }
 
         binding.mainButton2.setOnClickListener {
             changeFragment("main", AccountsFragment())
+            binding.subFragment.visibility = View.GONE
         }
 
         binding.mainButton3.setOnClickListener {

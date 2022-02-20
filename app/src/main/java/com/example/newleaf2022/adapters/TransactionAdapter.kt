@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newleaf2022.R
-import com.example.newleaf2022.models.Transactions
+import com.example.newleaf2022.models.dataclasses.Transactions
 
 class TransactionAdapter(private val transactions: ArrayList<Transactions>) : RecyclerView.Adapter<TransactionAdapter.TransactionsViewHolder>() {
 

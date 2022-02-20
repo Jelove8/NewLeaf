@@ -1,4 +1,4 @@
-package com.example.newleaf2022.models
+package com.example.newleaf2022.models.dataclasses
 
 import kotlin.collections.ArrayList
 
