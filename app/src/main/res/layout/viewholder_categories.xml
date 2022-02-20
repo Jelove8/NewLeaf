@@ -98,8 +98,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/subcategory1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone">
+            android:layout_height="match_parent">
 
             <TextView
                 android:id="@+id/sub1"
@@ -918,6 +917,7 @@
                 tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck,TextContrastCheck,DuplicateSpeakableTextCheck" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

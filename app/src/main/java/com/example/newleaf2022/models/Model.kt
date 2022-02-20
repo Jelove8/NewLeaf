@@ -14,7 +14,7 @@ class Model {
         when (type) {
             0 -> {
                 val guestUser = Users("Guest User")
-                guestUser.setBudgets(arrayListOf(Budgets("Guest Budget", 0.00, arrayListOf())))
+                guestUser.setBudgets(arrayListOf(Budgets("Guest Budget", 0.00)))
                 guestUser.setCurrentBudget(guestUser.getBudget(0))
                 currentUser = guestUser
             }

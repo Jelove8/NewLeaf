@@ -15,7 +15,7 @@
             android:id="@+id/inputCategory"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:hint="Category name..."
+            android:hint="Enter new category..."
             android:importantForAutofill="no"
             android:inputType="text"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -38,19 +38,645 @@
             android:id="@+id/btnAddSubCategory"
             android:layout_width="40dp"
             android:layout_height="match_parent"
-            android:layout_marginEnd="32dp"
+            android:layout_marginStart="16dp"
             android:text="+"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btnDeleteCategory"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="TouchTargetSizeCheck" />
+
+        <Button
+            android:id="@+id/btnReorderCategory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reorder"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/vhEditBudgetsRecycler"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/subcategoriesConstraint1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="8dp"
+        android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@+id/categoriesConstraint"
-        tools:layout_editor_absoluteX="1dp" />
+        tools:layout_editor_absoluteX="0dp">
+
+        <EditText
+            android:id="@+id/inputSubcategory1"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:hint="Enter new subcategory..."
+            android:importantForAutofill="no"
+            android:inputType="text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            tools:ignore="TextContrastCheck" />
+
+        <Button
+            android:id="@+id/btnDeleteSubcategory1"
+            android:layout_width="42dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:text="x"
+            app:layout_constraintStart_toEndOf="@+id/inputSubcategory1"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <Button
+            android:id="@+id/btnReorderSubcategory1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reorder"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/subcategoriesConstraint2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/subcategoriesConstraint1">
+
+        <EditText
+            android:id="@+id/inputSubcategory2"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:hint="Enter new subcategory..."
+            android:importantForAutofill="no"
+            android:inputType="text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            tools:ignore="TextContrastCheck" />
+
+        <Button
+            android:id="@+id/btnDeleteSubcategory2"
+            android:layout_width="42dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:text="x"
+            app:layout_constraintStart_toEndOf="@+id/inputSubcategory2"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <Button
+            android:id="@+id/btnReorderSubcategory2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reorder"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/subcategoriesConstraint3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/subcategoriesConstraint2">
+
+        <EditText
+            android:id="@+id/inputSubcategory3"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:hint="Enter new subcategory..."
+            android:importantForAutofill="no"
+            android:inputType="text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            tools:ignore="TextContrastCheck" />
+
+        <Button
+            android:id="@+id/btnDeleteSubcategory3"
+            android:layout_width="42dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:text="x"
+            app:layout_constraintStart_toEndOf="@+id/inputSubcategory3"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <Button
+            android:id="@+id/btnReorderSubcategory3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reorder"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/subcategoriesConstraint4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/subcategoriesConstraint3">
+
+
+        <EditText
+            android:id="@+id/inputSubcategory4"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:hint="Enter new subcategory..."
+            android:importantForAutofill="no"
+            android:inputType="text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            tools:ignore="TextContrastCheck" />
+
+        <Button
+            android:id="@+id/btnDeleteSubcategory4"
+            android:layout_width="42dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:text="x"
+            app:layout_constraintStart_toEndOf="@+id/inputSubcategory4"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <Button
+            android:id="@+id/btnReorderSubcategory4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reorder"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/subcategoriesConstraint5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/subcategoriesConstraint4">
+
+        <EditText
+            android:id="@+id/inputSubcategory5"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:hint="Enter new subcategory..."
+            android:importantForAutofill="no"
+            android:inputType="text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            tools:ignore="TextContrastCheck" />
+
+        <Button
+            android:id="@+id/btnDeleteSubcategory5"
+            android:layout_width="42dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:text="x"
+            app:layout_constraintStart_toEndOf="@+id/inputSubcategory5"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <Button
+            android:id="@+id/btnReorderSubcategory5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reorder"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/subcategoriesConstraint6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/subcategoriesConstraint5">
+
+        <EditText
+            android:id="@+id/inputSubcategory6"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:hint="Enter new subcategory..."
+            android:importantForAutofill="no"
+            android:inputType="text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            tools:ignore="TextContrastCheck" />
+
+        <Button
+            android:id="@+id/btnDeleteSubcategory6"
+            android:layout_width="42dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:text="x"
+            app:layout_constraintStart_toEndOf="@+id/inputSubcategory6"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <Button
+            android:id="@+id/btnReorderSubcategory6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reorder"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/subcategoriesConstraint7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/subcategoriesConstraint6">
+
+        <EditText
+            android:id="@+id/inputSubcategory7"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:hint="Enter new subcategory..."
+            android:importantForAutofill="no"
+            android:inputType="text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            tools:ignore="TextContrastCheck" />
+
+        <Button
+            android:id="@+id/btnDeleteSubcategory7"
+            android:layout_width="42dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:text="x"
+            app:layout_constraintStart_toEndOf="@+id/inputSubcategory7"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <Button
+            android:id="@+id/btnReorderSubcategory7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reorder"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/subcategoriesConstraint8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/subcategoriesConstraint7">
+
+        <EditText
+            android:id="@+id/inputSubcategory8"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:hint="Enter new subcategory..."
+            android:importantForAutofill="no"
+            android:inputType="text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            tools:ignore="TextContrastCheck" />
+
+        <Button
+            android:id="@+id/btnDeleteSubcategory8"
+            android:layout_width="42dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:text="x"
+            app:layout_constraintStart_toEndOf="@+id/inputSubcategory8"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <Button
+            android:id="@+id/btnReorderSubcategory8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reorder"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/subcategoriesConstraint9"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/subcategoriesConstraint8">
+
+        <EditText
+            android:id="@+id/inputSubcategory9"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:hint="Enter new subcategory..."
+            android:importantForAutofill="no"
+            android:inputType="text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            tools:ignore="TextContrastCheck" />
+
+        <Button
+            android:id="@+id/btnDeleteSubcategory9"
+            android:layout_width="42dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:text="x"
+            app:layout_constraintStart_toEndOf="@+id/inputSubcategory9"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <Button
+            android:id="@+id/btnReorderSubcategory9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reorder"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/subcategoriesConstraint10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/subcategoriesConstraint9">
+
+        <EditText
+            android:id="@+id/inputSubcategory10"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:hint="Enter new subcategory..."
+            android:importantForAutofill="no"
+            android:inputType="text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            tools:ignore="TextContrastCheck" />
+
+        <Button
+            android:id="@+id/btnDeleteSubcategory10"
+            android:layout_width="42dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:text="x"
+            app:layout_constraintStart_toEndOf="@+id/inputSubcategory10"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <Button
+            android:id="@+id/btnReorderSubcategory10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reorder"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/subcategoriesConstraint11"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/subcategoriesConstraint10">
+
+        <EditText
+            android:id="@+id/inputSubcategory11"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:hint="Enter new subcategory..."
+            android:importantForAutofill="no"
+            android:inputType="text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            tools:ignore="TextContrastCheck" />
+
+        <Button
+            android:id="@+id/btnDeleteSubcategory11"
+            android:layout_width="42dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:text="x"
+            app:layout_constraintStart_toEndOf="@+id/inputSubcategory11"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <Button
+            android:id="@+id/btnReorderSubcategory11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reorder"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/subcategoriesConstraint12"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/subcategoriesConstraint11">
+
+        <EditText
+            android:id="@+id/inputSubcategory12"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:hint="Enter new subcategory..."
+            android:importantForAutofill="no"
+            android:inputType="text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            tools:ignore="TextContrastCheck" />
+
+        <Button
+            android:id="@+id/btnDeleteSubcategory12"
+            android:layout_width="42dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:text="x"
+            app:layout_constraintStart_toEndOf="@+id/inputSubcategory12"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <Button
+            android:id="@+id/btnReorderSubcategory12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reorder"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/subcategoriesConstraint13"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/subcategoriesConstraint12">
+
+        <EditText
+            android:id="@+id/inputSubcategory13"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:hint="Enter new subcategory..."
+            android:importantForAutofill="no"
+            android:inputType="text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            tools:ignore="TextContrastCheck" />
+
+        <Button
+            android:id="@+id/btnDeleteSubcategory13"
+            android:layout_width="42dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:text="x"
+            app:layout_constraintStart_toEndOf="@+id/inputSubcategory13"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <Button
+            android:id="@+id/btnReorderSubcategory13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reorder"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/subcategoriesConstraint14"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/subcategoriesConstraint13">
+
+        <EditText
+            android:id="@+id/inputSubcategory14"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:hint="Enter new subcategory..."
+            android:importantForAutofill="no"
+            android:inputType="text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            tools:ignore="TextContrastCheck" />
+
+        <Button
+            android:id="@+id/btnDeleteSubcategory14"
+            android:layout_width="42dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:text="x"
+            app:layout_constraintStart_toEndOf="@+id/inputSubcategory14"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <Button
+            android:id="@+id/btnReorderSubcategory14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reorder"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/subcategoriesConstraint15"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/subcategoriesConstraint14">
+
+        <EditText
+            android:id="@+id/inputSubcategory15"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:hint="Enter new subcategory..."
+            android:importantForAutofill="no"
+            android:inputType="text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            tools:ignore="TextContrastCheck" />
+
+        <Button
+            android:id="@+id/btnDeleteSubcategory15"
+            android:layout_width="42dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:text="x"
+            app:layout_constraintStart_toEndOf="@+id/inputSubcategory15"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <Button
+            android:id="@+id/btnReorderSubcategory15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reorder"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/subcategoriesConstraint16"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/subcategoriesConstraint15">
+
+        <EditText
+            android:id="@+id/inputSubcategory16"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:hint="Enter new subcategory..."
+            android:importantForAutofill="no"
+            android:inputType="text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            tools:ignore="TextContrastCheck" />
+
+        <Button
+            android:id="@+id/btnDeleteSubcategory16"
+            android:layout_width="42dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:text="x"
+            app:layout_constraintStart_toEndOf="@+id/inputSubcategory16"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <Button
+            android:id="@+id/btnReorderSubcategory16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reorder"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
