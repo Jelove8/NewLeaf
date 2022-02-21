@@ -27,6 +27,13 @@ data class Budgets(private var name: String,
     fun getCategories(): ArrayList<Categories> {
         return categories
     }
+    fun editCategories(newCategory: Categories, oldCategory: Categories) {
+        for ((i,item) in categories.withIndex()) {
+            if (item == oldCategory) {
+                categories[i] = newCategory
+            }
+        }
+    }
 
     fun setAccounts(newAccounts: ArrayList<Accounts>) {
         accounts = newAccounts

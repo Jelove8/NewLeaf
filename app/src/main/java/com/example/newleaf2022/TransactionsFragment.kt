@@ -28,12 +28,12 @@ class TransactionsFragment(private val currentAccount: Accounts) : Fragment() {
 
 
         // Getting account's associated transactions
-        var currentTransactions = currentAccount.transactions
+        var currentTransactions = currentAccount.getTransactions()
         binding.fragTransactionsRecycler.adapter = TransactionAdapter(currentTransactions)
 
 
 
-        binding.accountNameTV.text = currentAccount.name
+        binding.accountNameTV.text = currentAccount.getName()
 
 
     }

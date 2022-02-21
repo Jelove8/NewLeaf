@@ -18,7 +18,7 @@ class CategoryAdapter(private val categories: ArrayList<Categories>, private val
 
     class BudgetsViewHolder(ItemView: View, listener: OnTextChangedListener, budgetsVM: BudgetsViewModel, categories: ArrayList<Categories>, model: Model, readyToAssignTV: TextView) : RecyclerView.ViewHolder(ItemView) {
         val mainCategory: TextView = itemView.findViewById(R.id.mainCategoryTV)
-        val categoriesConstraint: ConstraintLayout = itemView.findViewById(R.id.categoriesConstraint)
+        val categoriesConstraint: ConstraintLayout = itemView.findViewById(R.id.categoryConstraint)
         val subcategoriesConstraint: LinearLayout = itemView.findViewById(R.id.subcategoriesLinearLayout)
 
         val subcategory1: ConstraintLayout = itemView.findViewById(R.id.subcategory1)
@@ -101,34 +101,34 @@ class CategoryAdapter(private val categories: ArrayList<Categories>, private val
                 item.doAfterTextChanged {
                     listener.onTextChanged(bindingAdapterPosition)
                     val currentCategory = categories[bindingAdapterPosition]
-                    val oldAssigned = currentCategory.subcategories[i].assigned
+                    val oldAssigned = currentCategory.getSubcategories()[i].getAssigned()
                 
                     if (item.text.isNullOrEmpty()) {
                         // Updating currentCategory
-                        currentCategory.subcategories[i].assigned = 0.00
-                        currentCategory.subcategories[i].available -= oldAssigned
-                        currentCategory.totalAssigned -= oldAssigned
-                        currentCategory.totalAvailable -= oldAssigned
+                        currentCategory.getSubcategories()[i].setAssigned(0.00)
+                        currentCategory.getSubcategories()[i].setAvailable(currentCategory.getSubcategories()[i].getAvailable() - oldAssigned)
+                        currentCategory.setAssigned(currentCategory.getAssigned() - oldAssigned)
+                        currentCategory.setAvailable(currentCategory.getAvailable() - oldAssigned)
                         // Updating views
-                        listOfAvailable[i].setText(currentCategory.subcategories[i].available.toString())
-                        totalAssigned.text = currentCategory.totalAssigned.toString()
-                        totalAvailable.text = currentCategory.totalAvailable.toString()
-                        readyToAssignTV.text = budgetsVM.getCurrentBudget().unassigned.toString()
+                        listOfAvailable[i].setText(currentCategory.getSubcategories()[i].getAvailable().toString())
+                        totalAssigned.text = currentCategory.getAssigned().toString()
+                        totalAvailable.text = currentCategory.getAvailable().toString()
+                        readyToAssignTV.text = budgetsVM.getCurrentBudget().getUnassigned().toString()
                         // Updating viewmodel and model
                         budgetsVM.updateCategory(currentCategory, bindingAdapterPosition, model)
                     }
                     else {
                         // Updating currentCategory
                         val newAssigned = item.text.toString().toDouble()
-                        currentCategory.subcategories[i].assigned = newAssigned
-                        currentCategory.subcategories[i].available = currentCategory.subcategories[i].available - oldAssigned + newAssigned
-                        currentCategory.totalAssigned = currentCategory.totalAssigned - oldAssigned + newAssigned
-                        currentCategory.totalAvailable = currentCategory.totalAvailable - oldAssigned + newAssigned
+                        currentCategory.getSubcategories()[i].setAssigned(newAssigned)
+                        currentCategory.getSubcategories()[i].setAvailable(currentCategory.getSubcategories()[i].getAvailable() - oldAssigned + newAssigned)
+                        currentCategory.setAssigned(currentCategory.getAssigned() - oldAssigned + newAssigned)
+                        currentCategory.setAvailable(currentCategory.getAvailable() - oldAssigned + newAssigned)
                         // Updating views
-                        listOfAvailable[i].setText(currentCategory.subcategories[i].available.toString())
-                        totalAssigned.text = currentCategory.totalAssigned.toString()
-                        totalAvailable.text = currentCategory.totalAvailable.toString()
-                        readyToAssignTV.text = budgetsVM.getCurrentBudget().unassigned.toString()
+                        listOfAvailable[i].setText(currentCategory.getSubcategories()[i].getAvailable().toString())
+                        totalAssigned.text = currentCategory.getAssigned().toString()
+                        totalAvailable.text = currentCategory.getAvailable().toString()
+                        readyToAssignTV.text = budgetsVM.getCurrentBudget().getUnassigned().toString()
                         // Updating viewmodel and model
                         budgetsVM.updateCategory(currentCategory, bindingAdapterPosition, model)
                     }
@@ -169,23 +169,23 @@ class CategoryAdapter(private val categories: ArrayList<Categories>, private val
                 holder.categoriesConstraint.visibility = View.GONE
                 holder.subcategoriesConstraint.visibility = View.GONE
             }
-            currentCategory.subcategories.size == 0 -> {
+            currentCategory.getSubcategories().size == 0 -> {
                 // Hides only the subcategory views
-                holder.mainCategory.text = currentCategory.name
-                holder.totalAssigned.text = currentCategory.totalAssigned.toString()
-                holder.totalAvailable.text = currentCategory.totalAvailable.toString()
+                holder.mainCategory.text = currentCategory.getName()
+                holder.totalAssigned.text = currentCategory.getAssigned().toString()
+                holder.totalAvailable.text = currentCategory.getAvailable().toString()
                 holder.subcategoriesConstraint.visibility = View.GONE
             }
             else -> {
                 // Displays and populates all necessary views
-                holder.mainCategory.text = currentCategory.name
-                holder.totalAssigned.text = currentCategory.totalAssigned.toString()
-                holder.totalAvailable.text = currentCategory.totalAvailable.toString()
-                for (i in 0 until currentCategory.subcategories.size) {
-                    val currentSubcategory = currentCategory.subcategories[i]
-                    subcategoryNameViews[i].text = currentSubcategory.name
-                    subcategoryAssignedViews[i].setText(currentSubcategory.assigned.toString())
-                    subcategoryAvailableViews[i].setText(currentSubcategory.available.toString())
+                holder.mainCategory.text = currentCategory.getName()
+                holder.totalAssigned.text = currentCategory.getAssigned().toString()
+                holder.totalAvailable.text = currentCategory.getAvailable().toString()
+                for (i in 0 until currentCategory.getSubcategories().size) {
+                    val currentSubcategory = currentCategory.getSubcategories()[i]
+                    subcategoryNameViews[i].text = currentSubcategory.getName()
+                    subcategoryAssignedViews[i].setText(currentSubcategory.getAssigned().toString())
+                    subcategoryAvailableViews[i].setText(currentSubcategory.getAvailable().toString())
                     subcategoryViews[i].visibility = View.VISIBLE
                 }
             }

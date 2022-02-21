@@ -30,10 +30,10 @@ class BudgetsFragment : Fragment() {
         val budgetsVM: BudgetsViewModel by activityViewModels()
 
         // Displaying unassigned amount
-        binding.outputTotalUnassigned.text = budgetsVM.getCurrentBudget().unassigned.toString()
+        binding.outputTotalUnassigned.text = budgetsVM.getCurrentBudget().getUnassigned().toString()
 
         // Populating the recycler view
-        var currentCategories = budgetsVM.getCurrentBudget().categories
+        var currentCategories = budgetsVM.getCurrentBudget().getCategories()
         if (currentCategories.isNullOrEmpty()) {
             currentCategories = arrayListOf()
         }

@@ -27,7 +27,7 @@ class AccountsFragment : Fragment() {
         val mainActivity = (context as MainActivity)
         binding.fragAccountsRecycler.layoutManager = LinearLayoutManager(activity)
 
-        val currentAccounts = budgetsVM.getCurrentBudget().accounts
+        val currentAccounts = budgetsVM.getCurrentBudget().getAccounts()
         binding.fragAccountsRecycler.adapter = AccountsAdapter(currentAccounts, mainActivity)
 
         // Button: Confirms the new account

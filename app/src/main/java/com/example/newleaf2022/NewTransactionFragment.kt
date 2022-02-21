@@ -51,17 +51,17 @@ class NewTransactionFragment : Fragment() {
             }
 
             var payee = binding.inputPayee.text.toString()
-            var subcategory = binding.inputSubcategory.toString()
+            var subcategory = binding.inputSubcategory1.toString()
             var account = binding.inputAccount.text.toString()
             var cleared = clearedCheck
             var memo = binding.inputMemo.text.toString()
 
             val newTransaction = Transactions(amount, payee, subcategory, cleared, memo)
 
-            for (item in budgetsVM.getCurrentBudget().accounts) {
+            for (item in budgetsVM.getCurrentBudget().getAccounts()) {
 
-                if (account == item.name) {
-                    item.transactions.add(newTransaction)
+                if (account == item.getName()) {
+                    item.getTransactions().add(newTransaction)
                 }
 
 

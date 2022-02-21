@@ -19,8 +19,8 @@ class BudgetsViewModel : ViewModel() {
 
     fun updateCategory(newCategory: Categories, position: Int, model: Model) {
         // Updating unassigned value
-        currentBudget.unassigned += currentBudget.categories[position].totalAssigned - newCategory.totalAssigned
-        currentBudget.categories[position] = newCategory
+        currentBudget.setUnassigned(currentBudget.getUnassigned() + currentBudget.getCategories()[position].getAssigned() - newCategory.getAssigned())
+        currentBudget.editCategories(newCategory, currentBudget.getCategories()[position])
         model.updateCurrentBudget(currentBudget)
     }
 
@@ -30,17 +30,10 @@ class BudgetsViewModel : ViewModel() {
     }
 
     fun addAccount(newAccount: Accounts, model: Model) {
-        currentBudget.accounts.add(newAccount)
-        currentBudget.unassigned += newAccount.balance
+        currentBudget.getAccounts().add(newAccount)
+        currentBudget.setUnassigned(currentBudget.getUnassigned() + newAccount.getBalance())
         model.updateCurrentBudget(currentBudget)
     }
 
-    fun newTransaction(newTransaction: Transactions, model: Model) {
-
-        for (item in currentBudget.transactions) {
-
-        }
-
-
-    }
+  
 }

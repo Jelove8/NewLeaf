@@ -38,8 +38,8 @@ class AccountsAdapter(private val accounts: ArrayList<Accounts>, private val mai
             holder.accountConstraint.visibility = View.GONE
         }
         else {
-            holder.accountName.text = accounts[position].name
-            holder.accountBalance.text = accounts[position].balance.toString()
+            holder.accountName.text = accounts[position].getName()
+            holder.accountBalance.text = accounts[position].getBalance().toString()
         }
 
     }
