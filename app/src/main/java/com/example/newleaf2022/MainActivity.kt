@@ -11,6 +11,9 @@ import com.example.newleaf2022.viewmodels.BudgetsViewModel
 
 class MainActivity : AppCompatActivity() {
 
+    lateinit var model: Model
+    private lateinit var budgetsVM: BudgetsViewModel
+
     fun changeFragment(container: String, fragment: Fragment) {
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
@@ -35,25 +38,20 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
-    lateinit var model: Model
-    private lateinit var budgetsVM: BudgetsViewModel
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityMainBinding.inflate(layoutInflater)
-        model = Model()
-        budgetsVM  = ViewModelProvider(this)[BudgetsViewModel::class.java]
         setContentView(binding.root)
 
-        // Initializing Model
+        // Initializing Model & ViewModel
+        model = Model()
+        budgetsVM  = ViewModelProvider(this)[BudgetsViewModel::class.java]
         budgetsVM.initializeBudget(model)
 
 
         // Main Button Logic
         binding.mainButton1.setOnClickListener {
-            changeFragment("main", BudgetsFragment())
+            changeFragment("main", BudgetFragment())
             binding.subFragment.visibility = View.GONE
         }
 

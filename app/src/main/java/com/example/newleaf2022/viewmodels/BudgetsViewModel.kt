@@ -35,5 +35,5 @@ class BudgetsViewModel : ViewModel() {
         model.updateCurrentBudget(currentBudget)
     }
 
-  
+
 }

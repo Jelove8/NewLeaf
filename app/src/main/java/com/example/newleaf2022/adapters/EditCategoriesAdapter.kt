@@ -1,5 +1,6 @@
 package com.example.newleaf2022.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +14,7 @@ import com.example.newleaf2022.viewmodels.BudgetsViewModel
 
 class EditCategoriesAdapter(private val categories: ArrayList<Categories>, private val budgetsVM: BudgetsViewModel) : RecyclerView.Adapter<EditCategoriesAdapter.EditCategoriesViewHolder>() {
 
-    class EditCategoriesViewHolder(ItemView: View, private val budgetsVM: BudgetsViewModel) : RecyclerView.ViewHolder(ItemView) {
+    class EditCategoriesViewHolder(ItemView: View, categories: ArrayList<Categories>, private val budgetsVM: BudgetsViewModel) : RecyclerView.ViewHolder(ItemView) {
         val categoryConstraint: ConstraintLayout = itemView.findViewById(R.id.categoryConstraint)
         val btnDeleteCategory: Button = itemView.findViewById(R.id.btnDeleteCategory)
         val btnAddSubCategory: Button = itemView.findViewById(R.id.btnAddSubCategory)
@@ -51,6 +52,7 @@ class EditCategoriesAdapter(private val categories: ArrayList<Categories>, priva
         val subConstraint14: ConstraintLayout = itemView.findViewById(R.id.subcategoriesConstraint14)
         val subConstraint15: ConstraintLayout = itemView.findViewById(R.id.subcategoriesConstraint15)
         val subConstraint16: ConstraintLayout = itemView.findViewById(R.id.subcategoriesConstraint16)
+        val subConstraints = arrayListOf(subConstraint1, subConstraint2, subConstraint3, subConstraint4, subConstraint5, subConstraint6, subConstraint7, subConstraint8, subConstraint9, subConstraint10, subConstraint11, subConstraint12, subConstraint13, subConstraint14, subConstraint15, subConstraint16)
 
         val btnDeleteSub1: Button = itemView.findViewById(R.id.btnDeleteSubcategory1)
         val btnDeleteSub2: Button = itemView.findViewById(R.id.btnDeleteSubcategory2)
@@ -70,45 +72,57 @@ class EditCategoriesAdapter(private val categories: ArrayList<Categories>, priva
         val btnDeleteSub16: Button = itemView.findViewById(R.id.btnDeleteSubcategory16)
 
         val listOfSubs = arrayListOf(sub1, sub2, sub3, sub4, sub5, sub6, sub7, sub8, sub9, sub10, sub11, sub12, sub13, sub14, sub15, sub16)
-        val listOfSubConstraints = arrayListOf(subConstraint1, subConstraint2, subConstraint3, subConstraint4, subConstraint5, subConstraint6, subConstraint7, subConstraint8, subConstraint9, subConstraint10, subConstraint11, subConstraint12, subConstraint13, subConstraint14, subConstraint15, subConstraint16)
+
+        init {
+            btnDeleteCategory.setOnClickListener {
+                categories.removeAt(bindingAdapterPosition)
+                // Hides category views
+                categoryConstraint.visibility = View.GONE
+                for (item in subConstraints) {
+                    item.visibility = View.GONE
+                }
+            }
+        }
 
     }
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EditCategoriesViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.viewholder_categories, parent, false)
-        return EditCategoriesViewHolder(view, budgetsVM)
+            .inflate(R.layout.viewholder_edit_categories, parent, false)
+        return EditCategoriesViewHolder(view, categories, budgetsVM)
     }
 
     override fun onBindViewHolder(holder: EditCategoriesViewHolder, position: Int) {
-
         when {
             categories.size == 0 -> {
                 // Hides entire viewholder
                 holder.categoryConstraint.visibility = View.GONE
-                for (item in holder.listOfSubConstraints) {
+                for (item in holder.subConstraints) {
                     item.visibility = View.GONE
                 }
             }
             categories[position].getSubcategories().size == 0 -> {
                 // Hides only the subcategory views
                 holder.inputCategory.setText(categories[position].getName())
-                for (item in holder.listOfSubConstraints) {
+                for (item in holder.subConstraints) {
                     item.visibility = View.GONE
                 }
             }
             else -> {
-                // Displays and populates all necessary views
+                // Displaying category views
                 holder.inputCategory.setText(categories[position].getName())
+                // Displaying subcategory views
+                for (item in holder.subConstraints) {
+                    item.visibility = View.GONE
+                }
                 for (i in 0 until categories[position].getSubcategories().size) {
                     val currentSubcategory = categories[position].getSubcategories()[i]
-                    holder.listOfSubs[i].visibility = View.VISIBLE
+                    holder.subConstraints[i].visibility = View.VISIBLE
                     holder.listOfSubs[i].setText(currentSubcategory.getName())
                 }
             }
         }
-
     }
 
     override fun getItemCount(): Int {

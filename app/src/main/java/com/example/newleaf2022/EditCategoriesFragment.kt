@@ -29,11 +29,19 @@ class EditCategoriesFragment : Fragment() {
         val mainActivity = context as MainActivity
         val budgetsVM: BudgetsViewModel by activityViewModels()
 
-        if (budgetsVM.getCurrentBudget().getCategories()[0].equals(null)) {
-            binding.fragEditCategoriesRecycler.adapter = EditCategoriesAdapter(arrayListOf(), budgetsVM)
+        // Populating the recycler view
+        var currentCategories = budgetsVM.getCurrentBudget().getCategories()
+        if (currentCategories.isNullOrEmpty()) {
+            currentCategories = arrayListOf()
         }
-        else {
-            binding.fragEditCategoriesRecycler.adapter = EditCategoriesAdapter(budgetsVM.getCurrentBudget().getCategories(), budgetsVM)
+        binding.fragEditCategoriesRecycler.adapter = EditCategoriesAdapter(currentCategories, budgetsVM)
+
+
+
+        
+
+        binding.btnConfirmEdits.setOnClickListener {
+            mainActivity.changeFragment("main", BudgetFragment())
         }
 
     }

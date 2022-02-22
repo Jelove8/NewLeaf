@@ -8,17 +8,16 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newleaf2022.adapters.CategoryAdapter
-import com.example.newleaf2022.databinding.FragmentBudgetsBinding
-import com.example.newleaf2022.databinding.FragmentBudgetsBinding.inflate
+import com.example.newleaf2022.databinding.FragmentBudgetBinding
 import com.example.newleaf2022.viewmodels.BudgetsViewModel
 
-class BudgetsFragment : Fragment() {
+class BudgetFragment : Fragment() {
 
-    private var fragmentBinding: FragmentBudgetsBinding? = null
+    private var fragmentBinding: FragmentBudgetBinding? = null
     private val binding get() = fragmentBinding!!
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        fragmentBinding = inflate(inflater,container,false)
+        fragmentBinding = FragmentBudgetBinding.inflate(inflater,container,false)
         return binding.root
     }
 
@@ -61,9 +60,8 @@ class BudgetsFragment : Fragment() {
         binding.btnChangeDate.setOnClickListener {
 
         }
-        binding.btnEditBranches.setOnClickListener {
-
-
+        binding.btnEditBudget.setOnClickListener {
+            mainActivity.changeFragment("main", EditCategoriesFragment())
         }
         binding.btnAssignMoney.setOnClickListener {
 
