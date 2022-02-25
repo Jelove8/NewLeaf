@@ -12,6 +12,11 @@ class BudgetsViewModel : ViewModel() {
     private lateinit var currentBudget: Budgets
 
 
+    fun updateModelBudget(model: Model) {
+        model.updateCurrentBudget(currentBudget)
+    }
+
+
     fun initializeBudget(model: Model) {
         model.initializeUser(1)
         currentBudget = model.getUser().getCurrentBudget()

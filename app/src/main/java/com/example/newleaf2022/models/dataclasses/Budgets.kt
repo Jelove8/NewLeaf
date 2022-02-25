@@ -27,6 +27,15 @@ data class Budgets(private var name: String,
     fun getCategories(): ArrayList<Categories> {
         return categories
     }
+    fun addEmptyCategory() {
+        categories.add(0,Categories(""))
+    }
+    fun removeCategory(position: Int) {
+        categories.removeAt(position)
+    }
+    fun removeSubcategory(categoryPosition: Int, subcategoryPosition: Int) {
+        categories[categoryPosition].getSubcategories().removeAt(subcategoryPosition)
+    }
     fun editCategories(newCategory: Categories, oldCategory: Categories) {
         for ((i,item) in categories.withIndex()) {
             if (item == oldCategory) {
@@ -48,4 +57,5 @@ data class Budgets(private var name: String,
     fun getTransactions(): ArrayList<Transactions> {
         return transactions
     }
+
 }

@@ -1,15 +1,15 @@
 package com.example.newleaf2022.models.dataclasses
 
-data class Categories(private var name: String,
+data class Categories(private var name: String?,
                       private var assigned: Double = 0.00,
                       private var available: Double = 0.00) {
 
-    private lateinit var subcategories: ArrayList<Subcategories>
+    private var subcategories: ArrayList<Subcategories> = arrayListOf()
 
     fun setName(newName: String) {
         name = newName
     }
-    fun getName(): String {
+    fun getName(): String? {
         return name
     }
 

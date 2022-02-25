@@ -1,6 +1,9 @@
 package com.example.newleaf2022.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
+import java.math.BigDecimal
+import java.math.RoundingMode
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
@@ -16,7 +19,7 @@ import com.example.newleaf2022.viewmodels.BudgetsViewModel
 
 class CategoryAdapter(private val categories: ArrayList<Categories>, private val budgetsVM: BudgetsViewModel, private val model: Model, private val readyToAssignTV: TextView) : RecyclerView.Adapter<CategoryAdapter.BudgetsViewHolder>() {
 
-    class BudgetsViewHolder(ItemView: View, listener: OnTextChangedListener, budgetsVM: BudgetsViewModel, categories: ArrayList<Categories>, model: Model, readyToAssignTV: TextView) : RecyclerView.ViewHolder(ItemView) {
+    class BudgetsViewHolder(ItemView: View, listener: OnTextChangedListener, budgetsVM: BudgetsViewModel, categories: ArrayList<Categories>, model: Model, unassignedTV: TextView) : RecyclerView.ViewHolder(ItemView) {
         val mainCategory: TextView = itemView.findViewById(R.id.mainCategoryTV)
         val categoriesConstraint: ConstraintLayout = itemView.findViewById(R.id.categoryConstraint)
         val subcategoriesConstraint: LinearLayout = itemView.findViewById(R.id.subcategoriesLinearLayout)
@@ -92,48 +95,50 @@ class CategoryAdapter(private val categories: ArrayList<Categories>, private val
         val available15: EditText = itemView.findViewById(R.id.available15)
         val available16: EditText = itemView.findViewById(R.id.available16)
 
-        private val listOfAssigned = arrayListOf(assigned1, assigned2, assigned3, assigned4, assigned5, assigned6, assigned7, assigned8, assigned9, assigned10, assigned11, assigned12, assigned13, assigned14, assigned15, assigned16)
-        private val listOfAvailable = arrayListOf(available1, available2, available3, available4, available5, available6, available7, available8, available9, available10, available11, available12, available13, available14, available15, available16)
+        private val subAssignedValues = arrayListOf(assigned1, assigned2, assigned3, assigned4, assigned5, assigned6, assigned7, assigned8, assigned9, assigned10, assigned11, assigned12, assigned13, assigned14, assigned15, assigned16)
+        private val subAvailableValues = arrayListOf(available1, available2, available3, available4, available5, available6, available7, available8, available9, available10, available11, available12, available13, available14, available15, available16)
 
         init {
 
-            for ((i, item) in listOfAssigned.withIndex()) {
-                item.doAfterTextChanged {
-                    listener.onTextChanged(bindingAdapterPosition)
-                    val currentCategory = categories[bindingAdapterPosition]
-                    val oldAssigned = currentCategory.getSubcategories()[i].getAssigned()
-                
-                    if (item.text.isNullOrEmpty()) {
-                        // Updating currentCategory
-                        currentCategory.getSubcategories()[i].setAssigned(0.00)
-                        currentCategory.getSubcategories()[i].setAvailable(currentCategory.getSubcategories()[i].getAvailable() - oldAssigned)
-                        currentCategory.setAssigned(currentCategory.getAssigned() - oldAssigned)
-                        currentCategory.setAvailable(currentCategory.getAvailable() - oldAssigned)
-                        // Updating views
-                        listOfAvailable[i].setText(currentCategory.getSubcategories()[i].getAvailable().toString())
-                        totalAssigned.text = currentCategory.getAssigned().toString()
-                        totalAvailable.text = currentCategory.getAvailable().toString()
-                        readyToAssignTV.text = budgetsVM.getCurrentBudget().getUnassigned().toString()
-                        // Updating viewmodel and model
-                        budgetsVM.updateCategory(currentCategory, bindingAdapterPosition, model)
-                    }
-                    else {
-                        // Updating currentCategory
-                        val newAssigned = item.text.toString().toDouble()
-                        currentCategory.getSubcategories()[i].setAssigned(newAssigned)
-                        currentCategory.getSubcategories()[i].setAvailable(currentCategory.getSubcategories()[i].getAvailable() - oldAssigned + newAssigned)
-                        currentCategory.setAssigned(currentCategory.getAssigned() - oldAssigned + newAssigned)
-                        currentCategory.setAvailable(currentCategory.getAvailable() - oldAssigned + newAssigned)
-                        // Updating views
-                        listOfAvailable[i].setText(currentCategory.getSubcategories()[i].getAvailable().toString())
-                        totalAssigned.text = currentCategory.getAssigned().toString()
-                        totalAvailable.text = currentCategory.getAvailable().toString()
-                        readyToAssignTV.text = budgetsVM.getCurrentBudget().getUnassigned().toString()
-                        // Updating viewmodel and model
-                        budgetsVM.updateCategory(currentCategory, bindingAdapterPosition, model)
-                    }
-                }
-            }
+           for ((i,item) in subAssignedValues.withIndex()) {
+
+               // Text Changed Listeners for subAssigned
+               item.doAfterTextChanged {
+                   val oldSubAvailable = categories[bindingAdapterPosition].getSubcategories()[i].getAvailable()
+                   val oldSubAssigned = categories[bindingAdapterPosition].getSubcategories()[i].getAssigned()
+
+                   if (item.text.equals(null) || item.text.equals("")) {
+                       val newUnassigned = budgetsVM.getCurrentBudget().getUnassigned() - oldSubAssigned
+
+                       // Updating sub assigned value
+                       categories[bindingAdapterPosition].getSubcategories()[i].setAssigned(0.00)
+
+                       // Updating sub available value
+                       categories[bindingAdapterPosition].getSubcategories()[i].setAvailable(oldSubAvailable - oldSubAssigned)
+                       Log.d("Meow", "${ categories[bindingAdapterPosition].getSubcategories()[i].getAvailable()}")
+                       subAvailableValues[i].setText(categories[bindingAdapterPosition].getSubcategories()[i].getAvailable().toString())
+
+                       // Updating unassigned value
+                       budgetsVM.getCurrentBudget().setUnassigned(newUnassigned)
+                       unassignedTV.text = newUnassigned.toString()
+                   }
+                   else {
+                       val newAssigned = item.text.toString().toDouble()
+                       val newUnassigned = budgetsVM.getCurrentBudget().getUnassigned() - oldSubAssigned + newAssigned
+
+                       // Updating sub assigned value
+                       categories[bindingAdapterPosition].getSubcategories()[i].setAssigned(item.text.toString().toDouble())
+
+                       // Updating sub available value
+                       categories[bindingAdapterPosition].getSubcategories()[i].setAvailable(oldSubAvailable - oldSubAssigned + newAssigned)
+                       subAvailableValues[i].setText(categories[bindingAdapterPosition].getSubcategories()[i].getAvailable().toString())
+
+                       // Updating unassigned value
+                       budgetsVM.getCurrentBudget().setUnassigned(newUnassigned)
+                       unassignedTV.text = newUnassigned.toString()
+                   }
+               }
+           }
 
         }
     }

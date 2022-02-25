@@ -34,14 +34,34 @@ class EditCategoriesFragment : Fragment() {
         if (currentCategories.isNullOrEmpty()) {
             currentCategories = arrayListOf()
         }
-        binding.fragEditCategoriesRecycler.adapter = EditCategoriesAdapter(currentCategories, budgetsVM)
+        val adapter = EditCategoriesAdapter(currentCategories, budgetsVM)
+        binding.fragEditCategoriesRecycler.adapter = adapter
 
 
 
         
 
         binding.btnConfirmEdits.setOnClickListener {
+            // Deleting categories & subcategories with empty names
+            for ((i,item) in budgetsVM.getCurrentBudget().getCategories().withIndex()) {
+                if (item.getName().equals(null) || item.getName().equals("")) {
+                    budgetsVM.getCurrentBudget().removeCategory(i)
+                }
+                else {
+                    for ((j,subcategory) in item.getSubcategories().withIndex()) {
+                        if (subcategory.getName().equals(null) || subcategory.getName().equals("")) {
+                            budgetsVM.getCurrentBudget().removeSubcategory(i,j)
+                        }
+                    }
+                }
+            }
+            budgetsVM.updateModelBudget(mainActivity.model)
             mainActivity.changeFragment("main", BudgetFragment())
+        }
+
+        binding.btnAddCategory.setOnClickListener {
+            budgetsVM.getCurrentBudget().addEmptyCategory()
+            adapter.notifyDataSetChanged()
         }
 
     }

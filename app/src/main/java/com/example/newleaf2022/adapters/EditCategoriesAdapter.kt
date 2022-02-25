@@ -1,24 +1,26 @@
 package com.example.newleaf2022.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newleaf2022.R
 import com.example.newleaf2022.models.dataclasses.Categories
+import com.example.newleaf2022.models.dataclasses.Subcategories
 import com.example.newleaf2022.viewmodels.BudgetsViewModel
 
 class EditCategoriesAdapter(private val categories: ArrayList<Categories>, private val budgetsVM: BudgetsViewModel) : RecyclerView.Adapter<EditCategoriesAdapter.EditCategoriesViewHolder>() {
 
-    class EditCategoriesViewHolder(ItemView: View, categories: ArrayList<Categories>, private val budgetsVM: BudgetsViewModel) : RecyclerView.ViewHolder(ItemView) {
+    class EditCategoriesViewHolder(ItemView: View, categories: ArrayList<Categories>, private val budgetsVM: BudgetsViewModel, private val adapter: EditCategoriesAdapter) : RecyclerView.ViewHolder(ItemView) {
         val categoryConstraint: ConstraintLayout = itemView.findViewById(R.id.categoryConstraint)
         val btnDeleteCategory: Button = itemView.findViewById(R.id.btnDeleteCategory)
-        val btnAddSubCategory: Button = itemView.findViewById(R.id.btnAddSubCategory)
+        val btnAddSubcategory: Button = itemView.findViewById(R.id.btnAddSubCategory)
         val inputCategory: EditText = itemView.findViewById(R.id.inputCategory)
+
         val sub1: EditText = itemView.findViewById(R.id.inputSubcategory1)
         val sub2: EditText = itemView.findViewById(R.id.inputSubcategory2)
         val sub3: EditText = itemView.findViewById(R.id.inputSubcategory3)
@@ -70,18 +72,47 @@ class EditCategoriesAdapter(private val categories: ArrayList<Categories>, priva
         val btnDeleteSub14: Button = itemView.findViewById(R.id.btnDeleteSubcategory14)
         val btnDeleteSub15: Button = itemView.findViewById(R.id.btnDeleteSubcategory15)
         val btnDeleteSub16: Button = itemView.findViewById(R.id.btnDeleteSubcategory16)
+        val deleteSubcategoryButtons = arrayListOf(btnDeleteSub1, btnDeleteSub2, btnDeleteSub3, btnDeleteSub4, btnDeleteSub5, btnDeleteSub6, btnDeleteSub7, btnDeleteSub8, btnDeleteSub9, btnDeleteSub10, btnDeleteSub11, btnDeleteSub12, btnDeleteSub13, btnDeleteSub14, btnDeleteSub15, btnDeleteSub16)
+
 
         val listOfSubs = arrayListOf(sub1, sub2, sub3, sub4, sub5, sub6, sub7, sub8, sub9, sub10, sub11, sub12, sub13, sub14, sub15, sub16)
 
         init {
+            // User can change category name
+            inputCategory.doAfterTextChanged {
+                categories[bindingAdapterPosition].setName(inputCategory.text.toString())
+            }
+
             btnDeleteCategory.setOnClickListener {
                 categories.removeAt(bindingAdapterPosition)
                 // Hides category views
-                categoryConstraint.visibility = View.GONE
-                for (item in subConstraints) {
-                    item.visibility = View.GONE
+                adapter.notifyDataSetChanged()
+            }
+
+
+
+
+            btnAddSubcategory.setOnClickListener {
+                categories[bindingAdapterPosition].getSubcategories().add(0, Subcategories(name = ""))
+                adapter.notifyDataSetChanged()
+            }
+
+
+
+            for ((i,item) in listOfSubs.withIndex()) {
+                item.doAfterTextChanged {
+                    categories[bindingAdapterPosition].getSubcategories()[i].setName(item.text.toString())
                 }
             }
+
+            for((i,item) in deleteSubcategoryButtons.withIndex()) {
+                item.setOnClickListener {
+                    categories[bindingAdapterPosition].getSubcategories().removeAt(i)
+                    adapter.notifyItemChanged(bindingAdapterPosition)
+                }
+            }
+
+
         }
 
     }
@@ -90,7 +121,7 @@ class EditCategoriesAdapter(private val categories: ArrayList<Categories>, priva
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EditCategoriesViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.viewholder_edit_categories, parent, false)
-        return EditCategoriesViewHolder(view, categories, budgetsVM)
+        return EditCategoriesViewHolder(view, categories, budgetsVM, this)
     }
 
     override fun onBindViewHolder(holder: EditCategoriesViewHolder, position: Int) {
