@@ -63,9 +63,7 @@ class BudgetFragment : Fragment() {
         binding.btnEditBudget.setOnClickListener {
             mainActivity.changeFragment("main", EditCategoriesFragment())
         }
-        binding.btnAssignMoney.setOnClickListener {
 
-        }
 
     }
 

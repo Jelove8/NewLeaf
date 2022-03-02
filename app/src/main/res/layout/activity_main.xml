@@ -19,18 +19,6 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="8dp" />
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/subFragment"
-        android:name="com.example.newleaf2022.NewTransactionFragment"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="32dp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@+id/buttonConstraint"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/buttonConstraint"
         android:layout_width="wrap_content"
@@ -84,5 +72,17 @@
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/subFragment"
+        android:name="com.example.newleaf2022.NewTransactionFragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="32dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/buttonConstraint"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
