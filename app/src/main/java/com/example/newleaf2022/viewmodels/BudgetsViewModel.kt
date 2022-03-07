@@ -18,6 +18,11 @@ class BudgetsViewModel : ViewModel() {
     private lateinit var currentMonthlyBudget: ArrayList<Categories>
 
 
+    // Logic for how a monthly budget will be displayed
+    private lateinit var budgetCategories: ArrayList<Categories>
+    private lateinit var categoryPositions:
+
+
     fun updateModelBudget(model: Model) {
         model.updateCurrentBudget(currentBudget)
     }

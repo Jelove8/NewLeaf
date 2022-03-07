@@ -10,13 +10,12 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newleaf2022.R
 import com.example.newleaf2022.models.dataclasses.Categories
-import com.example.newleaf2022.models.dataclasses.Subcategories
 import com.example.newleaf2022.viewmodels.BudgetsViewModel
 
 class EditCategoriesAdapter(private val categories: ArrayList<Categories>, private val budgetsVM: BudgetsViewModel) : RecyclerView.Adapter<EditCategoriesAdapter.EditCategoriesViewHolder>() {
 
     class EditCategoriesViewHolder(ItemView: View, categories: ArrayList<Categories>, private val budgetsVM: BudgetsViewModel, private val adapter: EditCategoriesAdapter) : RecyclerView.ViewHolder(ItemView) {
-        val categoryConstraint: ConstraintLayout = itemView.findViewById(R.id.categoryConstraint)
+        val categoryConstraint: ConstraintLayout = itemView.findViewById(R.id.cnst_Category)
         val btnDeleteCategory: Button = itemView.findViewById(R.id.btnDeleteCategory)
         val btnAddSubcategory: Button = itemView.findViewById(R.id.btnAddSubCategory)
         val inputCategory: EditText = itemView.findViewById(R.id.inputCategory)

@@ -2,8 +2,6 @@ package com.example.newleaf2022.adapters
 
 import android.util.Log
 import android.view.LayoutInflater
-import java.math.BigDecimal
-import java.math.RoundingMode
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
@@ -16,87 +14,21 @@ import com.example.newleaf2022.R
 import com.example.newleaf2022.models.dataclasses.Categories
 import com.example.newleaf2022.models.Model
 import com.example.newleaf2022.viewmodels.BudgetsViewModel
+import org.w3c.dom.Text
 
 class CategoryAdapter(private val categories: ArrayList<Categories>, private val budgetsVM: BudgetsViewModel, private val model: Model, private val readyToAssignTV: TextView) : RecyclerView.Adapter<CategoryAdapter.BudgetsViewHolder>() {
 
     class BudgetsViewHolder(ItemView: View, listener: OnTextChangedListener, budgetsVM: BudgetsViewModel, categories: ArrayList<Categories>, model: Model, unassignedTV: TextView) : RecyclerView.ViewHolder(ItemView) {
-        val mainCategory: TextView = itemView.findViewById(R.id.mainCategoryTV)
-        val categoriesConstraint: ConstraintLayout = itemView.findViewById(R.id.categoryConstraint)
-        val subcategoriesConstraint: LinearLayout = itemView.findViewById(R.id.subcategoriesLinearLayout)
 
-        val subcategory1: ConstraintLayout = itemView.findViewById(R.id.subcategory1)
-        val subcategory2: ConstraintLayout = itemView.findViewById(R.id.subcategory2)
-        val subcategory3: ConstraintLayout = itemView.findViewById(R.id.subcategory3)
-        val subcategory4: ConstraintLayout = itemView.findViewById(R.id.subcategory4)
-        val subcategory5: ConstraintLayout = itemView.findViewById(R.id.subcategory5)
-        val subcategory6: ConstraintLayout = itemView.findViewById(R.id.subcategory6)
-        val subcategory7: ConstraintLayout = itemView.findViewById(R.id.subcategory7)
-        val subcategory8: ConstraintLayout = itemView.findViewById(R.id.subcategory8)
-        val subcategory9: ConstraintLayout = itemView.findViewById(R.id.subcategory9)
-        val subcategory10: ConstraintLayout = itemView.findViewById(R.id.subcategory10)
-        val subcategory11: ConstraintLayout = itemView.findViewById(R.id.subcategory11)
-        val subcategory12: ConstraintLayout = itemView.findViewById(R.id.subcategory12)
-        val subcategory13: ConstraintLayout = itemView.findViewById(R.id.subcategory13)
-        val subcategory14: ConstraintLayout = itemView.findViewById(R.id.subcategory14)
-        val subcategory15: ConstraintLayout = itemView.findViewById(R.id.subcategory15)
-        val subcategory16: ConstraintLayout = itemView.findViewById(R.id.subcategory16)
+        val categoryConstraint: ConstraintLayout = itemView.findViewById(R.id.cnst_Category)
+        val categoryTV: TextView = itemView.findViewById(R.id.tv_Category)
+        val totalAssigned: TextView = itemView.findViewById(R.id.tv_Assigned)
+        val totalAvailable: TextView = itemView.findViewById(R.id.tv_Available)
 
-        val sub1: TextView = itemView.findViewById(R.id.sub1)
-        val sub2: TextView = itemView.findViewById(R.id.sub2)
-        val sub3: TextView = itemView.findViewById(R.id.sub3)
-        val sub4: TextView = itemView.findViewById(R.id.sub4)
-        val sub5: TextView = itemView.findViewById(R.id.sub5)
-        val sub6: TextView = itemView.findViewById(R.id.sub6)
-        val sub7: TextView = itemView.findViewById(R.id.sub7)
-        val sub8: TextView = itemView.findViewById(R.id.sub8)
-        val sub9: TextView = itemView.findViewById(R.id.sub9)
-        val sub10: TextView = itemView.findViewById(R.id.sub10)
-        val sub11: TextView = itemView.findViewById(R.id.sub11)
-        val sub12: TextView = itemView.findViewById(R.id.sub12)
-        val sub13: TextView = itemView.findViewById(R.id.sub13)
-        val sub14: TextView = itemView.findViewById(R.id.sub14)
-        val sub15: TextView = itemView.findViewById(R.id.sub15)
-        val sub16: TextView = itemView.findViewById(R.id.sub16)
-
-        val totalAssigned: TextView = itemView.findViewById(R.id.outputTotalAssigned)
-        val totalAvailable: TextView = itemView.findViewById(R.id.outputTotalAvailable)
-
-        val assigned1: EditText = itemView.findViewById(R.id.assigned1)
-        val assigned2: EditText = itemView.findViewById(R.id.assigned2)
-        val assigned3: EditText = itemView.findViewById(R.id.assigned3)
-        val assigned4: EditText = itemView.findViewById(R.id.assigned4)
-        val assigned5: EditText = itemView.findViewById(R.id.assigned5)
-        val assigned6: EditText = itemView.findViewById(R.id.assigned6)
-        val assigned7: EditText = itemView.findViewById(R.id.assigned7)
-        val assigned8: EditText = itemView.findViewById(R.id.assigned8)
-        val assigned9: EditText = itemView.findViewById(R.id.assigned9)
-        val assigned10: EditText = itemView.findViewById(R.id.assigned10)
-        val assigned11: EditText = itemView.findViewById(R.id.assigned11)
-        val assigned12: EditText = itemView.findViewById(R.id.assigned12)
-        val assigned13: EditText = itemView.findViewById(R.id.assigned13)
-        val assigned14: EditText = itemView.findViewById(R.id.assigned14)
-        val assigned15: EditText = itemView.findViewById(R.id.assigned15)
-        val assigned16: EditText = itemView.findViewById(R.id.assigned16)
-
-        val available1: EditText = itemView.findViewById(R.id.available1)
-        val available2: EditText = itemView.findViewById(R.id.available2)
-        val available3: EditText = itemView.findViewById(R.id.available3)
-        val available4: EditText = itemView.findViewById(R.id.available4)
-        val available5: EditText = itemView.findViewById(R.id.available5)
-        val available6: EditText = itemView.findViewById(R.id.available6)
-        val available7: EditText = itemView.findViewById(R.id.available7)
-        val available8: EditText = itemView.findViewById(R.id.available8)
-        val available9: EditText = itemView.findViewById(R.id.available9)
-        val available10: EditText = itemView.findViewById(R.id.available10)
-        val available11: EditText = itemView.findViewById(R.id.available11)
-        val available12: EditText = itemView.findViewById(R.id.available12)
-        val available13: EditText = itemView.findViewById(R.id.available13)
-        val available14: EditText = itemView.findViewById(R.id.available14)
-        val available15: EditText = itemView.findViewById(R.id.available15)
-        val available16: EditText = itemView.findViewById(R.id.available16)
-
-        private val subAssignedValues = arrayListOf(assigned1, assigned2, assigned3, assigned4, assigned5, assigned6, assigned7, assigned8, assigned9, assigned10, assigned11, assigned12, assigned13, assigned14, assigned15, assigned16)
-        private val subAvailableValues = arrayListOf(available1, available2, available3, available4, available5, available6, available7, available8, available9, available10, available11, available12, available13, available14, available15, available16)
+        val subcategoryConstraint: ConstraintLayout = itemView.findViewById(R.id.cnst_Subcategory)
+        val subcategoryTV: TextView = itemView.findViewById(R.id.tv_Subcategory)
+        val subAssigned: EditText = itemView.findViewById(R.id.et_SubAssigned)
+        val subAvailable: EditText = itemView.findViewById(R.id.et_SubAvailable)
 
         init {
 
