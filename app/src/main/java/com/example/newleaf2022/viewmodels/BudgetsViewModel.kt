@@ -1,6 +1,11 @@
 package com.example.newleaf2022.viewmodels
 
+import android.view.View
+import android.widget.LinearLayout
+import androidx.appcompat.view.menu.MenuView
+import androidx.cardview.widget.CardView
 import androidx.lifecycle.ViewModel
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newleaf2022.models.dataclasses.Accounts
 import com.example.newleaf2022.models.dataclasses.Budgets
 import com.example.newleaf2022.models.dataclasses.Categories
@@ -10,6 +15,7 @@ import com.example.newleaf2022.models.Model
 class BudgetsViewModel : ViewModel() {
 
     private lateinit var currentBudget: Budgets
+    private lateinit var currentMonthlyBudget: ArrayList<Categories>
 
 
     fun updateModelBudget(model: Model) {
@@ -20,6 +26,10 @@ class BudgetsViewModel : ViewModel() {
     fun initializeBudget(model: Model) {
         model.initializeUser(1)
         currentBudget = model.getUser().getCurrentBudget()
+
+        // Getting current month
+        val currentMonth = 2
+
     }
 
     fun updateCategory(newCategory: Categories, position: Int, model: Model) {
@@ -39,6 +49,7 @@ class BudgetsViewModel : ViewModel() {
         currentBudget.setUnassigned(currentBudget.getUnassigned() + newAccount.getBalance())
         model.updateCurrentBudget(currentBudget)
     }
+
 
 
 }

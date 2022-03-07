@@ -5,6 +5,7 @@ import kotlin.collections.ArrayList
 data class Users(private var name: String,
                  private var password: String? = null) {
 
+
     private lateinit var budgets: ArrayList<Budgets>
     private lateinit var currentBudget: Budgets
 

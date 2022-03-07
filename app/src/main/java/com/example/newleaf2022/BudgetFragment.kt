@@ -1,15 +1,17 @@
 package com.example.newleaf2022
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newleaf2022.adapters.CategoryAdapter
 import com.example.newleaf2022.databinding.FragmentBudgetBinding
 import com.example.newleaf2022.viewmodels.BudgetsViewModel
+
+import java.util.*
 
 class BudgetFragment : Fragment() {
 
@@ -30,6 +32,10 @@ class BudgetFragment : Fragment() {
 
         // Displaying unassigned amount
         binding.outputTotalUnassigned.text = budgetsVM.getCurrentBudget().getUnassigned().toString()
+
+        // Displaying the proper budget depending on the date
+        val currentDate = Date()
+
 
         // Populating the recycler view
         var currentCategories = budgetsVM.getCurrentBudget().getCategories()
