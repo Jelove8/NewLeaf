@@ -3,7 +3,8 @@ package com.example.newleaf2022.models.dataclasses
 data class Categories(private var name: String?,
                       private var assigned: Double = 0.00,
                       private var available: Double = 0.00,
-                      private var transactions: ArrayList<Transactions>?
+                      private var transactions: ArrayList<Transactions>? = null,
+                      private var categoryType: Boolean = true  // True = category, False = subcategory
                       ) {
 
     private var subcategories: ArrayList<Categories> = arrayListOf()
@@ -54,6 +55,10 @@ data class Categories(private var name: String?,
     }
     fun getTransactions(): ArrayList<Transactions>? {
         return transactions
+    }
+
+    fun getCategoryType(): Boolean {
+        return categoryType
     }
 }
 

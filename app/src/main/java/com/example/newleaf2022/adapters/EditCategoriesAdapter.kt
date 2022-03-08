@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.newleaf2022.R
 import com.example.newleaf2022.models.dataclasses.Categories
 import com.example.newleaf2022.viewmodels.BudgetsViewModel
-
+/*
 class EditCategoriesAdapter(private val categories: ArrayList<Categories>, private val budgetsVM: BudgetsViewModel) : RecyclerView.Adapter<EditCategoriesAdapter.EditCategoriesViewHolder>() {
 
     class EditCategoriesViewHolder(ItemView: View, categories: ArrayList<Categories>, private val budgetsVM: BudgetsViewModel, private val adapter: EditCategoriesAdapter) : RecyclerView.ViewHolder(ItemView) {
@@ -158,4 +158,6 @@ class EditCategoriesAdapter(private val categories: ArrayList<Categories>, priva
     override fun getItemCount(): Int {
         return categories.size
     }
-}
+
+
+} */

@@ -9,6 +9,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newleaf2022.adapters.CategoryAdapter
 import com.example.newleaf2022.databinding.FragmentBudgetBinding
+import com.example.newleaf2022.models.dataclasses.Categories
 import com.example.newleaf2022.viewmodels.BudgetsViewModel
 
 import java.util.*
@@ -38,11 +39,24 @@ class BudgetFragment : Fragment() {
 
 
         // Populating the recycler view
-        var currentCategories = budgetsVM.getCurrentBudget().getCategories()
-        if (currentCategories.isNullOrEmpty()) {
-            currentCategories = arrayListOf()
+
+        // These are the arrays that will be passed into the recyclerview.
+        // The first array is a list of all categories and subcategories
+        // The second array is a list of integers that identify which indexes of allCategories contain categories
+        var allCategories = arrayListOf<Categories>()
+        var categoryPositions = arrayListOf<Int>()
+        var categoryCount = 0
+        for (category in budgetsVM.getCurrentMonthlyBudget()) {
+            allCategories.add(category)
+            categoryPositions.add(categoryCount)
+            categoryCount++
+            for (subcategory in category.getSubcategories()) {
+                allCategories.add(subcategory)
+                categoryCount++
+            }
         }
-        val newAdapter = CategoryAdapter(currentCategories, budgetsVM, mainActivity.model, binding.outputTotalUnassigned)
+
+        val newAdapter = CategoryAdapter(allCategories, categoryPositions, budgetsVM, binding.outputTotalUnassigned)
 
         binding.fragBudgetsRecycler.adapter = newAdapter
         newAdapter.setOnTextChangedListener(object: CategoryAdapter.OnTextChangedListener{

@@ -2,6 +2,7 @@ package com.example.newleaf2022
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -43,10 +44,11 @@ class MainActivity : AppCompatActivity() {
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
         // Initializing Model & ViewModel
         model = Model()
         budgetsVM  = ViewModelProvider(this)[BudgetsViewModel::class.java]
-        budgetsVM.initializeBudget(model)
+        budgetsVM.initializeUser(model)
 
 
         // Main Button Logic

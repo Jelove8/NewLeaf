@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.newleaf2022.adapters.EditCategoriesAdapter
 import com.example.newleaf2022.databinding.FragmentEditCategoriesBinding
 import com.example.newleaf2022.databinding.FragmentNewAccountBinding
 import com.example.newleaf2022.viewmodels.BudgetsViewModel
@@ -34,8 +33,7 @@ class EditCategoriesFragment : Fragment() {
         if (currentCategories.isNullOrEmpty()) {
             currentCategories = arrayListOf()
         }
-        val adapter = EditCategoriesAdapter(currentCategories, budgetsVM)
-        binding.fragEditCategoriesRecycler.adapter = adapter
+
 
 
 
@@ -61,7 +59,7 @@ class EditCategoriesFragment : Fragment() {
 
         binding.btnAddCategory.setOnClickListener {
             budgetsVM.getCurrentBudget().addEmptyCategory()
-            adapter.notifyDataSetChanged()
+
         }
 
     }

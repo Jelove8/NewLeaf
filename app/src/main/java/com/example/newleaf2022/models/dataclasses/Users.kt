@@ -7,20 +7,20 @@ data class Users(private var name: String,
 
 
     private lateinit var budgets: ArrayList<Budgets>
-    private lateinit var currentBudget: Budgets
 
     fun getBudget(index: Int): Budgets {
         return budgets[index]
     }
     fun getCurrentBudget(): Budgets {
-        return currentBudget
+        return budgets[0]
     }
+
 
     fun setBudgets(newBudgets: ArrayList<Budgets>) {
         budgets = newBudgets
     }
     fun setCurrentBudget(newBudget: Budgets) {
-        currentBudget = newBudget
+        budgets[0] = newBudget
     }
 
     fun getName(): String {
@@ -36,5 +36,6 @@ data class Users(private var name: String,
     fun setPassword(newPassword: String) {
         password = newPassword
     }
+
 
 }

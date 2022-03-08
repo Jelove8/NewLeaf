@@ -1,6 +1,9 @@
 package com.example.newleaf2022.models
 
+import android.util.Log
 import com.example.newleaf2022.models.dataclasses.Budgets
+import com.example.newleaf2022.models.dataclasses.Categories
+import com.example.newleaf2022.models.dataclasses.FiscalYear
 import com.example.newleaf2022.models.dataclasses.Users
 import com.google.firebase.database.FirebaseDatabase
 
@@ -30,10 +33,15 @@ class Model {
         return currentUser
     }
 
+    fun getCurrentBudget(): Budgets {
+        return currentUser.getCurrentBudget()
+    }
 
 
     fun updateCurrentBudget(newBudget: Budgets) {
         currentUser.setCurrentBudget(newBudget)
     }
+
+
 
 }
