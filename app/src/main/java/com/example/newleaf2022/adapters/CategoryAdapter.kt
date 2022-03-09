@@ -1,5 +1,7 @@
 package com.example.newleaf2022.adapters
 
+import android.annotation.SuppressLint
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,10 +15,11 @@ import com.example.newleaf2022.R
 import com.example.newleaf2022.models.dataclasses.Categories
 import com.example.newleaf2022.viewmodels.BudgetsViewModel
 
-class CategoryAdapter(private val allCategories: ArrayList<Categories>, private val categoryPositions: ArrayList<Int>, private val budgetsVM: BudgetsViewModel, private val readyToAssignTV: TextView) : RecyclerView.Adapter<CategoryAdapter.BudgetsViewHolder>() {
+class CategoryAdapter(private var allCategories: ArrayList<Categories>, private val categoryPositions: ArrayList<Int>, private val budgetsVM: BudgetsViewModel, private val readyToAssignTV: TextView) : RecyclerView.Adapter<CategoryAdapter.BudgetsViewHolder>() {
 
-    class BudgetsViewHolder(ItemView: View, listener: OnTextChangedListener, categoryPositions: ArrayList<Int>, budgetsVM: BudgetsViewModel, allCategories: ArrayList<Categories>, unassignedTV: TextView, adapter: CategoryAdapter) : RecyclerView.ViewHolder(ItemView) {
+    class BudgetsViewHolder(ItemView: View, budgetsVM: BudgetsViewModel, allCategories: ArrayList<Categories>, unassignedTV: TextView, adapter: CategoryAdapter) : RecyclerView.ViewHolder(ItemView) {
 
+        var initState = true
         val categoryConstraint: ConstraintLayout = itemView.findViewById(R.id.cnst_Category)
         val categoryTV: TextView = itemView.findViewById(R.id.tv_Category)
         val totalAssigned: TextView = itemView.findViewById(R.id.tv_Assigned)
@@ -28,65 +31,48 @@ class CategoryAdapter(private val allCategories: ArrayList<Categories>, private 
         val subAvailable: EditText = itemView.findViewById(R.id.et_SubAvailable)
 
         init {
-            var initialState = 0
-
-            // Subcategory Assigned Value -- Text Changed Listener
+            // Populating current viewholder's views using data from Model
             subAssigned.doAfterTextChanged {
-                // Getting a list of strings
+                if (!initState) {
+                    // Getting the user's input
+                    val newAssignedValue =
+                        if (subAssigned.text.isNullOrEmpty()) { 0.00 }
+                        else { subAssigned.text.toString().toDouble() }
 
-                if (initialState != 0) {
-                        val newStrings =
-                        if (subAssigned.text.isNullOrEmpty()) {
-                            budgetsVM.editSubassigned(budgetsVM.getCurrentBudget().getUnassigned(),0.00, allCategories[bindingAdapterPosition])
-                        }
-                        else {
-                            budgetsVM.editSubassigned(budgetsVM.getCurrentBudget().getUnassigned(),subAssigned.text.toString().toDouble(), allCategories[bindingAdapterPosition])
-                        }
-                    // newStrings[i]
-                    // [0] = new unassigned value,
-                    // [1] = new subAvailable value,
-                    // [2] = new total assigned value,
-                    // [3] new total available value
+                    // Getting a list of related values after recalculating based on the newAssignedValue
+                    val newValues = budgetsVM.editSubassigned(newAssignedValue, allCategories[bindingAdapterPosition])[1]
 
-                    // Updating unassigned textview & subcategory's available textview
-                    unassignedTV.text = newStrings[0]
-                            subAvailable.setText(newStrings[1])
-
-                        // A method to get the index of the previous category (aka, the category this subcategory falls under
-                        val distancesFromCurrentPosition = arrayListOf<Int>()
-                    for (item in categoryPositions) {
-                        if ((bindingAdapterPosition - item) > 0) {
-                            distancesFromCurrentPosition.add(bindingAdapterPosition - item)
+                    // Getting the index ( allCategories[] ) of the category this subcategory falls under
+                    var targetCategoryIndex = 0
+                    for (i in bindingAdapterPosition downTo 0) {
+                        if (allCategories[i].getCategoryType()) {
+                            targetCategoryIndex = i
                         }
                     }
-                        val categoryIndex = distancesFromCurrentPosition.minByOrNull{ it }
-                    // Updating the assigned & available textviews of the category
-                    allCategories[categoryIndex!!].setAssigned(newStrings[2].toDouble())
-                            allCategories[categoryIndex].setAvailable(newStrings[3].toDouble())
-                            adapter.notifyItemChanged(categoryIndex)
+
+                    // Updating allCategories with the newValues
+                    allCategories[bindingAdapterPosition].setAvailable(newValues[1])
+                    allCategories[targetCategoryIndex].setAssigned(newValues[2])
+                    allCategories[targetCategoryIndex].setAvailable(newValues[3])
+
+                    // Updating relevant views
+                    subAvailable.setText(newValues[1].toString())
+                    adapter.notifyItemChanged(targetCategoryIndex)
+                    unassignedTV.text = newValues[0].toString()
+
                 }
-                initialState = 1
             }
-
         }
+
     }
 
-    private lateinit var textChangeListener: OnTextChangedListener
-    interface OnTextChangedListener {
-        fun onTextChanged(position: Int)
-    }
-    fun setOnTextChangedListener(listener: OnTextChangedListener) {
-        textChangeListener = listener
-    }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryAdapter.BudgetsViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BudgetsViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.viewholder_categories, parent, false)
 
-        return CategoryAdapter.BudgetsViewHolder(
+        return BudgetsViewHolder(
             view,
-            textChangeListener,
-            categoryPositions,
             budgetsVM,
             allCategories,
             readyToAssignTV,
@@ -94,28 +80,33 @@ class CategoryAdapter(private val allCategories: ArrayList<Categories>, private 
         )
     }
 
-    override fun onBindViewHolder(holder: CategoryAdapter.BudgetsViewHolder, position: Int) {
-
+    override fun onBindViewHolder(holder: BudgetsViewHolder, position: Int) {
         val currentItem = allCategories[position]
 
-        // If the current item is a category...
+        // Populating unassigned, category, and subcategory views
         if (currentItem.getCategoryType()) {
+            // If the current item is a category...
             holder.subcategoryConstraint.visibility = View.GONE
             holder.categoryTV.text = currentItem.getName()
             holder.totalAssigned.text = currentItem.getAssigned().toString()
             holder.totalAvailable.text = currentItem.getAvailable().toString()
         }
-        // Else if the current item is a subcategory...
         else {
+            // Else if the current item is a subcategory...
             holder.categoryConstraint.visibility = View.GONE
             holder.subcategoryTV.text = currentItem.getName()
             holder.subAssigned.setText(currentItem.getAssigned().toString())
             holder.subAvailable.setText(currentItem.getAvailable().toString())
         }
 
+        // The doAfterTextChange() of BudgetsViewHolder is now functional
+        holder.initState = false
+
     }
 
     override fun getItemCount(): Int {
         return allCategories.size
     }
+
+
 }

@@ -67,12 +67,11 @@ class MockDatabase {
         categoryC2.setSubcategories(arrayListOf(subcategoryC3, subcategoryC4))
         categoryC3.setSubcategories(arrayListOf(subcategoryC5, subcategoryC6))
 
-        budget0.setCategories(arrayListOf(category1, category2, category3))
+        budget0.setMainCategories(arrayListOf(category1, category2, category3))
         budget0.setAccounts(arrayListOf(account1, account2))
         budget0.setTransactions(arrayListOf())
 
-        val fiscalYear2022 = FiscalYear(2022, arrayListOf(arrayListOf(categoryB1, categoryB2, categoryB3),arrayListOf(categoryB1, categoryB2, categoryB3),arrayListOf(category1, category2, category3),arrayListOf(categoryC1, categoryC2, categoryC3),arrayListOf(categoryB1, categoryB2, categoryB3), arrayListOf(), arrayListOf(), arrayListOf(), arrayListOf(), arrayListOf(), arrayListOf() ,
-            arrayListOf()))
+        val fiscalYear2022 = FiscalYear(2022, arrayListOf(arrayListOf(categoryB1, categoryB2, categoryB3),arrayListOf(categoryB1, categoryB2, categoryB3),arrayListOf(category1, category2, category3),arrayListOf(categoryC1, categoryC2, categoryC3),arrayListOf(), arrayListOf(), arrayListOf(), arrayListOf(), arrayListOf(), arrayListOf(), arrayListOf() , arrayListOf()))
         budget0.addYearlyBudget(fiscalYear2022)
 
 

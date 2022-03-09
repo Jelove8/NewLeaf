@@ -34,36 +34,13 @@ class BudgetFragment : Fragment() {
         // Displaying unassigned amount
         binding.outputTotalUnassigned.text = budgetsVM.getCurrentBudget().getUnassigned().toString()
 
-        // Displaying the proper budget depending on the date
-        val currentDate = Date()
-
 
         // Populating the recycler view
 
-        // These are the arrays that will be passed into the recyclerview.
-        // The first array is a list of all categories and subcategories
-        // The second array is a list of integers that identify which indexes of allCategories contain categories
-        var allCategories = arrayListOf<Categories>()
-        var categoryPositions = arrayListOf<Int>()
-        var categoryCount = 0
-        for (category in budgetsVM.getCurrentMonthlyBudget()) {
-            allCategories.add(category)
-            categoryPositions.add(categoryCount)
-            categoryCount++
-            for (subcategory in category.getSubcategories()) {
-                allCategories.add(subcategory)
-                categoryCount++
-            }
-        }
-
-        val newAdapter = CategoryAdapter(allCategories, categoryPositions, budgetsVM, binding.outputTotalUnassigned)
+        val newAdapter = CategoryAdapter(budgetsVM.getAllCategories(), budgetsVM.getCategoryPositions(), budgetsVM, binding.outputTotalUnassigned)
 
         binding.fragBudgetsRecycler.adapter = newAdapter
-        newAdapter.setOnTextChangedListener(object: CategoryAdapter.OnTextChangedListener{
-            override fun onTextChanged(position: Int) {
 
-            }
-        })
 
 
 

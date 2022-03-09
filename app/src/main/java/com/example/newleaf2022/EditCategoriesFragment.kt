@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newleaf2022.databinding.FragmentEditCategoriesBinding
-import com.example.newleaf2022.databinding.FragmentNewAccountBinding
 import com.example.newleaf2022.viewmodels.BudgetsViewModel
 
 class EditCategoriesFragment : Fragment() {
@@ -29,7 +28,7 @@ class EditCategoriesFragment : Fragment() {
         val budgetsVM: BudgetsViewModel by activityViewModels()
 
         // Populating the recycler view
-        var currentCategories = budgetsVM.getCurrentBudget().getCategories()
+        var currentCategories = budgetsVM.getCurrentBudget().getMainCategories()
         if (currentCategories.isNullOrEmpty()) {
             currentCategories = arrayListOf()
         }
@@ -41,7 +40,7 @@ class EditCategoriesFragment : Fragment() {
 
         binding.btnConfirmEdits.setOnClickListener {
             // Deleting categories & subcategories with empty names
-            for ((i,item) in budgetsVM.getCurrentBudget().getCategories().withIndex()) {
+            for ((i,item) in budgetsVM.getCurrentBudget().getMainCategories().withIndex()) {
                 if (item.getName().equals(null) || item.getName().equals("")) {
                     budgetsVM.getCurrentBudget().removeCategory(i)
                 }

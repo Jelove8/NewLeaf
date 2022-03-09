@@ -5,7 +5,7 @@ data class Budgets(private var name: String,
                    private var yearlyBudgets: ArrayList<FiscalYear> = arrayListOf()
                    ) {
 
-    private lateinit var categories: ArrayList<Categories>
+    private lateinit var mainCategories: ArrayList<Categories>
     private lateinit var accounts: ArrayList<Accounts>
     private lateinit var transactions: ArrayList<Transactions>
 
@@ -30,25 +30,25 @@ data class Budgets(private var name: String,
         return unassigned
     }
 
-    fun setCategories(newCategories: ArrayList<Categories>) {
-        categories = newCategories
+    fun setMainCategories(newCategories: ArrayList<Categories>) {
+        mainCategories = newCategories
     }
-    fun getCategories(): ArrayList<Categories> {
-        return categories
+    fun getMainCategories(): ArrayList<Categories> {
+        return mainCategories
     }
     fun addEmptyCategory() {
-        categories.add(0,Categories(""))
+        mainCategories.add(0,Categories(""))
     }
     fun removeCategory(position: Int) {
-        categories.removeAt(position)
+        mainCategories.removeAt(position)
     }
     fun removeSubcategory(categoryPosition: Int, subcategoryPosition: Int) {
-        categories[categoryPosition].getSubcategories().removeAt(subcategoryPosition)
+        mainCategories[categoryPosition].getSubcategories().removeAt(subcategoryPosition)
     }
     fun editCategories(newCategory: Categories, oldCategory: Categories) {
-        for ((i,item) in categories.withIndex()) {
+        for ((i,item) in mainCategories.withIndex()) {
             if (item == oldCategory) {
-                categories[i] = newCategory
+                mainCategories[i] = newCategory
             }
         }
     }
