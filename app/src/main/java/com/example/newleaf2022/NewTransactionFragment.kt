@@ -66,6 +66,7 @@ class NewTransactionFragment : Fragment() {
             }
 
             // Adding transaction to the appropriate subcategory's list of transactions
+            /*
             for (category in budgetsVM.getCurrentBudget().getMainCategories()) {
                 for (subcategory in category.getSubcategories()) {
                     if (newSubcategory == subcategory.getName()) {
@@ -73,7 +74,7 @@ class NewTransactionFragment : Fragment() {
                     }
                 }
             }
-
+*/
 
         }
 

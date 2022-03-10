@@ -67,7 +67,6 @@ class MockDatabase {
         categoryC2.setSubcategories(arrayListOf(subcategoryC3, subcategoryC4))
         categoryC3.setSubcategories(arrayListOf(subcategoryC5, subcategoryC6))
 
-        budget0.setMainCategories(arrayListOf(category1, category2, category3))
         budget0.setAccounts(arrayListOf(account1, account2))
         budget0.setTransactions(arrayListOf())
 

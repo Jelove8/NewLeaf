@@ -28,7 +28,7 @@ class EditCategoriesFragment : Fragment() {
         val budgetsVM: BudgetsViewModel by activityViewModels()
 
         // Populating the recycler view
-        var currentCategories = budgetsVM.getCurrentBudget().getMainCategories()
+        var currentCategories = budgetsVM.getCurrentMonthlyBudget()
         if (currentCategories.isNullOrEmpty()) {
             currentCategories = arrayListOf()
         }
@@ -40,14 +40,14 @@ class EditCategoriesFragment : Fragment() {
 
         binding.btnConfirmEdits.setOnClickListener {
             // Deleting categories & subcategories with empty names
-            for ((i,item) in budgetsVM.getCurrentBudget().getMainCategories().withIndex()) {
+            for ((i,item) in budgetsVM.getCurrentMonthlyBudget().withIndex()) {
                 if (item.getName().equals(null) || item.getName().equals("")) {
-                    budgetsVM.getCurrentBudget().removeCategory(i)
+
                 }
                 else {
                     for ((j,subcategory) in item.getSubcategories().withIndex()) {
                         if (subcategory.getName().equals(null) || subcategory.getName().equals("")) {
-                            budgetsVM.getCurrentBudget().removeSubcategory(i,j)
+
                         }
                     }
                 }
@@ -57,7 +57,7 @@ class EditCategoriesFragment : Fragment() {
         }
 
         binding.btnAddCategory.setOnClickListener {
-            budgetsVM.getCurrentBudget().addEmptyCategory()
+
 
         }
 

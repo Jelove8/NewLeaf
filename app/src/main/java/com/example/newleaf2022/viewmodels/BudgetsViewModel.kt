@@ -1,5 +1,6 @@
 package com.example.newleaf2022.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.example.newleaf2022.models.dataclasses.Accounts
 import com.example.newleaf2022.models.dataclasses.Budgets
@@ -53,60 +54,46 @@ class BudgetsViewModel : ViewModel() {
 
 
 
-    fun editSubassigned(newAssigned: Double = 0.00, editSubcategory: Categories): ArrayList<ArrayList<Double>> {
+    fun editSubassigned(newAssigned: Double, targetCategory: Categories, targetSubcategory: Categories ): ArrayList<Double> {
 
+        // Getting old values necessary for calculations
         val oldUnassigned = getCurrentBudget().getUnassigned()
         var oldAssigned = 0.00
         var oldAvailable = 0.00
         var oldTotalAssigned = 0.00
         var oldTotalAvailable = 0.00
-
-        // Getting the old values of the category and subcategory to be affected
-        for (category in getCurrentMonthlyBudget()) {
-            for (subcategory in category.getSubcategories()) {
-                if (subcategory == editSubcategory) {
-                    oldAssigned = subcategory.getAssigned()
-                    oldAvailable = subcategory.getAvailable()
-                    oldTotalAssigned = category.getAssigned()
-                    oldTotalAvailable = category.getAvailable()
+        for (item in getAllCategories()) {
+            // If the item is a subcategory...
+            if (!item.getCategoryType()) {
+                // If this subcategory is the targetSubcategory
+                if (item == targetSubcategory) {
+                    oldAssigned = item.getAssigned()
+                    oldAvailable = item.getAvailable()
+                }
+            }
+            else {
+                // If the item is the targetCategory
+                if (item == targetCategory) {
+                    oldTotalAssigned = item.getAssigned()
+                    oldTotalAvailable = item.getAvailable()
                 }
             }
         }
-        val oldValues = arrayListOf(oldUnassigned, oldAvailable, oldTotalAssigned, oldTotalAvailable)
 
         // Creating the list of string that will be used to update the appropriate views and the Model
-        val newValues = arrayListOf<Double>()   // 0 = unassigned, 1 = subAvailable, 2 = totalAssigned, 3 = totalAvailable
+        val newValues = arrayListOf<Double>()   // 0 = unassigned, 1 = subAssigned, 2 = subAvailable, 3 = totalAssigned, 4 = totalAvailable
         newValues.add(oldUnassigned + oldAssigned - newAssigned)
-        newValues.add(oldAvailable - oldAssigned + newAssigned)
         newValues.add(newAssigned)
+        newValues.add(oldAvailable - oldAssigned + newAssigned)
+        newValues.add(oldTotalAssigned - oldAssigned + newAssigned)
         newValues.add(oldTotalAvailable - oldAssigned + newAssigned)
 
+        model.updateSubcategoryAssignedValue(newValues, targetCategory, targetSubcategory, currentMonthDisplay, currentFiscalYear)
 
-        return arrayListOf(oldValues, newValues)
+        return newValues
     }
 
-    fun updateSubcategoryAssignedValue(oldValues: ArrayList<Double>, newValues: ArrayList<Double>, targetCategoryIndex: Int, targetSubcategoryIndex: Int) {
 
-        // Tracking which category will be affected
-        lateinit var targetCategory: Categories
-        lateinit var targetSubcategory: Categories
-
-        var categoryCount = 0
-        for ((c, category) in getCurrentMonthlyBudget().withIndex()) {
-            if (categoryCount == targetCategoryIndex) {
-                targetCategory = getCurrentBudget().getMainCategories()[c]
-            }
-            categoryCount++
-
-            for ((s, _) in category.getSubcategories().withIndex()) {
-                if (categoryCount == targetSubcategoryIndex) {
-                    targetSubcategory = getCurrentBudget().getMainCategories()[s]
-                }
-                categoryCount++
-            }
-        }
-        model.updateSubcategoryAssignedValue(oldValues, newValues, targetCategory, targetSubcategory, currentMonthDisplay, currentFiscalYear)
-    }
 
 
 
@@ -124,12 +111,6 @@ class BudgetsViewModel : ViewModel() {
         currentMonthDisplay = 2
     }
 
-    fun updateCategory(newCategory: Categories, position: Int) {
-        // Updating unassigned value
-        getCurrentBudget().setUnassigned(getCurrentBudget().getUnassigned() + getCurrentBudget().getMainCategories()[position].getAssigned() - newCategory.getAssigned())
-        getCurrentBudget().editCategories(newCategory, getCurrentBudget().getMainCategories()[position])
-        model.updateCurrentBudget(getCurrentBudget())
-    }
 
 
     fun getCurrentBudget(): Budgets {

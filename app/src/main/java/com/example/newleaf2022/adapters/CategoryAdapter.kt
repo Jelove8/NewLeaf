@@ -39,9 +39,6 @@ class CategoryAdapter(private var allCategories: ArrayList<Categories>, private 
                         if (subAssigned.text.isNullOrEmpty()) { 0.00 }
                         else { subAssigned.text.toString().toDouble() }
 
-                    // Getting a list of related values after recalculating based on the newAssignedValue
-                    val newValues = budgetsVM.editSubassigned(newAssignedValue, allCategories[bindingAdapterPosition])[1]
-
                     // Getting the index ( allCategories[] ) of the category this subcategory falls under
                     var targetCategoryIndex = 0
                     for (i in bindingAdapterPosition downTo 0) {
@@ -50,10 +47,16 @@ class CategoryAdapter(private var allCategories: ArrayList<Categories>, private 
                         }
                     }
 
+
+                    // Getting a list of related values after recalculating based on the newAssignedValue
+                    val newValues = budgetsVM.editSubassigned(newAssignedValue, allCategories[targetCategoryIndex], allCategories[bindingAdapterPosition])
+                    Log.d("newVals", newValues.toString())
+
+
                     // Updating allCategories with the newValues
-                    allCategories[bindingAdapterPosition].setAvailable(newValues[1])
-                    allCategories[targetCategoryIndex].setAssigned(newValues[2])
-                    allCategories[targetCategoryIndex].setAvailable(newValues[3])
+                    allCategories[bindingAdapterPosition].setAvailable(newValues[2])
+                    allCategories[targetCategoryIndex].setAssigned(newValues[3])
+                    allCategories[targetCategoryIndex].setAvailable(newValues[4   ])
 
                     // Updating relevant views
                     subAvailable.setText(newValues[1].toString())
