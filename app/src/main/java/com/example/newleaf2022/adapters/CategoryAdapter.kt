@@ -17,6 +17,7 @@ import com.example.newleaf2022.viewmodels.BudgetsViewModel
 
 class CategoryAdapter(private var allCategories: ArrayList<Categories>, private val categoryPositions: ArrayList<Int>, private val budgetsVM: BudgetsViewModel, private val readyToAssignTV: TextView) : RecyclerView.Adapter<CategoryAdapter.BudgetsViewHolder>() {
 
+    @SuppressLint("LongLogTag")
     class BudgetsViewHolder(ItemView: View, budgetsVM: BudgetsViewModel, allCategories: ArrayList<Categories>, unassignedTV: TextView, adapter: CategoryAdapter) : RecyclerView.ViewHolder(ItemView) {
 
         var initState = true
@@ -39,32 +40,38 @@ class CategoryAdapter(private var allCategories: ArrayList<Categories>, private 
                         if (subAssigned.text.isNullOrEmpty()) { 0.00 }
                         else { subAssigned.text.toString().toDouble() }
 
+
+
                     // Getting the index ( allCategories[] ) of the category this subcategory falls under
                     var targetCategoryIndex = 0
                     for (i in bindingAdapterPosition downTo 0) {
                         if (allCategories[i].getCategoryType()) {
                             targetCategoryIndex = i
+                            break
                         }
                     }
-
+                    Log.d("CategoryAdapter.BudgetsViewHolder.init", "targetCategory: ${allCategories[targetCategoryIndex]}")
+                    Log.d("CategoryAdapter.BudgetsViewHolder.init", "targetSubcategory: ${allCategories[bindingAdapterPosition]}")
 
                     // Getting a list of related values after recalculating based on the newAssignedValue
                     val newValues = budgetsVM.editSubassigned(newAssignedValue, allCategories[targetCategoryIndex], allCategories[bindingAdapterPosition])
-                    Log.d("newVals", newValues.toString())
-
+                    Log.d("CategoryAdapter.BudgetsViewHolder.init", "New Values { Unassigned: ${unassignedTV.text}, Sub Assigned: ${allCategories[bindingAdapterPosition].getAssigned()}, Sub Available: ${allCategories[bindingAdapterPosition].getAvailable()}, Category Assigned: ${allCategories[targetCategoryIndex].getAssigned()}, Category Available: ${allCategories[targetCategoryIndex].getAvailable()} }")
 
                     // Updating allCategories with the newValues
                     allCategories[bindingAdapterPosition].setAvailable(newValues[2])
                     allCategories[targetCategoryIndex].setAssigned(newValues[3])
-                    allCategories[targetCategoryIndex].setAvailable(newValues[4   ])
+                    allCategories[targetCategoryIndex].setAvailable(newValues[4])
 
                     // Updating relevant views
                     subAvailable.setText(newValues[1].toString())
                     adapter.notifyItemChanged(targetCategoryIndex)
                     unassignedTV.text = newValues[0].toString()
 
+                    // This outputs the values of the recently changed categories and subcategories
+
                 }
             }
+
         }
 
     }

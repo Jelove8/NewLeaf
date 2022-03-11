@@ -39,16 +39,16 @@ class MockDatabase {
 
 
     // Data for April
-    private val subcategoryC1 = Categories("Rent", 0.00, 0.00, null, false)
-    private val subcategoryC2 = Categories("Student Loans", 0.00, 0.00, null, false)
-    private val subcategoryC3 = Categories("Groceries", 0.00, 0.00, null, false)
-    private val subcategoryC4 = Categories("Gas", 0.00, 0.00, null, false)
-    private val subcategoryC5 = Categories("Toiletries", 0.00, 0.00, null, false)
-    private val subcategoryC6 = Categories("Clothes", 0.00, 0.00, null, false)
+    private val subcategoryC1 = Categories("Rent", 0.00, 1000.00, null, false)
+    private val subcategoryC2 = Categories("Student Loans", 0.00, 300.00, null, false)
+    private val subcategoryC3 = Categories("Groceries", 0.00, 200.00, null, false)
+    private val subcategoryC4 = Categories("Gas", 0.00, 120.00, null, false)
+    private val subcategoryC5 = Categories("Toiletries", 0.00, 30.00, null, false)
+    private val subcategoryC6 = Categories("Clothes", 0.00, 100.00, null, false)
 
-    private val categoryC1 = Categories("Savings", 0.00, 0.00)
-    private val categoryC2 = Categories("Frequent", 0.00, 0.00)
-    private val categoryC3 = Categories("Shopping", 0.00, 0.00)
+    private val categoryC1 = Categories("Savings", 0.00, 1300.00)
+    private val categoryC2 = Categories("Frequent", 0.00, 320.00)
+    private val categoryC3 = Categories("Shopping", 0.00, 1300.00)
 
 
 
