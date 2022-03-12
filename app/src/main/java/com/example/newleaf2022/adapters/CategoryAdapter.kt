@@ -63,7 +63,7 @@ class CategoryAdapter(private var allCategories: ArrayList<Categories>, private 
                     allCategories[targetCategoryIndex].setAvailable(newValues[4])
 
                     // Updating relevant views
-                    subAvailable.setText(newValues[1].toString())
+                    subAvailable.setText(newValues[1].toString()) 
                     adapter.notifyItemChanged(targetCategoryIndex)
                     unassignedTV.text = newValues[0].toString()
 

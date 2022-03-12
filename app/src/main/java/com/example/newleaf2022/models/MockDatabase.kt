@@ -19,7 +19,6 @@ class MockDatabase {
     private val category3 = Categories("Shopping", 130.00, 130.00)
 
     private val account1 = Accounts("Checkings", "Checkings", 3000.00)
-    private val account2 = Accounts("Credit", "Credit",  0.00)
 
     private val budget0 = Budgets("Test Budget", 1250.00)
 
@@ -67,7 +66,7 @@ class MockDatabase {
         categoryC2.setSubcategories(arrayListOf(subcategoryC3, subcategoryC4))
         categoryC3.setSubcategories(arrayListOf(subcategoryC5, subcategoryC6))
 
-        budget0.setAccounts(arrayListOf(account1, account2))
+        budget0.setAccounts(arrayListOf(account1))
         budget0.setTransactions(arrayListOf())
 
         val fiscalYear2022 = FiscalYear(2022, arrayListOf(arrayListOf(categoryB1, categoryB2, categoryB3),arrayListOf(categoryB1, categoryB2, categoryB3),arrayListOf(category1, category2, category3),arrayListOf(categoryC1, categoryC2, categoryC3),arrayListOf(), arrayListOf(), arrayListOf(), arrayListOf(), arrayListOf(), arrayListOf(), arrayListOf() , arrayListOf()))

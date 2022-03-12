@@ -1,5 +1,6 @@
 package com.example.newleaf2022.models
 
+import android.annotation.SuppressLint
 import android.util.Log
 import com.example.newleaf2022.models.dataclasses.Budgets
 import com.example.newleaf2022.models.dataclasses.Categories
@@ -44,8 +45,10 @@ class Model {
 
     // Category Adapter
 
+    @SuppressLint("LongLogTag")
     fun updateSubcategoryAssignedValue(
         newValues: ArrayList<Double>,
+        oldValues: ArrayList<Double>,
         targetCategory: Categories,
         targetSubcategory: Categories,
         currentMonthDisplay: Int,
@@ -63,22 +66,24 @@ class Model {
                     val targetMonthlyBudget = yearlyBudget.getMonthlyBudgets()[i]
                     // Tracking which category will be affected
                     for (category in targetMonthlyBudget) {
-                        if (category == targetCategory) {
-                            // Updating the category's assigned and available values
-                            category.setAssigned(newValues[3])
-                            category.setAvailable(newValues[4])
-
+                        if (category.getName() == targetCategory.getName()) {
+                            // Updating the category's available values
+                            category.setAvailable(category.getAvailable() - oldValues[4] + newValues[4])
+                            Log.d("Model.updateSubcategoryAssignedValue", "Month: $i, AvailableValue: ${category.getAvailable()}")
                             // Updating the targetSubcategory's assigned and available values
                             for (subcategory in category.getSubcategories()) {
-                                if (subcategory == targetSubcategory) {
-                                    subcategory.setAssigned(newValues[1])
-                                    subcategory.setAvailable(newValues[2])
+                                if (subcategory.getName() == targetSubcategory.getName()) {
+                                    subcategory.setAvailable(subcategory.getAvailable() - oldValues[1] + newValues[2])
+                                    break
                                 }
                             }
+                            break
                         }
                     }
+                    break
                 }
             }
         }
+        Log.d("Model.updateSubcategoryAssignedValue", "April.Savings.AvailableValue: ${getCurrentBudget().getYearlyBudgets()[0].getMonthlyBudgets()[3][0]}")
     }
 }

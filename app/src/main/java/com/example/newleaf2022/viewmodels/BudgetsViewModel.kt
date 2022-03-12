@@ -62,23 +62,21 @@ class BudgetsViewModel : ViewModel() {
         var oldAvailable = 0.00
         var oldTotalAssigned = 0.00
         var oldTotalAvailable = 0.00
-        for (item in getAllCategories()) {
-            // If the item is a subcategory...
-            if (!item.getCategoryType()) {
-                // If this subcategory is the targetSubcategory
-                if (item == targetSubcategory) {
-                    oldAssigned = item.getAssigned()
-                    oldAvailable = item.getAvailable()
+        for (category in getAllCategories()) {
+            if (category.getName() == targetCategory.getName()) {
+                oldTotalAssigned = category.getAssigned()
+                oldTotalAvailable = category.getAvailable()
+                for (subcategory in category.getSubcategories()) {
+                    if (subcategory.getName() == targetSubcategory.getName()) {
+                        oldAssigned = subcategory.getAssigned()
+                        oldAvailable = subcategory.getAvailable()
+                        break
+                    }
                 }
-            }
-            else {
-                // If the item is the targetCategory
-                if (item == targetCategory) {
-                    oldTotalAssigned = item.getAssigned()
-                    oldTotalAvailable = item.getAvailable()
-                }
+                break
             }
         }
+        val oldValues = arrayListOf(oldUnassigned, oldAssigned, oldAvailable, oldTotalAssigned, oldTotalAvailable)
 
         // Creating the list of string that will be used to update the appropriate views and the Model
         val newValues = arrayListOf<Double>()   // 0 = unassigned, 1 = subAssigned, 2 = subAvailable, 3 = totalAssigned, 4 = totalAvailable
@@ -88,7 +86,7 @@ class BudgetsViewModel : ViewModel() {
         newValues.add(oldTotalAssigned - oldAssigned + newAssigned)
         newValues.add(oldTotalAvailable - oldAssigned + newAssigned)
 
-        model.updateSubcategoryAssignedValue(newValues, targetCategory, targetSubcategory, currentMonthDisplay, currentFiscalYear)
+        model.updateSubcategoryAssignedValue(newValues, oldValues, targetCategory, targetSubcategory, currentMonthDisplay, currentFiscalYear)
 
         return newValues
     }
