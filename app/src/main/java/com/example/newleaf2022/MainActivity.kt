@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.View
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentContainerView
 import androidx.lifecycle.ViewModelProvider
 import com.example.newleaf2022.databinding.ActivityMainBinding
 import com.example.newleaf2022.models.Model
@@ -15,6 +16,7 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var model: Model
     private lateinit var budgetsVM: BudgetsViewModel
+    private lateinit var numpad: FragmentContainerView
 
     fun changeFragment(container: String, fragment: Fragment) {
         val fragmentManager = supportFragmentManager
@@ -29,6 +31,13 @@ class MainActivity : AppCompatActivity() {
             "sub" -> {
                 fragmentTransaction
                     .replace(R.id.subFragment, fragment)
+                    .addToBackStack(null)
+                    .commit()
+            }
+            "numpad" -> {
+                numpad.visibility = View.VISIBLE
+                fragmentTransaction
+                    .replace(R.id.numpadFragment, fragment)
                     .addToBackStack(null)
                     .commit()
             }
@@ -47,6 +56,7 @@ class MainActivity : AppCompatActivity() {
 
         // Initializing Model & ViewModel
         model = Model()
+        numpad = binding.numpadFragment
         budgetsVM  = ViewModelProvider(this)[BudgetsViewModel::class.java]
         budgetsVM.initializeUser(model)
 

@@ -37,7 +37,7 @@ class BudgetFragment : Fragment() {
 
         // Populating the recycler view
 
-        val newAdapter = CategoryAdapter(budgetsVM.getAllCategories(), budgetsVM.getCategoryPositions(), budgetsVM, binding.outputTotalUnassigned)
+        val newAdapter = CategoryAdapter(budgetsVM.getAllCategories(), mainActivity, budgetsVM.getCategoryPositions(), budgetsVM, binding.outputTotalUnassigned)
 
         binding.fragBudgetsRecycler.adapter = newAdapter
 
