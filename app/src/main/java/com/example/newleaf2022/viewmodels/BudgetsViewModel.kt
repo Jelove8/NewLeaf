@@ -2,10 +2,13 @@ package com.example.newleaf2022.viewmodels
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
+import com.example.newleaf2022.adapters.CategoryAdapter
 import com.example.newleaf2022.models.dataclasses.Accounts
 import com.example.newleaf2022.models.dataclasses.Budgets
 import com.example.newleaf2022.models.dataclasses.Categories
 import com.example.newleaf2022.models.Model
+import java.util.*
+import kotlin.collections.ArrayList
 
 class BudgetsViewModel : ViewModel() {
 
@@ -27,8 +30,34 @@ class BudgetsViewModel : ViewModel() {
         return monthlyBudget
     }
 
+    // Used in MainActivity
+    fun setCurrentDate(currentCalendar: Calendar) {
+        currentFiscalYear = currentCalendar.get(Calendar.YEAR)
+        currentMonthDisplay = currentCalendar.get(Calendar.MONTH)
+        Log.d("currentDate","Month: $currentMonthDisplay")
+        Log.d("currentDate","Year: $currentFiscalYear")
+    }
 
-    // Used in BudgetsFragment
+
+    // Display Monthly Budget
+    private lateinit var categoryAdapter: CategoryAdapter
+    private lateinit var selectedSubcategoryViewHolder: CategoryAdapter.BudgetsViewHolder
+    fun selectCategoryViewHolder(adapter: CategoryAdapter,categoryViewHolder: CategoryAdapter.BudgetsViewHolder) {
+        categoryAdapter = adapter
+        selectedSubcategoryViewHolder = categoryViewHolder
+    }
+    fun updateSubcategoryAssignedValue (newSubAssigned: Double) {
+        model.updateSubcategoryAssignedValue(newSubAssigned,selectedSubcategoryViewHolder.selectedCategory,selectedSubcategoryViewHolder.selectedSubcategory,currentMonthDisplay,currentFiscalYear, this)
+    }
+    fun updateCategoryRecyclerView(newValues: MutableList<Double>) {
+        selectedSubcategoryViewHolder.updateViewHolder(categoryAdapter)
+        categoryAdapter.updateUnassignedTV(newValues[0])
+    }
+
+
+
+
+    // Returns the current month's list of categories and subcategories (passed through a recycler view)
     fun getAllCategories(): ArrayList<Categories> {
         val allCategories = arrayListOf<Categories>()
         for (category in getCurrentMonthlyBudget()) {
@@ -51,46 +80,6 @@ class BudgetsViewModel : ViewModel() {
         }
         return categoryPositions
     }
-
-
-
-    fun editSubassigned(newAssigned: Double, targetCategory: Categories, targetSubcategory: Categories ): ArrayList<Double> {
-
-        // Getting old values necessary for calculations
-        val oldUnassigned = getCurrentBudget().getUnassigned()
-        var oldAssigned = 0.00
-        var oldAvailable = 0.00
-        var oldTotalAssigned = 0.00
-        var oldTotalAvailable = 0.00
-        for (category in getAllCategories()) {
-            if (category.getName() == targetCategory.getName()) {
-                oldTotalAssigned = category.getAssigned()
-                oldTotalAvailable = category.getAvailable()
-                for (subcategory in category.getSubcategories()) {
-                    if (subcategory.getName() == targetSubcategory.getName()) {
-                        oldAssigned = subcategory.getAssigned()
-                        oldAvailable = subcategory.getAvailable()
-                        break
-                    }
-                }
-                break
-            }
-        }
-        val oldValues = arrayListOf(oldUnassigned, oldAssigned, oldAvailable, oldTotalAssigned, oldTotalAvailable)
-
-        // Creating the list of string that will be used to update the appropriate views and the Model
-        val newValues = arrayListOf<Double>()   // 0 = unassigned, 1 = subAssigned, 2 = subAvailable, 3 = totalAssigned, 4 = totalAvailable
-        newValues.add(oldUnassigned + oldAssigned - newAssigned)
-        newValues.add(newAssigned)
-        newValues.add(oldAvailable - oldAssigned + newAssigned)
-        newValues.add(oldTotalAssigned - oldAssigned + newAssigned)
-        newValues.add(oldTotalAvailable - oldAssigned + newAssigned)
-
-        model.updateSubcategoryAssignedValue(newValues, oldValues, targetCategory, targetSubcategory, currentMonthDisplay, currentFiscalYear)
-
-        return newValues
-    }
-
 
 
 
@@ -119,10 +108,6 @@ class BudgetsViewModel : ViewModel() {
         getCurrentBudget().getAccounts().add(newAccount)
         getCurrentBudget().setUnassigned(getCurrentBudget().getUnassigned() + newAccount.getBalance())
         model.updateCurrentBudget(getCurrentBudget())
-    }
-
-    fun getUnassignedValue(): Double {
-        return getCurrentBudget().getUnassigned()
     }
 
 

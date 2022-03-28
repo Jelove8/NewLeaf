@@ -4,13 +4,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainerView
 import androidx.lifecycle.ViewModelProvider
 import com.example.newleaf2022.databinding.ActivityMainBinding
 import com.example.newleaf2022.models.Model
 import com.example.newleaf2022.viewmodels.BudgetsViewModel
+import java.text.SimpleDateFormat
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -24,29 +25,21 @@ class MainActivity : AppCompatActivity() {
         when (container) {
             "main" -> {
                 fragmentTransaction
-                    .replace(R.id.mainFragment, fragment)
-                    .addToBackStack(null)
-                    .commit()
-            }
-            "sub" -> {
-                fragmentTransaction
-                    .replace(R.id.subFragment, fragment)
+                    .replace(R.id.frag_main, fragment)
                     .addToBackStack(null)
                     .commit()
             }
             "numpad" -> {
                 numpad.visibility = View.VISIBLE
                 fragmentTransaction
-                    .replace(R.id.numpadFragment, fragment)
+                    .replace(R.id.frag_numpad, fragment)
                     .addToBackStack(null)
                     .commit()
             }
-            else -> {
-                fragmentTransaction
-                    .remove(fragment)
-                    .commit()
-            }
         }
+    }
+    fun hideNumpad() {
+        numpad.visibility = View.GONE
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,34 +47,35 @@ class MainActivity : AppCompatActivity() {
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Initializing Model & ViewModel
         model = Model()
-        numpad = binding.numpadFragment
+        numpad = binding.fragNumpad
         budgetsVM  = ViewModelProvider(this)[BudgetsViewModel::class.java]
         budgetsVM.initializeUser(model)
 
 
-        // Main Button Logic
-        binding.mainButton1.setOnClickListener {
+        budgetsVM.setCurrentDate(Calendar.getInstance())
+
+
+        // Button: Display monthly budget categories
+        binding.btnNavbar1.setOnClickListener {
             changeFragment("main", BudgetFragment())
-            binding.subFragment.visibility = View.GONE
         }
 
-        binding.mainButton2.setOnClickListener {
+        // Button: Display User Accounts
+        binding.btnNavbar2.setOnClickListener {
             changeFragment("main", AccountsFragment())
-            binding.subFragment.visibility = View.GONE
         }
 
-        binding.mainButton3.setOnClickListener {
-            binding.subFragment.visibility = View.VISIBLE
-            changeFragment("sub", NewTransactionFragment())
+        // Button: Display "Add New Transaction" Page
+        binding.btnNavbar3.setOnClickListener {
+            changeFragment("main", NewTransactionFragment())
         }
 
-        binding.mainButton4.setOnClickListener {
+        binding.btnNavbar4.setOnClickListener {
 
         }
 
-        binding.mainButton5.setOnClickListener {
+        binding.btnNavbar5.setOnClickListener {
 
         }
     }

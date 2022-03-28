@@ -6,13 +6,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
+import com.example.newleaf2022.adapters.CategoryAdapter
 import com.example.newleaf2022.databinding.FragmentNumpadBinding
+import com.example.newleaf2022.viewmodels.BudgetsViewModel
 
 
-class NumpadFragment : Fragment() {
+class NumpadFragment() : Fragment() {
 
     private var fragmentBinding: FragmentNumpadBinding? = null
     private val binding get() = fragmentBinding!!
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         fragmentBinding = FragmentNumpadBinding.inflate(inflater,container,false)
@@ -21,6 +25,7 @@ class NumpadFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val budgetsVM: BudgetsViewModel by activityViewModels()
 
         val inputIntegersList = mutableListOf<String>()
         fun updateOutput() {
@@ -102,12 +107,15 @@ class NumpadFragment : Fragment() {
                 updateOutput()
             }
         }
+
         binding.btnCancelNumpad.setOnClickListener {
             inputIntegersList.clear()
-            updateOutput()
+            (context as MainActivity).hideNumpad()
         }
         binding.btnConfirmNumpad.setOnClickListener {
-
+            val newSubAssigned = binding.tvNumpadValue.text.toString().toDouble()
+            budgetsVM.updateSubcategoryAssignedValue(newSubAssigned)
+            (context as MainActivity).hideNumpad()
         }
     }
 

@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -14,11 +13,17 @@ import com.example.newleaf2022.NumpadFragment
 import com.example.newleaf2022.R
 import com.example.newleaf2022.models.dataclasses.Categories
 import com.example.newleaf2022.viewmodels.BudgetsViewModel
+import java.util.*
+import kotlin.collections.ArrayList
 
 class CategoryAdapter(private var allCategories: ArrayList<Categories>, private val mainActivity: MainActivity, private val categoryPositions: ArrayList<Int>, private val budgetsVM: BudgetsViewModel, private val readyToAssignTV: TextView) : RecyclerView.Adapter<CategoryAdapter.BudgetsViewHolder>() {
 
+    fun updateUnassignedTV(newUnassigned: Double) {
+        readyToAssignTV.text = newUnassigned.toString()
+    }
+
     @SuppressLint("LongLogTag")
-    class BudgetsViewHolder(ItemView: View, mainActivity: MainActivity, budgetsVM: BudgetsViewModel, allCategories: ArrayList<Categories>, unassignedTV: TextView, adapter: CategoryAdapter) : RecyclerView.ViewHolder(ItemView) {
+    class BudgetsViewHolder(ItemView: View, mainActivity: MainActivity, budgetsVM: BudgetsViewModel, allCategories: ArrayList<Categories>, categoryPositions: ArrayList<Int>, unassignedTV: TextView, adapter: CategoryAdapter) : RecyclerView.ViewHolder(ItemView) {
 
         var initState = true
         val categoryConstraint: ConstraintLayout = itemView.findViewById(R.id.cnst_Category)
@@ -31,12 +36,36 @@ class CategoryAdapter(private var allCategories: ArrayList<Categories>, private 
         val subAssigned: TextView = itemView.findViewById(R.id.tv_SubAssigned)
         val subAvailable: TextView = itemView.findViewById(R.id.tv_SubAvailable)
 
+        private var previousCategoryPosition: Int = 0
+        lateinit var selectedSubcategory: Categories
+        lateinit var selectedCategory: Categories
+
         init {
+            for (index in categoryPositions) {
+                if (bindingAdapterPosition == index) {
+                    previousCategoryPosition = index
+                }
+            }
             subAssigned.setOnClickListener {
+                selectedSubcategory = allCategories[bindingAdapterPosition]
+                for (category in allCategories) {
+                    if (category.getCategoryType()) {
+                        for (subcategory in category.getSubcategories()) {
+                            if (subcategory == selectedSubcategory) {
+                                selectedCategory = category
+                            }
+                        }
+                    }
+                }
                 mainActivity.changeFragment("numpad", NumpadFragment())
+                budgetsVM.selectCategoryViewHolder(adapter, this)
             }
         }
 
+        fun updateViewHolder(adapter: CategoryAdapter) {
+            adapter.notifyItemChanged(bindingAdapterPosition)
+            adapter.notifyItemChanged(previousCategoryPosition)
+        }
 
     }
 
@@ -50,6 +79,7 @@ class CategoryAdapter(private var allCategories: ArrayList<Categories>, private 
             mainActivity,
             budgetsVM,
             allCategories,
+            categoryPositions,
             readyToAssignTV,
             this
         )
