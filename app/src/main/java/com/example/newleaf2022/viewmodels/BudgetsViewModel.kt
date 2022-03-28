@@ -18,8 +18,8 @@ class BudgetsViewModel : ViewModel() {
     // 0 = Jan, 1 = Feb, ... 11 = Dec
 
     // General Functions
-    fun getCurrentMonthlyBudget(): ArrayList<Categories> {
-        var monthlyBudget = arrayListOf<Categories>()
+    fun getCurrentMonthlyBudget(): MutableList<Categories> {
+        var monthlyBudget = mutableListOf<Categories>()
         // Looping through all items within yearlyBudgets, until the corresponding FiscalYear object is found
         for (item in model.getCurrentBudget().getYearlyBudgets()) {
             if (item.getYear() == currentFiscalYear) {
@@ -82,8 +82,8 @@ class BudgetsViewModel : ViewModel() {
 
 
     // Returns the current month's list of categories and subcategories (passed through a recycler view)
-    fun getAllCategories(): ArrayList<Categories> {
-        val allCategories = arrayListOf<Categories>()
+    fun getAllCategories(): MutableList<Categories> {
+        val allCategories = mutableListOf<Categories>()
         for (category in getCurrentMonthlyBudget()) {
             allCategories.add(category)
             for (subcategory in category.getSubcategories()) {
@@ -92,8 +92,8 @@ class BudgetsViewModel : ViewModel() {
         }
         return allCategories
     }
-    fun getCategoryPositions(): ArrayList<Int> {
-        val categoryPositions = arrayListOf<Int>()
+    fun getCategoryPositions(): MutableList<Int> {
+        val categoryPositions = mutableListOf<Int>()
         var categoryCount = 0
         for (category in getCurrentMonthlyBudget()) {
             categoryPositions.add(categoryCount)

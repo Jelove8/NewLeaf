@@ -1,8 +1,6 @@
 package com.example.newleaf2022.models
 
-import android.annotation.SuppressLint
 import android.util.Log
-import com.example.newleaf2022.adapters.CategoryAdapter
 import com.example.newleaf2022.models.dataclasses.Budgets
 import com.example.newleaf2022.models.dataclasses.Categories
 import com.example.newleaf2022.models.dataclasses.Users
@@ -19,8 +17,8 @@ class Model {
         when (type) {
             0 -> {
                 val guestUser = Users("Guest User")
-                guestUser.setBudgets(arrayListOf(Budgets("Guest Budget")))
-                guestUser.setCurrentBudget(guestUser.getBudget(0))
+                guestUser.setUserBudget(mutableListOf(Budgets("Guest Budget")))
+                guestUser.setUserCurrentBudget(guestUser.getUserBudget(0))
                 currentUser = guestUser
             }
             1 -> {
@@ -36,12 +34,12 @@ class Model {
     }
 
     fun getCurrentBudget(): Budgets {
-        return currentUser.getCurrentBudget()
+        return currentUser.getUserCurrentBudget()
     }
 
 
     fun updateCurrentBudget(newBudget: Budgets) {
-        currentUser.setCurrentBudget(newBudget)
+        currentUser.setUserCurrentBudget(newBudget)
     }
 
 
@@ -105,7 +103,6 @@ class Model {
                         Log.d("meow",i.toString())
                         for (category in fiscalYear.getMonthlyBudgets()[i]) {
                             if (category.getName() == targetCategory.getName()) {
-                                category.setAssigned(category.getAssigned() - oldTotalAssigned + newTotalAssigned)
                                 category.setAvailable(category.getAvailable() - oldTotalAssigned + newTotalAssigned)
                                 for (subcategory in category.getSubcategories()) {
                                     if (subcategory.getName() == targetSubcategory.getName()) {

@@ -2,13 +2,13 @@ package com.example.newleaf2022.models.dataclasses
 
 data class Budgets(private var name: String,
                    private var unassigned: Double = 0.00,
-                   private var yearlyBudgets: ArrayList<FiscalYear> = arrayListOf()
+                   private var yearlyBudgets: MutableList<FiscalYear> = mutableListOf()
                    ) {
 
-    private lateinit var accounts: ArrayList<Accounts>
-    private lateinit var transactions: ArrayList<Transactions>
+    private lateinit var accounts: MutableList<Accounts>
+    private lateinit var transactions: MutableList<Transactions>
 
-    fun getYearlyBudgets(): ArrayList<FiscalYear> {
+    fun getYearlyBudgets(): MutableList<FiscalYear> {
         return yearlyBudgets
     }
     fun addYearlyBudget(newYearlyBudgets: FiscalYear) {
@@ -29,19 +29,19 @@ data class Budgets(private var name: String,
         return unassigned
     }
 
-    fun setAccounts(newAccounts: ArrayList<Accounts>) {
+    fun setAccounts(newAccounts: MutableList<Accounts>) {
         accounts = newAccounts
     }
 
-    fun getAccounts(): ArrayList<Accounts> {
+    fun getAccounts(): MutableList<Accounts> {
         return accounts
     }
 
-    fun setTransactions(newTransactions: ArrayList<Transactions>) {
+    fun setTransactions(newTransactions: MutableList<Transactions>) {
         transactions = newTransactions
     }
 
-    fun getTransactions(): ArrayList<Transactions> {
+    fun getTransactions(): MutableList<Transactions> {
         return transactions
     }
 }

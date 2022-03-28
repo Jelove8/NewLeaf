@@ -54,27 +54,27 @@ class MockDatabase {
 
     fun getMockUser(): Users {
 
-        category1.setSubcategories(arrayListOf(subcategory1, subcategory2))
-        category2.setSubcategories(arrayListOf(subcategory3, subcategory4))
-        category3.setSubcategories(arrayListOf(subcategory5, subcategory6))
+        category1.setSubcategories(mutableListOf(subcategory1, subcategory2))
+        category2.setSubcategories(mutableListOf(subcategory3, subcategory4))
+        category3.setSubcategories(mutableListOf(subcategory5, subcategory6))
 
-        categoryB1.setSubcategories(arrayListOf(subcategoryB1, subcategoryB2))
-        categoryB2.setSubcategories(arrayListOf(subcategoryB3, subcategoryB4))
-        categoryB3.setSubcategories(arrayListOf(subcategoryB5, subcategoryB6))
+        categoryB1.setSubcategories(mutableListOf(subcategoryB1, subcategoryB2))
+        categoryB2.setSubcategories(mutableListOf(subcategoryB3, subcategoryB4))
+        categoryB3.setSubcategories(mutableListOf(subcategoryB5, subcategoryB6))
 
-        categoryC1.setSubcategories(arrayListOf(subcategoryC1, subcategoryC2))
-        categoryC2.setSubcategories(arrayListOf(subcategoryC3, subcategoryC4))
-        categoryC3.setSubcategories(arrayListOf(subcategoryC5, subcategoryC6))
+        categoryC1.setSubcategories(mutableListOf(subcategoryC1, subcategoryC2))
+        categoryC2.setSubcategories(mutableListOf(subcategoryC3, subcategoryC4))
+        categoryC3.setSubcategories(mutableListOf(subcategoryC5, subcategoryC6))
 
-        budget0.setAccounts(arrayListOf(account1))
-        budget0.setTransactions(arrayListOf())
+        budget0.setAccounts(mutableListOf(account1))
+        budget0.setTransactions(mutableListOf())
 
-        val fiscalYear2022 = FiscalYear(2022, arrayListOf(arrayListOf(categoryB1, categoryB2, categoryB3),arrayListOf(categoryB1, categoryB2, categoryB3),arrayListOf(category1, category2, category3),arrayListOf(categoryC1, categoryC2, categoryC3)))
+        val fiscalYear2022 = FiscalYear(2022, mutableListOf(arrayListOf(categoryB1, categoryB2, categoryB3),mutableListOf(categoryB1, categoryB2, categoryB3),mutableListOf(category1, category2, category3),mutableListOf(categoryC1, categoryC2, categoryC3)))
         budget0.addYearlyBudget(fiscalYear2022)
 
 
-        user0.setBudgets(arrayListOf(budget0))
-        user0.setCurrentBudget(budget0)
+        user0.setUserBudget(mutableListOf(budget0))
+        user0.setUserCurrentBudget(budget0)
 
         return user0
     }

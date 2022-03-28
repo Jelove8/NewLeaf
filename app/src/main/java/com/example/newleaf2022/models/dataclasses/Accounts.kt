@@ -6,7 +6,7 @@ data class Accounts(private var name: String,
                     private var type: String,
                     private var balance: Double = 0.00) {
 
-    private lateinit var transactions: ArrayList<Transactions>
+    private lateinit var transactions: MutableList<Transactions>
 
     fun setName(newName: String) {
         name = newName
@@ -29,10 +29,10 @@ data class Accounts(private var name: String,
         return balance
     }
 
-    fun setTransactions(newTransactions: ArrayList<Transactions>) {
+    fun setTransactions(newTransactions: MutableList<Transactions>) {
         transactions = newTransactions
     }
-    fun getTransactions(): ArrayList<Transactions> {
+    fun getTransactions(): MutableList<Transactions> {
         return transactions
     }
     fun addTransaction(newTransaction: Transactions) {

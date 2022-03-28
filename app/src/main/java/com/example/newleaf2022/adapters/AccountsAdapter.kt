@@ -11,9 +11,9 @@ import com.example.newleaf2022.R
 import com.example.newleaf2022.TransactionsFragment
 import com.example.newleaf2022.models.dataclasses.Accounts
 
-class AccountsAdapter(private val accounts: ArrayList<Accounts>, private val mainActivity: MainActivity) : RecyclerView.Adapter<AccountsAdapter.AccountsViewHolder>() {
+class AccountsAdapter(private val accounts: MutableList<Accounts>, private val mainActivity: MainActivity) : RecyclerView.Adapter<AccountsAdapter.AccountsViewHolder>() {
 
-    class AccountsViewHolder(ItemView: View, mainActivity: MainActivity, accounts: ArrayList<Accounts>) : RecyclerView.ViewHolder(ItemView) {
+    class AccountsViewHolder(ItemView: View, mainActivity: MainActivity, accounts: MutableList<Accounts>) : RecyclerView.ViewHolder(ItemView) {
         val accountName: TextView = itemView.findViewById(R.id.accountName)
         val accountBalance: TextView = itemView.findViewById(R.id.outputBalance)
         val accountConstraint: ConstraintLayout = itemView.findViewById(R.id.accountsVHConstraint)

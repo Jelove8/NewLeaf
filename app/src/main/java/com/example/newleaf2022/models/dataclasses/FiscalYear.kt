@@ -4,10 +4,9 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 data class FiscalYear(private val year: Int,
-                      private val monthlyBudgets: ArrayList<ArrayList<Categories>> = arrayListOf(arrayListOf(), arrayListOf(), arrayListOf(), arrayListOf(), arrayListOf(), arrayListOf(), arrayListOf(), arrayListOf(), arrayListOf(), arrayListOf(), arrayListOf(), arrayListOf()),
-                      ) {
+                      private val monthlyBudgets: MutableList<MutableList<Categories>>) {
 
-    fun getMonthlyBudgets(): ArrayList<ArrayList<Categories>> {
+    fun getMonthlyBudgets(): MutableList<MutableList<Categories>> {
         return monthlyBudgets
     }
 
@@ -15,7 +14,7 @@ data class FiscalYear(private val year: Int,
         return year
     }
 
-    fun setMonthlyBudget(month: Int, newCategories: ArrayList<Categories>) {
+    fun setMonthlyBudget(month: Int, newCategories: MutableList<Categories>) {
         monthlyBudgets[month] = newCategories
     }
 }

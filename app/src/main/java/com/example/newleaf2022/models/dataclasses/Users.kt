@@ -2,38 +2,38 @@ package com.example.newleaf2022.models.dataclasses
 
 import kotlin.collections.ArrayList
 
-data class Users(private var name: String,
+data class Users(private var username: String,
                  private var password: String? = null) {
 
+    // The user's "Current Budget" will always = userBudgets[0]
+    private lateinit var userBudgets: MutableList<Budgets>
 
-    private lateinit var budgets: ArrayList<Budgets>
-
-    fun getBudget(index: Int): Budgets {
-        return budgets[index]
+    fun getUserBudget(index: Int): Budgets {
+        return userBudgets[index]
     }
-    fun getCurrentBudget(): Budgets {
-        return budgets[0]
-    }
-
-
-    fun setBudgets(newBudgets: ArrayList<Budgets>) {
-        budgets = newBudgets
-    }
-    fun setCurrentBudget(newBudget: Budgets) {
-        budgets[0] = newBudget
+    fun getUserCurrentBudget(): Budgets {
+        return userBudgets[0]
     }
 
-    fun getName(): String {
-        return name
+
+    fun setUserBudget(newBudgets: MutableList<Budgets>) {
+        userBudgets = newBudgets
     }
-    fun setName(newName: String) {
-        name = newName
+    fun setUserCurrentBudget(newBudget: Budgets) {
+        userBudgets[0] = newBudget
     }
 
-    fun getPassword(newPassword: String) {
+    fun getUsername(): String {
+        return username
+    }
+    fun setUsername(newName: String) {
+        username = newName
+    }
+
+    fun getUserPassword(newPassword: String) {
         password = newPassword
     }
-    fun setPassword(newPassword: String) {
+    fun setUserPassword(newPassword: String) {
         password = newPassword
     }
 
