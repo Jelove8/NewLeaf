@@ -16,6 +16,7 @@ class NumpadFragment() : Fragment() {
 
     private var fragmentBinding: FragmentNumpadBinding? = null
     private val binding get() = fragmentBinding!!
+    private var initCheck = true
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -55,7 +56,7 @@ class NumpadFragment() : Fragment() {
                 }
             }
             binding.tvNumpadValue.text = outputString
-
+            initCheck = false
         }
 
 
@@ -102,7 +103,7 @@ class NumpadFragment() : Fragment() {
         }
 
         binding.btnBackSpace.setOnClickListener {
-            if (inputIntegersList.size != 0) {
+            if (inputIntegersList.size != 0 && !initCheck) {
                 inputIntegersList.removeAt((inputIntegersList.size - 1))
                 updateOutput()
             }
@@ -113,9 +114,14 @@ class NumpadFragment() : Fragment() {
             (context as MainActivity).hideNumpad()
         }
         binding.btnConfirmNumpad.setOnClickListener {
-            val newSubAssigned = binding.tvNumpadValue.text.toString().toDouble()
-            budgetsVM.updateSubcategoryAssignedValue(newSubAssigned)
-            (context as MainActivity).hideNumpad()
+            if (!initCheck) {
+                val newSubAssigned = binding.tvNumpadValue.text.toString().toDouble()
+                budgetsVM.updateSubcategoryAssignedValue(newSubAssigned)
+                (context as MainActivity).hideNumpad()
+                val aprilTotalAvailableName = budgetsVM.getCurrentBudget().getYearlyBudgets()[0].getMonthlyBudgets()[3][0].getSubcategories()[0].getName()
+                val aprilTotalAvailableValue = budgetsVM.getCurrentBudget().getYearlyBudgets()[0].getMonthlyBudgets()[3][0].getSubcategories()[0].getAvailable()
+                Log.d("meow","Subcategory: $aprilTotalAvailableName, Value: $aprilTotalAvailableValue")
+            }
         }
     }
 

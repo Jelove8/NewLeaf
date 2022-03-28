@@ -96,6 +96,29 @@ class Model {
             }
         }
         budgetsVM.updateCategoryRecyclerView(newValues)
+
+        // Updating other affected months
+        for (fiscalYear in getCurrentBudget().getYearlyBudgets()) {
+            if (fiscalYear.getYear() == targetYear) {
+                for (i in (targetMonth + 1) until fiscalYear.getMonthlyBudgets().size) {
+                    if (fiscalYear.getMonthlyBudgets()[i].isNotEmpty()) {
+                        Log.d("meow",i.toString())
+                        for (category in fiscalYear.getMonthlyBudgets()[i]) {
+                            if (category.getName() == targetCategory.getName()) {
+                                category.setAssigned(category.getAssigned() - oldTotalAssigned + newTotalAssigned)
+                                category.setAvailable(category.getAvailable() - oldTotalAssigned + newTotalAssigned)
+                                for (subcategory in category.getSubcategories()) {
+                                    if (subcategory.getName() == targetSubcategory.getName()) {
+                                        subcategory.setAssigned(subcategory.getAssigned() - oldSubAssigned + newSubAssigned)
+                                        subcategory.setAvailable(subcategory.getAvailable() - oldSubAssigned + newSubAssigned)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
 
