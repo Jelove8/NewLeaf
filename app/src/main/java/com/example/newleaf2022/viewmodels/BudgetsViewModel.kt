@@ -30,12 +30,33 @@ class BudgetsViewModel : ViewModel() {
         return monthlyBudget
     }
 
+    fun getCurrentYear(): Int {
+        return currentFiscalYear
+    }
+
     // Used in MainActivity
-    fun setCurrentDate(currentCalendar: Calendar) {
-        currentFiscalYear = currentCalendar.get(Calendar.YEAR)
-        currentMonthDisplay = currentCalendar.get(Calendar.MONTH)
-        Log.d("currentDate","Month: $currentMonthDisplay")
-        Log.d("currentDate","Year: $currentFiscalYear")
+    fun setCurrentDate(method: String, input: MutableList<Int>? = null) {
+        when (method) {
+            "current" -> {
+                val currentCalendar = Calendar.getInstance()
+                currentFiscalYear = currentCalendar.get(Calendar.YEAR)
+                currentMonthDisplay = currentCalendar.get(Calendar.MONTH)
+                Log.d("currentDate","Month: $currentMonthDisplay")
+                Log.d("currentDate","Year: $currentFiscalYear")
+            }
+            "custom" -> {
+                when (input!!.size) {
+                    1 -> {
+                        currentMonthDisplay = input[0]
+                    }
+                    2 -> {
+                        currentMonthDisplay = input[0]
+                        currentFiscalYear = input[1]
+                    }
+                }
+            }
+        }
+
     }
 
 
@@ -52,6 +73,9 @@ class BudgetsViewModel : ViewModel() {
     fun updateCategoryRecyclerView(newValues: MutableList<Double>) {
         selectedSubcategoryViewHolder.updateViewHolder(categoryAdapter)
         categoryAdapter.updateUnassignedTV(newValues[0])
+    }
+    fun getSelectedSubcategoryViewholder(): CategoryAdapter.BudgetsViewHolder {
+        return selectedSubcategoryViewHolder
     }
 
 

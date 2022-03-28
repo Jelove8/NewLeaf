@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
         budgetsVM.initializeUser(model)
 
 
-        budgetsVM.setCurrentDate(Calendar.getInstance())
+        budgetsVM.setCurrentDate("current")
 
 
         // Button: Display monthly budget categories

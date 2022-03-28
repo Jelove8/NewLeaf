@@ -109,7 +109,6 @@ class Model {
                                 category.setAvailable(category.getAvailable() - oldTotalAssigned + newTotalAssigned)
                                 for (subcategory in category.getSubcategories()) {
                                     if (subcategory.getName() == targetSubcategory.getName()) {
-                                        subcategory.setAssigned(subcategory.getAssigned() - oldSubAssigned + newSubAssigned)
                                         subcategory.setAvailable(subcategory.getAvailable() - oldSubAssigned + newSubAssigned)
                                     }
                                 }

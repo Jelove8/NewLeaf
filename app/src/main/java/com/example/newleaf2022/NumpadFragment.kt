@@ -28,6 +28,8 @@ class NumpadFragment() : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val budgetsVM: BudgetsViewModel by activityViewModels()
 
+        binding.tvNumpadValue.text = budgetsVM.getSelectedSubcategoryViewholder().selectedSubcategory.getAssigned().toString()
+
         val inputIntegersList = mutableListOf<String>()
         fun updateOutput() {
             var outputString = ""
