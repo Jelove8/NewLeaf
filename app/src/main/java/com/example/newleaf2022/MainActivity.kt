@@ -12,9 +12,15 @@ import com.example.newleaf2022.viewmodels.BudgetsViewModel
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var model: Model
+    private lateinit var model: Model
     private lateinit var budgetsVM: BudgetsViewModel
     private lateinit var numpad: FragmentContainerView
+    fun getInstanceOfModel(): Model {
+        return model
+    }
+    fun getInstanceOfViewModel(): BudgetsViewModel {
+        return budgetsVM
+    }
 
     fun changeFragment(container: String, fragment: Fragment) {
         val fragmentManager = supportFragmentManager
@@ -44,9 +50,13 @@ class MainActivity : AppCompatActivity() {
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Initializing "lateinit" variables
         model = Model()
-        numpad = binding.fragNumpad
         budgetsVM  = ViewModelProvider(this)[BudgetsViewModel::class.java]
+        numpad = binding.fragNumpad
+        changeFragment("main", UserLoginFragment())
+
+
         budgetsVM.initializeUser(model)
 
 

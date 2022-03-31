@@ -75,7 +75,7 @@ class CategoryAdapter(private var allCategories: MutableList<Categories>, privat
         return BudgetsViewHolder(
             view,
             mainActivity,
-            budgetsVM,1
+            budgetsVM,
             allCategories,
             categoryPositions,
             readyToAssignTV,

@@ -8,9 +8,7 @@ import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.MotionEventCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.example.newleaf2022.OnStartDragListener
 import com.example.newleaf2022.R
 import com.example.newleaf2022.models.dataclasses.Categories
 
@@ -18,7 +16,7 @@ class EditCategoriesAdapter(private var allCategories: MutableList<Categories>,
                             private val categoryPositions: MutableList<Int>
                             ) : RecyclerView.Adapter<EditCategoriesAdapter.CategoryViewHolder>() {
 
-    class CategoryViewHolder(ItemView: View, dragStartDragListener: OnStartDragListener? = null) : RecyclerView.ViewHolder(ItemView) {
+    class CategoryViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
         val categoryConstraint: ConstraintLayout = itemView.findViewById(R.id.cnst_Category)
         val categoryTV: TextView = itemView.findViewById(R.id.tv_Category)
         private val categoryLL1: LinearLayout = itemView.findViewById(R.id.ll_CategoryA)

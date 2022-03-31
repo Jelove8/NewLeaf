@@ -12,13 +12,21 @@ class Model {
 
     private lateinit var currentUser : Users
 
+    fun authenticateUser(username: String, password: String) {
+        // Code that triggers an "authenticateUser" function from the database, returning true or false (access granted or denied)
+        val booleanUserVerified = true
+        if (booleanUserVerified) {
+            // Checks if the user
+        }
+    }
+
     fun initializeUser(type: Int) {
 
         when (type) {
             0 -> {
                 val guestUser = Users("Guest User")
                 guestUser.setUserBudget(mutableListOf(Budgets("Guest Budget")))
-                guestUser.setUserCurrentBudget(guestUser.getUserBudget(0))
+                guestUser.setUserCurrentBudget(guestUser.getUserBudgets(0))
                 currentUser = guestUser
             }
             1 -> {
@@ -34,7 +42,7 @@ class Model {
     }
 
     fun getCurrentBudget(): Budgets {
-        return currentUser.getUserCurrentBudget()
+        return currentUser.getLastDisplayedBudget()
     }
 
 
@@ -58,6 +66,9 @@ class Model {
         var newTotalAvailable = 0.00
         var newUnassigned = 0.00
         val newValues = mutableListOf<Double>()
+
+        // Populating old & new values
+        for (monthlyBudget in ())
 
         for (yearlyBudget in getCurrentBudget().getYearlyBudgets()) {
             if (yearlyBudget.getYear() == targetYear) {

@@ -69,12 +69,12 @@ class MockDatabase {
         budget0.setAccounts(mutableListOf(account1))
         budget0.setTransactions(mutableListOf())
 
-        val fiscalYear2022 = FiscalYear(2022, mutableListOf(arrayListOf(categoryB1, categoryB2, categoryB3),mutableListOf(categoryB1, categoryB2, categoryB3),mutableListOf(category1, category2, category3),mutableListOf(categoryC1, categoryC2, categoryC3)))
+        val fiscalYear2022 = FiscalYear(2022, mutableListOf(mutableListOf(categoryB1, categoryB2, categoryB3),mutableListOf(categoryB1, categoryB2, categoryB3),mutableListOf(category1, category2, category3),mutableListOf(categoryC1, categoryC2, categoryC3)))
         budget0.addYearlyBudget(fiscalYear2022)
 
 
-        user0.setUserBudget(mutableListOf(budget0))
-        user0.setUserCurrentBudget(budget0)
+        user0.addUserBudget(budget0)
+        user0.setLastDisplayedBudgetPosition(0)
 
         return user0
     }

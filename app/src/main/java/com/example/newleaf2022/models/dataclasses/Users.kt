@@ -5,22 +5,23 @@ import kotlin.collections.ArrayList
 data class Users(private var username: String,
                  private var password: String? = null) {
 
-    // The user's "Current Budget" will always = userBudgets[0]
-    private lateinit var userBudgets: MutableList<Budgets>
+    private var userBudgets: MutableList<Budgets> = mutableListOf()
+    private var lastDisplayedBudgetPosition: Int = 0
 
-    fun getUserBudget(index: Int): Budgets {
-        return userBudgets[index]
+    fun getUserBudgets(): MutableList<Budgets> {
+        return userBudgets
     }
-    fun getUserCurrentBudget(): Budgets {
-        return userBudgets[0]
+    fun addUserBudget(newBudget: Budgets) {
+        userBudgets.add(newBudget)
     }
-
-
-    fun setUserBudget(newBudgets: MutableList<Budgets>) {
-        userBudgets = newBudgets
+    fun deleteUserBudget(positionOfDeletedBudget: Int) {
+        userBudgets.removeAt(positionOfDeletedBudget)
     }
-    fun setUserCurrentBudget(newBudget: Budgets) {
-        userBudgets[0] = newBudget
+    fun getLastDisplayedBudget(): Budgets {
+        return userBudgets[lastDisplayedBudgetPosition]
+    }
+    fun setLastDisplayedBudgetPosition(displayedBudgetPosition: Int) {
+        lastDisplayedBudgetPosition = displayedBudgetPosition
     }
 
     fun getUsername(): String {
