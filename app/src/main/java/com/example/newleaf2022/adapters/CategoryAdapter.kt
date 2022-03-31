@@ -22,10 +22,8 @@ class CategoryAdapter(private var allCategories: MutableList<Categories>, privat
         readyToAssignTV.text = newUnassigned.toString()
     }
 
-    @SuppressLint("LongLogTag")
     class BudgetsViewHolder(ItemView: View, mainActivity: MainActivity, budgetsVM: BudgetsViewModel, allCategories: MutableList<Categories>, categoryPositions: MutableList<Int>, unassignedTV: TextView, adapter: CategoryAdapter) : RecyclerView.ViewHolder(ItemView) {
 
-        var initState = true
         val categoryConstraint: ConstraintLayout = itemView.findViewById(R.id.cnst_Category)
         val categoryTV: TextView = itemView.findViewById(R.id.tv_Category)
         val totalAssigned: TextView = itemView.findViewById(R.id.tv_Assigned)
@@ -77,7 +75,7 @@ class CategoryAdapter(private var allCategories: MutableList<Categories>, privat
         return BudgetsViewHolder(
             view,
             mainActivity,
-            budgetsVM,
+            budgetsVM,1
             allCategories,
             categoryPositions,
             readyToAssignTV,
@@ -86,9 +84,8 @@ class CategoryAdapter(private var allCategories: MutableList<Categories>, privat
     }
 
     override fun onBindViewHolder(holder: BudgetsViewHolder, position: Int) {
-        val currentItem = allCategories[position]
-
         // Populating unassigned, category, and subcategory views
+        val currentItem = allCategories[position]
         if (currentItem.getCategoryType()) {
             // If the current item is a category...
             holder.subcategoryConstraint.visibility = View.GONE
@@ -100,12 +97,10 @@ class CategoryAdapter(private var allCategories: MutableList<Categories>, privat
             // Else if the current item is a subcategory...
             holder.categoryConstraint.visibility = View.GONE
             holder.subcategoryTV.text = currentItem.getName()
-            holder.subAssigned.setText(currentItem.getAssigned().toString())
-            holder.subAvailable.setText(currentItem.getAvailable().toString())
+            holder.subAssigned.text = currentItem.getAssigned().toString()
+            holder.subAvailable.text = currentItem.getAvailable().toString()
         }
 
-        // The doAfterTextChange() of BudgetsViewHolder is now functional
-        holder.initState = false
 
     }
 

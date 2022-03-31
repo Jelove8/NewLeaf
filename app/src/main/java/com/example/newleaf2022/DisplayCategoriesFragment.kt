@@ -16,7 +16,7 @@ import com.example.newleaf2022.viewmodels.BudgetsViewModel
 
 import java.util.*
 
-class BudgetFragment : Fragment() {
+class DisplayCategoriesFragment : Fragment() {
 
     private var fragmentBinding: FragmentBudgetBinding? = null
     private val binding get() = fragmentBinding!!

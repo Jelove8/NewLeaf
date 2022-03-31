@@ -7,7 +7,7 @@
     tools:context=".EditCategoriesFragment" >
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/fragEditBudgetsHeader"
+        android:id="@+id/cnst_editCategoriesHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent">
@@ -19,32 +19,43 @@
             android:text="Edit Categories"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btnConfirmEdits"
-            app:layout_constraintStart_toEndOf="@+id/btnAddCategory"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/btnAddCategory"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Add"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
+            android:id="@+id/btnAddCategory"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:text="+"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
             android:id="@+id/btnConfirmEdits"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="done"
+            app:layout_constraintEnd_toStartOf="@+id/btnAddCategory"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btn_editCategoriesCancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="done"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:text="X"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/fragEditCategoriesRecycler"
+        android:id="@+id/rcy_editableCategories"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/fragEditBudgetsHeader"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cnst_editCategoriesHeader"
         tools:layout_editor_absoluteX="1dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

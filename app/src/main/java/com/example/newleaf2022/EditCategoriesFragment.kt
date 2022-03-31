@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.newleaf2022.adapters.EditCategoriesAdapter
 import com.example.newleaf2022.databinding.FragmentEditCategoriesBinding
 import com.example.newleaf2022.viewmodels.BudgetsViewModel
 
@@ -23,7 +24,7 @@ class EditCategoriesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.fragEditCategoriesRecycler.layoutManager = LinearLayoutManager(activity)
+        binding.rcyEditableCategories.layoutManager = LinearLayoutManager(activity)
         val mainActivity = context as MainActivity
         val budgetsVM: BudgetsViewModel by activityViewModels()
 
@@ -32,6 +33,11 @@ class EditCategoriesFragment : Fragment() {
         if (currentCategories.isNullOrEmpty()) {
             currentCategories = arrayListOf()
         }
+        fun populateCategoriesRecyclerView() {
+            val newAdapter = EditCategoriesAdapter(budgetsVM.getAllCategories(), budgetsVM.getCategoryPositions())
+            binding.rcyEditableCategories.adapter = newAdapter
+        }
+        populateCategoriesRecyclerView()
 
 
 
@@ -53,7 +59,11 @@ class EditCategoriesFragment : Fragment() {
                 }
             }
             budgetsVM.updateModelBudget(mainActivity.model)
-            mainActivity.changeFragment("main", BudgetFragment())
+            mainActivity.changeFragment("main", DisplayCategoriesFragment())
+        }
+
+        binding.btnEditCategoriesCancel.setOnClickListener {
+            mainActivity.changeFragment("main", DisplayCategoriesFragment())
         }
 
         binding.btnAddCategory.setOnClickListener {

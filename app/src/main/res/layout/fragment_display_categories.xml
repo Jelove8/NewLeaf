@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BudgetFragment">
+    tools:context=".DisplayCategoriesFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cnst_fragBudgetHeader"
@@ -39,7 +39,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/fragTreesConstraint"
+        android:id="@+id/cnst_unassigned"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -48,7 +48,7 @@
         tools:layout_editor_absoluteX="411dp">
 
         <TextView
-            android:id="@+id/outputTotalUnassigned"
+            android:id="@+id/tv_unassignedValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20sp"
@@ -56,23 +56,23 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tvReadyToAssign"
+            android:id="@+id/tv_unassigned"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Ready to Assign"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/outputTotalUnassigned" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_unassignedValue" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/fragBudgetsRecycler"
+        android:id="@+id/rcy_monthlyCategories"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragTreesConstraint"
+        app:layout_constraintTop_toBottomOf="@+id/cnst_unassigned"
         tools:layout_editor_absoluteX="1dp" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
