@@ -29,20 +29,14 @@ class DisplayCategoriesFragment : Fragment() {
 
         binding.rcyMonthlyCategories.layoutManager = LinearLayoutManager(activity)
         val mainActivity = (context as MainActivity)
-        val budgetsVM: BudgetsViewModel by activityViewModels()
 
         // Displaying unassigned amount
-        binding.tvUnassignedValue.text = budgetsVM.getCurrentBudget().getUnassigned().toString()
+        binding.tvUnassignedValue.text = mainActivity.getInstanceOfViewModel().getCurrentBudget().bdgtUnassignedMoney.toString()
 
         // Populating the recycler view
-
-
-
         fun populateCategoriesRecyclerView() {
-            val newAdapter = CategoryAdapter(budgetsVM.getAllCategories(), mainActivity, budgetsVM.getCategoryPositions(), budgetsVM, binding.tvUnassignedValue)
+            val newAdapter = CategoryAdapter(mainActivity.getInstanceOfViewModel().getAllCategories(), mainActivity, binding.tvUnassignedValue)
             binding.rcyMonthlyCategories.adapter = newAdapter
-
-
         }
 
         populateCategoriesRecyclerView()
@@ -97,40 +91,40 @@ class DisplayCategoriesFragment : Fragment() {
                 button.setOnClickListener {
                     when ((button as Button).text) {
                         "Jan" -> {
-                            budgetsVM.setCurrentDate("custom", mutableListOf(0))
+                            mainActivity.getInstanceOfViewModel().setCurrentDate("custom", mutableListOf(0))
                         }
                         "Feb" -> {
-                            budgetsVM.setCurrentDate("custom", mutableListOf(1))
+                            mainActivity.getInstanceOfViewModel().setCurrentDate("custom", mutableListOf(1))
                         }
                         "Mar" -> {
-                            budgetsVM.setCurrentDate("custom", mutableListOf(2))
+                            mainActivity.getInstanceOfViewModel().setCurrentDate("custom", mutableListOf(2))
                         }
                         "Apr" -> {
-                            budgetsVM.setCurrentDate("custom", mutableListOf(3))
+                            mainActivity.getInstanceOfViewModel().setCurrentDate("custom", mutableListOf(3))
                         }
                         "May" -> {
-                            budgetsVM.setCurrentDate("custom", mutableListOf(4))
+                            mainActivity.getInstanceOfViewModel().setCurrentDate("custom", mutableListOf(4))
                         }
                         "Jun" -> {
-                            budgetsVM.setCurrentDate("custom", mutableListOf(5))
+                            mainActivity.getInstanceOfViewModel().setCurrentDate("custom", mutableListOf(5))
                         }
                         "Jul" -> {
-                            budgetsVM.setCurrentDate("custom", mutableListOf(6))
+                            mainActivity.getInstanceOfViewModel().setCurrentDate("custom", mutableListOf(6))
                         }
                         "Aug" -> {
-                            budgetsVM.setCurrentDate("custom", mutableListOf(7))
+                            mainActivity.getInstanceOfViewModel().setCurrentDate("custom", mutableListOf(7))
                         }
                         "Sep" -> {
-                            budgetsVM.setCurrentDate("custom", mutableListOf(8))
+                            mainActivity.getInstanceOfViewModel().setCurrentDate("custom", mutableListOf(8))
                         }
                         "Oct" -> {
-                            budgetsVM.setCurrentDate("custom", mutableListOf(9))
+                            mainActivity.getInstanceOfViewModel().setCurrentDate("custom", mutableListOf(9))
                         }
                         "Nov" -> {
-                            budgetsVM.setCurrentDate("custom", mutableListOf(10))
+                            mainActivity.getInstanceOfViewModel().setCurrentDate("custom", mutableListOf(10))
                         }
                         "Dec" -> {
-                            budgetsVM.setCurrentDate("custom", mutableListOf(11))
+                            mainActivity.getInstanceOfViewModel().setCurrentDate("custom", mutableListOf(11))
                         }
                     }
                     populateCategoriesRecyclerView()

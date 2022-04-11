@@ -37,12 +37,12 @@ class BudgetsViewModel : ViewModel() {
     // Used in MainActivity
     fun setCurrentDate(method: String, input: MutableList<Int>? = null) {
         when (method) {
-            "current" -> {
+            "realtime" -> {
                 val currentCalendar = Calendar.getInstance()
                 currentFiscalYear = currentCalendar.get(Calendar.YEAR)
                 currentMonthDisplay = currentCalendar.get(Calendar.MONTH)
-                Log.d("currentDate","Month: $currentMonthDisplay")
-                Log.d("currentDate","Year: $currentFiscalYear")
+                Log.d("realtime","Month: $currentMonthDisplay")
+                Log.d("realtime","Year: $currentFiscalYear")
             }
             "custom" -> {
                 when (input!!.size) {

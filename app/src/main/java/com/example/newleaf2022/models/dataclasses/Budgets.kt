@@ -16,11 +16,10 @@ data class Budgets(
     var bdgtAllCategories: MutableList<Category> = mutableListOf(),
 )
 
-
 data class MonthlyBudget(
     val bdgtYear: Int,
     val bdgtMonth: Int, // 0 = January ... 11 = December
-    val bdgtCategoryIDs: MutableList<String> = mutableListOf()
+    val bdgtCategories: MutableList<Category> = mutableListOf()
 )
 
 data class Accounts(
@@ -35,7 +34,7 @@ data class Category(
     var catType: Boolean = true,  // True = category, False = subcategory
     var catAssignedMoney: Double = 0.00,
     var catAvailableMoney: Double = 0.00,
-    var subcatIDs: MutableList<String> = mutableListOf()
+    var subcategories: MutableList<Category> = mutableListOf()
 )
 
 data class Transactions(
@@ -43,7 +42,8 @@ data class Transactions(
     var payee: String? = null,
     var subcategory: String? = null,
     var cleared: Boolean = false,
-    var memo: String? = null)
+    var memo: String? = null
+)
 
 
 
