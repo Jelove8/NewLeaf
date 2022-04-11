@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 
 import com.example.newleaf2022.databinding.FragmentNewAccountBinding
-import com.example.newleaf2022.models.dataclasses.Accounts
 import com.example.newleaf2022.viewmodels.BudgetsViewModel
 
 class NewAccountFragment : Fragment() {
@@ -37,7 +36,7 @@ class NewAccountFragment : Fragment() {
 
         binding.btnAddAcount.setOnClickListener {
             val newAccount = Accounts(binding.inputAccountName.text.toString(), binding.inputAccountType.text.toString(), binding.inputBalance.text.toString().toDouble())
-            budgetsVM.addAccount(newAccount, mainActivity.model)
+            budgetsVM.addAccount(newAccount, mainActivity.getInstanceOfModel())
             mainActivity.changeFragment("main", AccountsFragment())
         }
 

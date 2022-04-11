@@ -2,7 +2,7 @@ package com.example.newleaf2022.models
 
 import android.util.Log
 import com.example.newleaf2022.models.dataclasses.Budgets
-import com.example.newleaf2022.models.dataclasses.Categories
+import com.example.newleaf2022.models.dataclasses.Category
 import com.example.newleaf2022.models.dataclasses.Users
 import com.example.newleaf2022.viewmodels.BudgetsViewModel
 import com.google.firebase.database.FirebaseDatabase
@@ -42,7 +42,7 @@ class Model {
     }
 
     fun getCurrentBudget(): Budgets {
-        return currentUser.getLastDisplayedBudget()
+        return currentUser.userBudgets[currentUser.currentlyDisplayedBudgetIndex]
     }
 
 
@@ -53,7 +53,7 @@ class Model {
 
     // Category Adapter
 
-    fun updateSubcategoryAssignedValue(newSubAssigned: Double, targetCategory: Categories, targetSubcategory: Categories, targetMonth: Int, targetYear: Int, budgetsVM: BudgetsViewModel) {
+    fun updateSubcategoryAssignedValue(newSubAssigned: Double, targetCategory: Category, targetSubcategory: Category, targetMonth: Int, targetYear: Int, budgetsVM: BudgetsViewModel) {
         // Updating values of the current month
         var oldUnassigned = getCurrentBudget().getUnassigned()
         var oldSubAssigned = 0.00
@@ -68,8 +68,6 @@ class Model {
         val newValues = mutableListOf<Double>()
 
         // Populating old & new values
-        for (monthlyBudget in ())
-
         for (yearlyBudget in getCurrentBudget().getYearlyBudgets()) {
             if (yearlyBudget.getYear() == targetYear) {
                 for (category in yearlyBudget.getMonthlyBudgets()[targetMonth]) {
@@ -128,6 +126,6 @@ class Model {
         }
     }
 
-
+    // ACCOUNTS
 
 }

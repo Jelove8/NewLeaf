@@ -1,63 +1,49 @@
 package com.example.newleaf2022.models.dataclasses
 
+data class Users(
+    var userName: String,
+    var userPassword: String? = null,
+    var userBudgets: MutableList<Budgets> = mutableListOf(),
+    var currentlyDisplayedBudgetIndex: Int = 0
+)
+
 data class Budgets(
-    private var name: String,
-    private var unassigned: Double = 0.00,
-    private var yearlyBudgets: MutableList<FiscalYear> = mutableListOf()
-) {
-    private lateinit var monthlyBudgets: MutableList<MonthlyBudget>
-    private lateinit var accounts: MutableList<Accounts>
-    private lateinit var transactions: MutableList<Transactions>
+    var bdgtName: String,
+    var bdgtUnassignedMoney: Double = 0.00,
+    var bdgtAllMonthlyBudgets: MutableList<MonthlyBudget> = mutableListOf(),
+    var bdgtAllAccounts: MutableList<Accounts> = mutableListOf(),
+    var bdgtAllTransactions: MutableList<Transactions> = mutableListOf(),
+    var bdgtAllCategories: MutableList<Category> = mutableListOf(),
+)
+
+
+data class MonthlyBudget(
+    val bdgtYear: Int,
+    val bdgtMonth: Int, // 0 = January ... 11 = December
+    val bdgtCategoryIDs: MutableList<String> = mutableListOf()
+)
+
+data class Accounts(
+    var acctName: String,
+    var acctType: String,
+    var acctBalance: Double = 0.00,
+    var acctTransactionIDs: MutableList<String> = mutableListOf()
+)
+
+data class Category(
+    var catName: String?,
+    var catType: Boolean = true,  // True = category, False = subcategory
+    var catAssignedMoney: Double = 0.00,
+    var catAvailableMoney: Double = 0.00,
+    var subcatIDs: MutableList<String> = mutableListOf()
+)
+
+data class Transactions(
+    var amount: Double = 0.00,
+    var payee: String? = null,
+    var subcategory: String? = null,
+    var cleared: Boolean = false,
+    var memo: String? = null)
 
 
 
-    fun setName(newName: String) {
-        name = newName
-    }
-    fun getName(): String {
-        return name
-    }
-    fun setUnassigned(newValue: Double) {
-        unassigned = newValue
-    }
-    fun getUnassigned(): Double {
-        return unassigned
-    }
-
-    fun getMonthlyBudgets(): MutableList<MonthlyBudget> {
-        return monthlyBudgets
-    }
-    fun setMonthlyBudget(newMonthlyBudget: MonthlyBudget) {
-
-    }
-
-
-
-
-    fun getYearlyBudgets(): MutableList<FiscalYear> {
-        return yearlyBudgets
-    }
-    fun addYearlyBudget(newYearlyBudgets: FiscalYear) {
-        yearlyBudgets.add(newYearlyBudgets)
-    }
-
-
-
-
-
-    fun setAccounts(newAccounts: MutableList<Accounts>) {
-        accounts = newAccounts
-    }
-
-    fun getAccounts(): MutableList<Accounts> {
-        return accounts
-    }
-
-    fun setTransactions(newTransactions: MutableList<Transactions>) {
-        transactions = newTransactions
-    }
-
-    fun getTransactions(): MutableList<Transactions> {
-        return transactions
-    }
-}

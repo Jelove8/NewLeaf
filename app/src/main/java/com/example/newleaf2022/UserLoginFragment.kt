@@ -34,6 +34,7 @@ class UserLoginFragment: Fragment() {
                 Toast.makeText(context,"Both fields must be filled.",Toast.LENGTH_SHORT).show()
             }
         }
+       
     }
 
     override fun onDestroy() {

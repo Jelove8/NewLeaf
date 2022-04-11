@@ -7,16 +7,16 @@ class MockDatabase {
 
     // Data for March
 
-    private val subcategory1 = Categories("Rent", 1000.00, 1000.00, null, false)
-    private val subcategory2 = Categories("Student Loans", 300.00, 300.00, null, false)
-    private val subcategory3 = Categories("Groceries", 200.00, 200.00, null, false)
-    private val subcategory4 = Categories("Gas", 120.00, 120.00, null, false)
-    private val subcategory5 = Categories("Toiletries", 30.00, 30.00, null, false)
-    private val subcategory6 = Categories("Clothes", 100.00, 100.00, null, false)
+    private val subcategory1 = Category("Rent", 1000.00, 1000.00, null, false)
+    private val subcategory2 = Category("Student Loans", 300.00, 300.00, null, false)
+    private val subcategory3 = Category("Groceries", 200.00, 200.00, null, false)
+    private val subcategory4 = Category("Gas", 120.00, 120.00, null, false)
+    private val subcategory5 = Category("Toiletries", 30.00, 30.00, null, false)
+    private val subcategory6 = Category("Clothes", 100.00, 100.00, null, false)
 
-    private val category1 = Categories("Savings", 1300.00, 1300.00)
-    private val category2 = Categories("Frequent", 320.00, 320.00)
-    private val category3 = Categories("Shopping", 130.00, 130.00)
+    private val category1 = Category("Savings", 1300.00, 1300.00)
+    private val category2 = Category("Frequent", 320.00, 320.00)
+    private val category3 = Category("Shopping", 130.00, 130.00)
 
     private val account1 = Accounts("Checkings", "Checkings", 3000.00)
 
@@ -25,29 +25,29 @@ class MockDatabase {
     private val user0 = Users("Anjelo", "password")
 
     // Data for previous months
-    private val subcategoryB1 = Categories("Rent", 0.00, 0.00, null, false)
-    private val subcategoryB2 = Categories("Student Loans", 0.00, 0.00, null, false)
-    private val subcategoryB3 = Categories("Groceries", 0.00, 0.00, null, false)
-    private val subcategoryB4 = Categories("Gas", 0.00, 0.00, null, false)
-    private val subcategoryB5 = Categories("Toiletries", 0.00, 0.00, null, false)
-    private val subcategoryB6 = Categories("Clothes", 0.00, 0.00, null, false)
+    private val subcategoryB1 = Category("Rent", 0.00, 0.00, null, false)
+    private val subcategoryB2 = Category("Student Loans", 0.00, 0.00, null, false)
+    private val subcategoryB3 = Category("Groceries", 0.00, 0.00, null, false)
+    private val subcategoryB4 = Category("Gas", 0.00, 0.00, null, false)
+    private val subcategoryB5 = Category("Toiletries", 0.00, 0.00, null, false)
+    private val subcategoryB6 = Category("Clothes", 0.00, 0.00, null, false)
 
-    private val categoryB1 = Categories("Savings", 0.00, 0.00)
-    private val categoryB2 = Categories("Frequent", 0.00, 0.00)
-    private val categoryB3 = Categories("Shopping", 0.00, 0.00)
+    private val categoryB1 = Category("Savings", 0.00, 0.00)
+    private val categoryB2 = Category("Frequent", 0.00, 0.00)
+    private val categoryB3 = Category("Shopping", 0.00, 0.00)
 
 
     // Data for April
-    private val subcategoryC1 = Categories("Rent", 0.00, 1000.00, null, false)
-    private val subcategoryC2 = Categories("Student Loans", 0.00, 300.00, null, false)
-    private val subcategoryC3 = Categories("Groceries", 0.00, 200.00, null, false)
-    private val subcategoryC4 = Categories("Gas", 0.00, 120.00, null, false)
-    private val subcategoryC5 = Categories("Toiletries", 0.00, 30.00, null, false)
-    private val subcategoryC6 = Categories("Clothes", 0.00, 100.00, null, false)
+    private val subcategoryC1 = Category("Rent", 0.00, 1000.00, null, false)
+    private val subcategoryC2 = Category("Student Loans", 0.00, 300.00, null, false)
+    private val subcategoryC3 = Category("Groceries", 0.00, 200.00, null, false)
+    private val subcategoryC4 = Category("Gas", 0.00, 120.00, null, false)
+    private val subcategoryC5 = Category("Toiletries", 0.00, 30.00, null, false)
+    private val subcategoryC6 = Category("Clothes", 0.00, 100.00, null, false)
 
-    private val categoryC1 = Categories("Savings", 0.00, 1300.00)
-    private val categoryC2 = Categories("Frequent", 0.00, 320.00)
-    private val categoryC3 = Categories("Shopping", 0.00, 1300.00)
+    private val categoryC1 = Category("Savings", 0.00, 1300.00)
+    private val categoryC2 = Category("Frequent", 0.00, 320.00)
+    private val categoryC3 = Category("Shopping", 0.00, 1300.00)
 
 
 

@@ -60,6 +60,7 @@ class MainActivity : AppCompatActivity() {
         budgetsVM.initializeUser(model)
 
 
+
         budgetsVM.setCurrentDate("current")
 
 

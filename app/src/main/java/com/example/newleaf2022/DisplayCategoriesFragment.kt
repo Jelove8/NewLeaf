@@ -34,7 +34,6 @@ class DisplayCategoriesFragment : Fragment() {
         // Displaying unassigned amount
         binding.tvUnassignedValue.text = budgetsVM.getCurrentBudget().getUnassigned().toString()
 
-
         // Populating the recycler view
 
 
@@ -42,6 +41,8 @@ class DisplayCategoriesFragment : Fragment() {
         fun populateCategoriesRecyclerView() {
             val newAdapter = CategoryAdapter(budgetsVM.getAllCategories(), mainActivity, budgetsVM.getCategoryPositions(), budgetsVM, binding.tvUnassignedValue)
             binding.rcyMonthlyCategories.adapter = newAdapter
+
+
         }
 
         populateCategoriesRecyclerView()

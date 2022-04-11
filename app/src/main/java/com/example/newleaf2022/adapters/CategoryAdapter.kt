@@ -1,6 +1,6 @@
 package com.example.newleaf2022.adapters
 
-import android.annotation.SuppressLint
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,18 +11,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.newleaf2022.MainActivity
 import com.example.newleaf2022.NumpadFragment
 import com.example.newleaf2022.R
-import com.example.newleaf2022.models.dataclasses.Categories
+import com.example.newleaf2022.models.dataclasses.Category
 import com.example.newleaf2022.viewmodels.BudgetsViewModel
-import java.util.*
-import kotlin.collections.ArrayList
 
-class CategoryAdapter(private var allCategories: MutableList<Categories>, private val mainActivity: MainActivity, private val categoryPositions: MutableList<Int>, private val budgetsVM: BudgetsViewModel, private val readyToAssignTV: TextView) : RecyclerView.Adapter<CategoryAdapter.BudgetsViewHolder>() {
+
+class CategoryAdapter(private var allCategories: MutableList<Category>, private val mainActivity: MainActivity, private val categoryPositions: MutableList<Int>, private val budgetsVM: BudgetsViewModel, private val readyToAssignTV: TextView) : RecyclerView.Adapter<CategoryAdapter.BudgetsViewHolder>() {
 
     fun updateUnassignedTV(newUnassigned: Double) {
         readyToAssignTV.text = newUnassigned.toString()
     }
 
-    class BudgetsViewHolder(ItemView: View, mainActivity: MainActivity, budgetsVM: BudgetsViewModel, allCategories: MutableList<Categories>, categoryPositions: MutableList<Int>, unassignedTV: TextView, adapter: CategoryAdapter) : RecyclerView.ViewHolder(ItemView) {
+    class BudgetsViewHolder(ItemView: View, mainActivity: MainActivity, budgetsVM: BudgetsViewModel, allCategories: MutableList<Category>, categoryPositions: MutableList<Int>, unassignedTV: TextView, adapter: CategoryAdapter) : RecyclerView.ViewHolder(ItemView) {
 
         val categoryConstraint: ConstraintLayout = itemView.findViewById(R.id.cnst_Category)
         val categoryTV: TextView = itemView.findViewById(R.id.tv_Category)
@@ -35,8 +34,8 @@ class CategoryAdapter(private var allCategories: MutableList<Categories>, privat
         val subAvailable: TextView = itemView.findViewById(R.id.tv_SubAvailable)
 
         private var previousCategoryPosition: Int = 0
-        lateinit var selectedSubcategory: Categories
-        lateinit var selectedCategory: Categories
+        lateinit var selectedSubcategory: Category
+        lateinit var selectedCategory: Category
 
         init {
             for (index in categoryPositions) {

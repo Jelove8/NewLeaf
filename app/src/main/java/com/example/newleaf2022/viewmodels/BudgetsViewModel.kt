@@ -3,12 +3,11 @@ package com.example.newleaf2022.viewmodels
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.example.newleaf2022.adapters.CategoryAdapter
-import com.example.newleaf2022.models.dataclasses.Accounts
 import com.example.newleaf2022.models.dataclasses.Budgets
-import com.example.newleaf2022.models.dataclasses.Categories
+import com.example.newleaf2022.models.dataclasses.Category
 import com.example.newleaf2022.models.Model
+import com.example.newleaf2022.models.dataclasses.Accounts
 import java.util.*
-import kotlin.collections.ArrayList
 
 class BudgetsViewModel : ViewModel() {
 
@@ -18,8 +17,8 @@ class BudgetsViewModel : ViewModel() {
     // 0 = Jan, 1 = Feb, ... 11 = Dec
 
     // General Functions
-    fun getCurrentMonthlyBudget(): MutableList<Categories> {
-        var monthlyBudget = mutableListOf<Categories>()
+    fun getCurrentMonthlyBudget(): MutableList<Category> {
+        var monthlyBudget = mutableListOf<Category>()
         // Looping through all items within yearlyBudgets, until the corresponding FiscalYear object is found
         for (item in model.getCurrentBudget().getYearlyBudgets()) {
             if (item.getYear() == currentFiscalYear) {
@@ -82,8 +81,8 @@ class BudgetsViewModel : ViewModel() {
 
 
     // Returns the current month's list of categories and subcategories (passed through a recycler view)
-    fun getAllCategories(): MutableList<Categories> {
-        val allCategories = mutableListOf<Categories>()
+    fun getAllCategories(): MutableList<Category> {
+        val allCategories = mutableListOf<Category>()
         for (category in getCurrentMonthlyBudget()) {
             allCategories.add(category)
             for (subcategory in category.getSubcategories()) {
@@ -128,10 +127,9 @@ class BudgetsViewModel : ViewModel() {
         return model.getCurrentBudget()
     }
 
-    fun addAccount(newAccount: Accounts, model: Model) {
-        getCurrentBudget().getAccounts().add(newAccount)
-        getCurrentBudget().setUnassigned(getCurrentBudget().getUnassigned() + newAccount.getBalance())
-        model.updateCurrentBudget(getCurrentBudget())
+    // ACCOUNTS
+    fun getAllAccounts(): MutableList<Accounts> {
+        return model.getCurrentBudget().bdgtAllAccounts
     }
 
 

@@ -58,7 +58,7 @@ class EditCategoriesFragment : Fragment() {
                     }
                 }
             }
-            budgetsVM.updateModelBudget(mainActivity.model)
+            budgetsVM.updateModelBudget(mainActivity.getInstanceOfModel())
             mainActivity.changeFragment("main", DisplayCategoriesFragment())
         }
 
