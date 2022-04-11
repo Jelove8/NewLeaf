@@ -63,7 +63,7 @@ class BudgetsViewModel : ViewModel() {
     // Display Monthly Budget
     private lateinit var categoryAdapter: CategoryAdapter
     private lateinit var selectedSubcategoryViewHolder: CategoryAdapter.BudgetsViewHolder
-    fun selectCategoryViewHolder(adapter: CategoryAdapter,categoryViewHolder: CategoryAdapter.BudgetsViewHolder) {
+    fun selectSubcategoryViewHolder(adapter: CategoryAdapter, categoryViewHolder: CategoryAdapter.BudgetsViewHolder) {
         categoryAdapter = adapter
         selectedSubcategoryViewHolder = categoryViewHolder
     }
@@ -77,6 +77,7 @@ class BudgetsViewModel : ViewModel() {
     fun getSelectedSubcategoryViewholder(): CategoryAdapter.BudgetsViewHolder {
         return selectedSubcategoryViewHolder
     }
+
 
 
 

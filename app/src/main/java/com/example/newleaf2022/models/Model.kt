@@ -3,22 +3,17 @@ package com.example.newleaf2022.models
 import android.util.Log
 import com.example.newleaf2022.models.dataclasses.Budgets
 import com.example.newleaf2022.models.dataclasses.Category
+import com.example.newleaf2022.models.dataclasses.MonthlyBudget
 import com.example.newleaf2022.models.dataclasses.Users
 import com.example.newleaf2022.viewmodels.BudgetsViewModel
 import com.google.firebase.database.FirebaseDatabase
+import java.time.Month
 
 class Model {
     private val database = FirebaseDatabase.getInstance()
 
     private lateinit var currentUser : Users
 
-    fun authenticateUser(username: String, password: String) {
-        // Code that triggers an "authenticateUser" function from the database, returning true or false (access granted or denied)
-        val booleanUserVerified = true
-        if (booleanUserVerified) {
-            // Checks if the user
-        }
-    }
 
     fun initializeUser(type: Int) {
 
@@ -46,16 +41,10 @@ class Model {
     }
 
 
-    fun updateCurrentBudget(newBudget: Budgets) {
-        currentUser.setUserCurrentBudget(newBudget)
-    }
-
-
     // Category Adapter
-
     fun updateSubcategoryAssignedValue(newSubAssigned: Double, targetCategory: Category, targetSubcategory: Category, targetMonth: Int, targetYear: Int, budgetsVM: BudgetsViewModel) {
         // Updating values of the current month
-        var oldUnassigned = getCurrentBudget().getUnassigned()
+        var oldUnassigned = getCurrentBudget().bdgtUnassignedMoney
         var oldSubAssigned = 0.00
         var oldSubAvailable = 0.00
         var oldTotalAssigned = 0.00
@@ -65,37 +54,38 @@ class Model {
         var newTotalAssigned = 0.00
         var newTotalAvailable = 0.00
         var newUnassigned = 0.00
-        val newValues = mutableListOf<Double>()
+        var newValues = mutableListOf<Double>()
 
-        // Populating old & new values
-        for (yearlyBudget in getCurrentBudget().getYearlyBudgets()) {
-            if (yearlyBudget.getYear() == targetYear) {
-                for (category in yearlyBudget.getMonthlyBudgets()[targetMonth]) {
+        // Populating lists of old & new values
+        // And then updating the target categories & subcategories (with respect to the current month displayed)
+        for (monthlyBdgt in getCurrentBudget().bdgtAllMonthlyBudgets) {
+            if (monthlyBdgt.bdgtYear == targetYear && monthlyBdgt.bdgtMonth == targetMonth) {
+                for (category in monthlyBdgt.bdgtCategories) {
                     if (category == targetCategory) {
-                        oldTotalAssigned = category.getAssigned()
-                        oldTotalAvailable = category.getAvailable()
-                        for (subcategory in category.getSubcategories()) {
+                        oldTotalAssigned = category.catAssignedMoney
+                        oldTotalAvailable = category.catAvailableMoney
+                        for (subcategory in category.subcategories) {
                             if (subcategory == targetSubcategory) {
-                                oldSubAssigned = subcategory.getAssigned()
-                                oldSubAvailable = subcategory.getAvailable()
+                                oldSubAssigned = subcategory.catAssignedMoney
+                                oldSubAvailable = subcategory.catAvailableMoney
 
                                 newSubAvailable = oldSubAvailable - oldSubAssigned + newSubAssigned
                                 newTotalAssigned = oldTotalAssigned - oldSubAssigned + newSubAssigned
                                 newTotalAvailable = oldTotalAvailable - oldTotalAssigned + newTotalAssigned
                                 newUnassigned = oldUnassigned + oldTotalAssigned - newTotalAssigned
+                                newValues = mutableListOf(
+                                    newUnassigned,
+                                    newSubAssigned,
+                                    newSubAvailable,
+                                    newTotalAssigned,
+                                    newTotalAvailable
+                                )
 
-                                newValues.add(newUnassigned)
-                                newValues.add(newSubAssigned)
-                                newValues.add(newSubAvailable)
-                                newValues.add(newTotalAssigned)
-                                newValues.add(newTotalAvailable)
-
-                                subcategory.setAssigned(newSubAssigned)
-                                subcategory.setAvailable(newSubAvailable)
-                                category.setAssigned(newTotalAssigned)
-                                category.setAvailable(newTotalAvailable)
-                                getCurrentBudget().setUnassigned(newUnassigned)
-
+                                subcategory.catAssignedMoney = newSubAssigned
+                                subcategory.catAvailableMoney = newSubAvailable
+                                category.catAssignedMoney = newTotalAssigned
+                                category.catAvailableMoney = newTotalAvailable
+                                getCurrentBudget().bdgtUnassignedMoney = newUnassigned
                             }
                         }
                     }
@@ -104,28 +94,35 @@ class Model {
         }
         budgetsVM.updateCategoryRecyclerView(newValues)
 
-        // Updating other affected months
-        for (fiscalYear in getCurrentBudget().getYearlyBudgets()) {
-            if (fiscalYear.getYear() == targetYear) {
-                for (i in (targetMonth + 1) until fiscalYear.getMonthlyBudgets().size) {
-                    if (fiscalYear.getMonthlyBudgets()[i].isNotEmpty()) {
-                        Log.d("meow",i.toString())
-                        for (category in fiscalYear.getMonthlyBudgets()[i]) {
-                            if (category.getName() == targetCategory.getName()) {
-                                category.setAvailable(category.getAvailable() - oldTotalAssigned + newTotalAssigned)
-                                for (subcategory in category.getSubcategories()) {
-                                    if (subcategory.getName() == targetSubcategory.getName()) {
-                                        subcategory.setAvailable(subcategory.getAvailable() - oldSubAssigned + newSubAssigned)
-                                    }
-                                }
-                            }
+        // Getting a list of monthlyBudgets that need updating.
+        val listOfTargetMonthlyBudgets: MutableList<MonthlyBudget> = mutableListOf()
+        for (monthlyBdgt in getCurrentBudget().bdgtAllMonthlyBudgets) {
+            // Updating monthlyBudgets within the target year
+            if (monthlyBdgt.bdgtYear == targetYear && monthlyBdgt.bdgtMonth > targetMonth) {
+                listOfTargetMonthlyBudgets.add(monthlyBdgt)
+            }
+            else if (monthlyBdgt.bdgtYear > targetYear) {
+                listOfTargetMonthlyBudgets.add(monthlyBdgt)
+            }
+        }
+
+        // Updating the list of target monthly budgets
+        for (monthlyBdgt in listOfTargetMonthlyBudgets) {
+            for (cat in monthlyBdgt.bdgtCategories) {
+                if (cat.catName == targetCategory.catName) {
+                    // Updating category's monetary values
+                    cat.catAvailableMoney += newTotalAvailable - oldTotalAvailable
+                    for (subcat in cat.subcategories) {
+                        // Updating subcategory's monetary values
+                        if (subcat.catName == targetSubcategory.catName) {
+                            subcat.catAvailableMoney += newSubAvailable - oldSubAvailable
                         }
                     }
                 }
             }
         }
+
+
+
     }
-
-    // ACCOUNTS
-
 }

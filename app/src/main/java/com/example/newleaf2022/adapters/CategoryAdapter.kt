@@ -38,22 +38,12 @@ class CategoryAdapter(private var allCategories: MutableList<Category>, private 
         lateinit var selectedCategory: Category
 
         init {
-            for (index in categoryPositions) {
-                if (bindingAdapterPosition == index) {
-                    previousCategoryPosition = index
-                }
-            }
+
             subAssigned.setOnClickListener {
                 selectedSubcategory = allCategories[bindingAdapterPosition]
-                for (category in allCategories) {
-                    if (category.getCategoryType()) {
-                        for (subcategory in category.getSubcategories()) {
-                            if (subcategory == selectedSubcategory) {
-                                selectedCategory = category
-                            }
-                        }
-                    }
-                }
+                mainActivity.getInstanceOfViewModel().selectSubcategoryViewHolder()
+
+
                 mainActivity.changeFragment("numpad", NumpadFragment())
                 budgetsVM.selectCategoryViewHolder(adapter, this)
             }
