@@ -23,11 +23,11 @@ class AccountsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val budgetsVM: BudgetsViewModel by activityViewModels()
         val mainActivity = (context as MainActivity)
         binding.fragAccountsRecycler.layoutManager = LinearLayoutManager(activity)
 
-        val currentAccounts = budgetsVM.getCurrentBudget().getAccounts()
+        val currentAccounts = mainActivity.getInstanceOfViewModel().getAllAccounts()
+
         binding.fragAccountsRecycler.adapter = AccountsAdapter(currentAccounts, mainActivity)
 
         // Button: Confirms the new account
