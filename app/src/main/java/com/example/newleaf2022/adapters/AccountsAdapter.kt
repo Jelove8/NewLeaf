@@ -49,8 +49,6 @@ class AccountsAdapter(private val accounts: MutableList<Accounts>, private val m
 
     override fun onBindViewHolder(holder: AccountsViewHolder, position: Int) {
 
-
-
     }
 
     override fun getItemCount(): Int {

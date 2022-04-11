@@ -15,7 +15,7 @@
         tools:layout_editor_absoluteX="1dp">
 
         <TextView
-            android:id="@+id/headerTV"
+            android:id="@+id/tv_accountsHeader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="8dp"
@@ -26,7 +26,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/btnReorderAccounts"
+            android:id="@+id/btn_reorderAccounts"
             android:layout_width="wrap_content"
             android:layout_height="43dp"
             android:text="Reorder"
@@ -38,7 +38,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button
-        android:id="@+id/btnViewAllTransactions"
+        android:id="@+id/btn_viewAllTransactions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="View all transactions"
@@ -50,11 +50,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/btnViewAllTransactions"
+        app:layout_constraintTop_toBottomOf="@+id/btn_viewAllTransactions"
         tools:layout_editor_absoluteX="1dp" />
 
     <Button
-        android:id="@+id/btnAddAccount"
+        android:id="@+id/btn_addNewAccount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"

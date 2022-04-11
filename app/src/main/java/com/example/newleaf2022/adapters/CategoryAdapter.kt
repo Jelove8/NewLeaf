@@ -15,13 +15,13 @@ import com.example.newleaf2022.models.dataclasses.Category
 import com.example.newleaf2022.viewmodels.BudgetsViewModel
 
 
-class CategoryAdapter(private var allCategories: MutableList<Category>, private val mainActivity: MainActivity, private val categoryPositions: MutableList<Int>, private val budgetsVM: BudgetsViewModel, private val readyToAssignTV: TextView) : RecyclerView.Adapter<CategoryAdapter.BudgetsViewHolder>() {
+class CategoryAdapter(private var allCategories: MutableList<Category>, private val mainActivity: MainActivity, private val readyToAssignTV: TextView) : RecyclerView.Adapter<CategoryAdapter.BudgetsViewHolder>() {
 
     fun updateUnassignedTV(newUnassigned: Double) {
         readyToAssignTV.text = newUnassigned.toString()
     }
 
-    class BudgetsViewHolder(ItemView: View, mainActivity: MainActivity, budgetsVM: BudgetsViewModel, allCategories: MutableList<Category>, categoryPositions: MutableList<Int>, unassignedTV: TextView, adapter: CategoryAdapter) : RecyclerView.ViewHolder(ItemView) {
+    class BudgetsViewHolder(ItemView: View, allCategories: MutableList<Category>,  mainActivity: MainActivity, readyToAssignTV: TextView) : RecyclerView.ViewHolder(ItemView) {
 
         val categoryConstraint: ConstraintLayout = itemView.findViewById(R.id.cnst_Category)
         val categoryTV: TextView = itemView.findViewById(R.id.tv_Category)
@@ -73,33 +73,30 @@ class CategoryAdapter(private var allCategories: MutableList<Category>, private 
 
         return BudgetsViewHolder(
             view,
-            mainActivity,
-            budgetsVM,
             allCategories,
-            categoryPositions,
-            readyToAssignTV,
-            this
+            mainActivity,
+            readyToAssignTV
         )
     }
 
     override fun onBindViewHolder(holder: BudgetsViewHolder, position: Int) {
+
         // Populating unassigned, category, and subcategory views
-        val currentItem = allCategories[position]
-        if (currentItem.getCategoryType()) {
-            // If the current item is a category...
+        val currentCategory = allCategories[position]
+
+        // Checking if currentCategory is a category or subcategory
+        if (currentCategory.catType) {
             holder.subcategoryConstraint.visibility = View.GONE
-            holder.categoryTV.text = currentItem.getName()
-            holder.totalAssigned.text = currentItem.getAssigned().toString()
-            holder.totalAvailable.text = currentItem.getAvailable().toString()
+            holder.categoryTV.text = currentCategory.catName
+            holder.totalAssigned.text = currentCategory.catAssignedMoney.toString()
+            holder.totalAvailable.text = currentCategory.catAvailableMoney.toString()
         }
         else {
-            // Else if the current item is a subcategory...
             holder.categoryConstraint.visibility = View.GONE
-            holder.subcategoryTV.text = currentItem.getName()
-            holder.subAssigned.text = currentItem.getAssigned().toString()
-            holder.subAvailable.text = currentItem.getAvailable().toString()
+            holder.subcategoryTV.text = currentCategory.catName
+            holder.subAssigned.text = currentCategory.catAssignedMoney.toString()
+            holder.subAvailable.text = currentCategory.catAvailableMoney.toString()
         }
-
 
     }
 

@@ -8,43 +8,34 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 
 import com.example.newleaf2022.databinding.FragmentNewAccountBinding
+import com.example.newleaf2022.models.dataclasses.Accounts
 import com.example.newleaf2022.viewmodels.BudgetsViewModel
 
 class NewAccountFragment : Fragment() {
 
-    private var fragmentBinding: FragmentNewAccountBinding? = null
-    private val binding get() = fragmentBinding!!
+    private lateinit var binding: FragmentNewAccountBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
-        fragmentBinding = FragmentNewAccountBinding.inflate(inflater,container,false)
+        binding = FragmentNewAccountBinding.inflate(inflater,container,false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val budgetsVM: BudgetsViewModel by activityViewModels()
         val mainActivity = (context as MainActivity)
 
-        //
-        binding.btnCancelNewAccount.setOnClickListener {
+
+        binding.btnAddAcctCancel.setOnClickListener {
             mainActivity.changeFragment("main", AccountsFragment())
         }
 
-        binding.btnAddAcount.setOnClickListener {
-            val newAccount = Accounts(binding.inputAccountName.text.toString(), binding.inputAccountType.text.toString(), binding.inputBalance.text.toString().toDouble())
-            budgetsVM.addAccount(newAccount, mainActivity.getInstanceOfModel())
+        binding.btnAddAcctConfirm.setOnClickListener {
+            val newAccount = Accounts(binding.tvAcctInitialNickname.text.toString(), binding.tvAcctInitialType.text.toString(), binding.tvAcctInitialBalance.text.toString().toDouble())
+            mainActivity.getInstanceOfViewModel().addNewAccount(newAccount)
             mainActivity.changeFragment("main", AccountsFragment())
         }
-
     }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        fragmentBinding = null
-    }
-
 }

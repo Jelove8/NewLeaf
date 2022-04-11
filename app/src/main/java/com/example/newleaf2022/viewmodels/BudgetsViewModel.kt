@@ -7,6 +7,7 @@ import com.example.newleaf2022.models.dataclasses.Budgets
 import com.example.newleaf2022.models.dataclasses.Category
 import com.example.newleaf2022.models.Model
 import com.example.newleaf2022.models.dataclasses.Accounts
+import com.example.newleaf2022.models.dataclasses.MonthlyBudget
 import java.util.*
 
 class BudgetsViewModel : ViewModel() {
@@ -127,9 +128,26 @@ class BudgetsViewModel : ViewModel() {
         return model.getCurrentBudget()
     }
 
+    // CATEGORIES
+    fun getCurrentMonthlyCategories(): MutableList<Category> {
+        var filteredListOfCategories = mutableListOf<Category>()
+        for (monthlyBdgt in model.getCurrentBudget().bdgtAllMonthlyBudgets) {
+            if (monthlyBdgt.bdgtYear == currentFiscalYear && monthlyBdgt.bdgtMonth == currentMonthDisplay) {
+                filteredListOfCategories = monthlyBdgt.bdgtCategories
+            }
+        }
+        return filteredListOfCategories
+    }
+
+
+
     // ACCOUNTS
     fun getAllAccounts(): MutableList<Accounts> {
         return model.getCurrentBudget().bdgtAllAccounts
+    }
+    fun addNewAccount(newAccount: Accounts) {
+        model.getCurrentBudget().bdgtAllAccounts.add(newAccount)
+        model.getCurrentBudget().bdgtAllAccounts.sortBy { it.acctName }
     }
 
 
