@@ -7,49 +7,88 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.core.view.children
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newleaf2022.adapters.CategoryAdapter
 import com.example.newleaf2022.databinding.FragmentDisplayCategoriesBinding
-import com.example.newleaf2022.viewmodels.BudgetsViewModel
+import java.util.*
 
 
 class DisplayCategoriesFragment : Fragment() {
 
-    private var fragmentBinding: FragmentDisplayCategoriesBinding? = null
-    private val binding get() = fragmentBinding!!
+    private lateinit var binding: FragmentDisplayCategoriesBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        fragmentBinding = FragmentDisplayCategoriesBinding.inflate(inflater,container,false)
+        binding = FragmentDisplayCategoriesBinding.inflate(inflater,container,false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        binding.rcyMonthlyCategories.layoutManager = LinearLayoutManager(activity)
         val mainActivity = (context as MainActivity)
 
-        // Displaying unassigned amount
-        binding.tvUnassignedValue.text = mainActivity.getInstanceOfViewModel().getCurrentBudget().bdgtUnassignedMoney.toString()
-
-        // Populating the recycler view
+        // Call to populate recycler view
         fun populateCategoriesRecyclerView() {
             val newAdapter = CategoryAdapter(mainActivity.getInstanceOfViewModel().getAllCategories(), mainActivity, binding.tvUnassignedValue)
+            binding.rcyMonthlyCategories.layoutManager = LinearLayoutManager(activity)
             binding.rcyMonthlyCategories.adapter = newAdapter
         }
 
+        // Displaying data
+        binding.tvUnassignedValue.text = mainActivity.getInstanceOfViewModel().getCurrentBudget().bdgtUnassignedMoney.toString()
         populateCategoriesRecyclerView()
 
 
-
-        // Populating RecyclerView
-
-        binding.btnMisc1.setOnClickListener {
+        binding.btnBdgtSelection.setOnClickListener {
             binding.cnstDateButtonsPerimeter.visibility = View.GONE
         }
 
-        binding.btnChangeDate.setOnClickListener {
+
+        binding.btnBdgtEditCategories.setOnClickListener {
+            binding.cnstDateButtonsPerimeter.visibility = View.GONE
+            mainActivity.changeFragment("main", EditCategoriesFragment())
+        }
+
+        // Hides "Date Buttons" if they are currently visible
+        binding.tvDateButtonsWhiteSpace.setOnClickListener {
+            binding.cnstDateButtonsPerimeter.visibility = View.GONE
+        }
+
+        fun lockDateButtons(currentYearSelected: Int) {
+            var activeBudgetsInSelectedYear = 0
+            for (monthlyBdgt in mainActivity.getInstanceOfViewModel().getCurrentBudget().bdgtAllMonthlyBudgets) {
+                if (monthlyBdgt.bdgtYear == currentYearSelected) {
+                    activeBudgetsInSelectedYear++
+                }
+            }
+            // Locking the proper date buttons
+            for ((b,btn) in binding.cnstDateButtons.children.withIndex()) {
+                btn.isClickable = b < activeBudgetsInSelectedYear
+            }
+        }
+        // DATE SELECTION
+        // int year = Calendar.getInstance().get(Calendar.YEAR)
+        binding.tvSelectedYear.text = mainActivity.getInstanceOfViewModel().getCurrentYearDisplayed().toString()
+
+        binding.btnYearForward.setOnClickListener {
+            val currentYearPlusOne = binding.tvSelectedYear.text.toString().toInt() + 1
+            for (monthlyBdgt in mainActivity.getInstanceOfViewModel().getCurrentBudget().bdgtAllMonthlyBudgets) {
+                if (monthlyBdgt.bdgtYear == currentYearPlusOne) {
+                    binding.tvSelectedYear.text = currentYearPlusOne.toString()
+                    lockDateButtons(currentYearPlusOne)
+                }
+            }
+        }
+
+        binding.btnYearBack.setOnClickListener {
+            val currentYearMinusOne = binding.tvSelectedYear.text.toString().toInt() - 1
+            binding.tvSelectedYear.text = currentYearMinusOne.toString()
+            lockDateButtons(currentYearMinusOne)
+        }
+
+
+
+
+        binding.btnBdgtDateSelection.setOnClickListener {
             if (binding.cnstDateButtonsPerimeter.visibility == View.GONE) {
                 var lockUpTo = 0
                 for (yearlyBudget in budgetsVM.getCurrentBudget().getYearlyBudgets()) {
@@ -71,18 +110,8 @@ class DisplayCategoriesFragment : Fragment() {
             }
         }
 
-        binding.btnEditBudget.setOnClickListener {
-            binding.cnstDateButtonsPerimeter.visibility = View.GONE
-            mainActivity.changeFragment("main", EditCategoriesFragment())
-        }
-
-        // Hides "Date Buttons" if they are currently visible
-        binding.tvDateButtonsWhiteSpace.setOnClickListener {
-            binding.cnstDateButtonsPerimeter.visibility = View.GONE
-        }
 
 
-        // Date Button Logic
         binding.btnJan.setOnClickListener{
             budgetsVM.setCurrentDate("custom", mutableListOf(0))
         }
@@ -135,11 +164,6 @@ class DisplayCategoriesFragment : Fragment() {
         }
 
 
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        fragmentBinding = null
     }
 
 }

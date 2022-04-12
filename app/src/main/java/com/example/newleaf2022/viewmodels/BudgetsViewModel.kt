@@ -1,6 +1,7 @@
 package com.example.newleaf2022.viewmodels
 
 import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.newleaf2022.adapters.CategoryAdapter
 import com.example.newleaf2022.models.dataclasses.Budgets
@@ -13,8 +14,21 @@ import java.util.*
 class BudgetsViewModel : ViewModel() {
 
     private lateinit var model: Model
+    private val _currentMonthDisplayed: MutableLiveData<Int> = MutableLiveData(Calendar.getInstance().get(Calendar.MONTH))
+    private val _currentYearDisplayed: MutableLiveData<Int> = MutableLiveData(Calendar.getInstance().get(Calendar.YEAR))
+
+
+    // DATE
+    fun getCurrentMonthDisplayed(): Int {
+        return _currentMonthDisplayed.value!!
+    }
+    fun getCurrentYearDisplayed(): Int {
+        return _currentYearDisplayed.value!!
+    }
+
+
     private var currentFiscalYear: Int = 0
-    private  var currentMonthDisplay: Int = 0   // Need to find a way to init { get current month }
+    private var currentMonthDisplay: Int = 0   // Need to find a way to init { get current month }
     // 0 = Jan, 1 = Feb, ... 11 = Dec
 
     // General Functions
@@ -77,10 +91,6 @@ class BudgetsViewModel : ViewModel() {
     fun getSelectedSubcategoryViewholder(): CategoryAdapter.BudgetsViewHolder {
         return selectedSubcategoryViewHolder
     }
-
-
-
-
 
     // Returns the current month's list of categories and subcategories (passed through a recycler view)
     fun getAllCategories(): MutableList<Category> {

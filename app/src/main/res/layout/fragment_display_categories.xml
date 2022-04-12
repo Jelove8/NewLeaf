@@ -13,7 +13,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <Button
-            android:id="@+id/btnMisc1"
+            android:id="@+id/btn_bdgtSelection"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="misc"
@@ -21,16 +21,16 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/btnChangeDate"
+            android:id="@+id/btn_bdgtDateSelection"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="feb2022"
-            app:layout_constraintEnd_toStartOf="@+id/btnEditBudget"
-            app:layout_constraintStart_toEndOf="@+id/btnMisc1"
+            app:layout_constraintEnd_toStartOf="@+id/btn_bdgtEditCategories"
+            app:layout_constraintStart_toEndOf="@+id/btn_bdgtSelection"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/btnEditBudget"
+            android:id="@+id/btn_bdgtEditCategories"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="edit"
@@ -56,7 +56,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tv_unassigned"
+            android:id="@+id/tv_unassignedText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Ready to Assign"
@@ -79,14 +79,15 @@
         android:id="@+id/cnst_dateButtonsPerimeter"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cnst_addAcctHeader">
 
         <TextView
             android:id="@+id/tv_dateButtonsWhiteSpace"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="0dp" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cnst_dateButtons"
@@ -99,6 +100,39 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
+            <TextView
+                android:id="@+id/tv_selectedYear"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="2022"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/btn_yearBack"
+                app:layout_constraintEnd_toStartOf="@+id/btn_yearForward"
+                app:layout_constraintStart_toEndOf="@+id/btn_yearBack"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/btn_yearBack"
+                android:layout_width="48dp"
+                android:layout_height="40dp"
+                android:background="@android:drawable/ic_media_play"
+                android:rotation="180"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+            <Button
+                android:id="@+id/btn_yearForward"
+                android:layout_width="48dp"
+                android:layout_height="40dp"
+                android:background="@android:drawable/ic_media_play"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
             <Button
                 android:id="@+id/btn_jan"
                 android:layout_width="64dp"
@@ -106,7 +140,7 @@
                 android:text="Jan"
                 android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_selectedYear"
                 tools:ignore="TouchTargetSizeCheck" />
 
             <Button
@@ -117,7 +151,7 @@
                 android:text="Feb"
                 android:textSize="12sp"
                 app:layout_constraintStart_toEndOf="@+id/btn_jan"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_selectedYear"
                 tools:ignore="TouchTargetSizeCheck" />
 
             <Button
@@ -128,7 +162,7 @@
                 android:text="Mar"
                 android:textSize="12sp"
                 app:layout_constraintStart_toEndOf="@+id/btn_feb"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_selectedYear"
                 tools:ignore="TouchTargetSizeCheck" />
 
             <Button
@@ -139,7 +173,7 @@
                 android:text="Apr"
                 android:textSize="12sp"
                 app:layout_constraintStart_toEndOf="@+id/btn_mar"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_selectedYear"
                 tools:ignore="TouchTargetSizeCheck" />
 
             <Button
