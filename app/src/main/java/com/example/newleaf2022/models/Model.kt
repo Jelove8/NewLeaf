@@ -1,31 +1,89 @@
 package com.example.newleaf2022.models
 
-import com.example.newleaf2022.viewmodels.*
+import android.annotation.SuppressLint
+import android.util.Log
+import com.example.newleaf2022.models.dataclasses.Budgets
+import com.example.newleaf2022.models.dataclasses.Categories
+import com.example.newleaf2022.models.dataclasses.Users
+import com.google.firebase.database.FirebaseDatabase
 
 class Model {
+    private val database = FirebaseDatabase.getInstance()
 
-    private lateinit var currentBudget: Budgets
-    private lateinit var currentAccounts: ArrayList<Accounts>
-    private lateinit var currentCategories: ArrayList<Categories>
+    private lateinit var currentUser : Users
 
-    fun initializeModel() {
-        val database = MockDatabase()
-        database.initializeMockDatabase()
-        currentBudget = database.getMockBudget()
-        currentAccounts = currentBudget.accounts
-        currentCategories = currentBudget.categories
+    fun initializeUser(type: Int) {
+
+        when (type) {
+            0 -> {
+                val guestUser = Users("Guest User")
+                guestUser.setBudgets(arrayListOf(Budgets("Guest Budget")))
+                guestUser.setCurrentBudget(guestUser.getBudget(0))
+                currentUser = guestUser
+            }
+            1 -> {
+                val mockUser = MockDatabase().getMockUser()
+                currentUser = mockUser
+            }
+            else -> {}
+        }
+
+    }
+    fun getUser(): Users {
+        return currentUser
     }
 
     fun getCurrentBudget(): Budgets {
-        return currentBudget
+        return currentUser.getCurrentBudget()
     }
 
-    fun getCurrentCategories(): ArrayList<Categories> {
-        return currentCategories
+
+    fun updateCurrentBudget(newBudget: Budgets) {
+        currentUser.setCurrentBudget(newBudget)
     }
 
-    fun getCurrentAccounts(): ArrayList<Accounts> {
-        return currentAccounts
-    }
 
+    // Category Adapter
+
+    @SuppressLint("LongLogTag")
+    fun updateSubcategoryAssignedValue(
+        newValues: ArrayList<Double>,
+        oldValues: ArrayList<Double>,
+        targetCategory: Categories,
+        targetSubcategory: Categories,
+        currentMonthDisplay: Int,
+        currentYear: Int
+    ) {
+        // Updating the current budget's unassigned value
+        getCurrentBudget().setUnassigned(newValues[0])
+
+
+        // This will loop N times, where N equals the number of affected monthlyBudgets
+        for (i in currentMonthDisplay..11) {
+            // Tracking the target budgetYear
+            for (yearlyBudget in getCurrentBudget().getYearlyBudgets()) {
+                if (yearlyBudget.getYear() == currentYear) {
+                    val targetMonthlyBudget = yearlyBudget.getMonthlyBudgets()[i]
+                    // Tracking which category will be affected
+                    for (category in targetMonthlyBudget) {
+                        if (category.getName() == targetCategory.getName()) {
+                            // Updating the category's available values
+                            category.setAvailable(category.getAvailable() - oldValues[4] + newValues[4])
+                            Log.d("Model.updateSubcategoryAssignedValue", "Month: $i, AvailableValue: ${category.getAvailable()}")
+                            // Updating the targetSubcategory's assigned and available values
+                            for (subcategory in category.getSubcategories()) {
+                                if (subcategory.getName() == targetSubcategory.getName()) {
+                                    subcategory.setAvailable(subcategory.getAvailable() - oldValues[1] + newValues[2])
+                                    break
+                                }
+                            }
+                            break
+                        }
+                    }
+                    break
+                }
+            }
+        }
+        Log.d("Model.updateSubcategoryAssignedValue", "April.Savings.AvailableValue: ${getCurrentBudget().getYearlyBudgets()[0].getMonthlyBudgets()[3][0]}")
+    }
 }

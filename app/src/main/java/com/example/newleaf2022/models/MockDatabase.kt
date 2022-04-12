@@ -1,48 +1,81 @@
 package com.example.newleaf2022.models
 
-import com.example.newleaf2022.viewmodels.*
+import com.example.newleaf2022.models.dataclasses.*
+
 
 class MockDatabase {
 
-    // Mock Budget & Account
-    private val databaseBudget = Budgets("Test Budget", "01282022")
-    private val databaseAccount = Accounts("Checkings", "Checkings", 3000.00)
+    // Data for March
 
-    // Mock Transactions
-    private val databaseTransaction1 = Transactions(true, 669.21, "Starbucks", databaseAccount, "Unassigned", "01282022", true, "Depositing a paycheck from employer.")
-    private val databaseTransaction2 = Transactions(false, 44.17, "Shell", databaseAccount, "Gas", "01292022", true, null)
-    private val databaseTransaction3 = Transactions(false, 22.89, "Target", databaseAccount, "Clothes", "01292022", true, "Bought new jeans.")
-    private val databaseTransaction4 = Transactions(false, 350.00, "Target", databaseAccount, "Clothes", "01292022", true, "Bought new jeans.")
-    private val transactionsList = arrayListOf(databaseTransaction1, databaseTransaction2, databaseTransaction3, databaseTransaction4)
+    private val subcategory1 = Categories("Rent", 1000.00, 1000.00, null, false)
+    private val subcategory2 = Categories("Student Loans", 300.00, 300.00, null, false)
+    private val subcategory3 = Categories("Groceries", 200.00, 200.00, null, false)
+    private val subcategory4 = Categories("Gas", 120.00, 120.00, null, false)
+    private val subcategory5 = Categories("Toiletries", 30.00, 30.00, null, false)
+    private val subcategory6 = Categories("Clothes", 100.00, 100.00, null, false)
 
-    // Mock Subcategories
-    private val databaseSubcategory1 = Subcategories("Rent")
-    private val databaseSubcategory2 = Subcategories("Student Loans")
-    private val databaseSubcategory3 = Subcategories("Groceries")
-    private val databaseSubcategory4 = Subcategories("Gas")
-    private val databaseSubcategory5 = Subcategories("Toiletries")
-    private val databaseSubcategory6 = Subcategories("Clothes")
-    private val subcategoriesList1 = arrayListOf(databaseSubcategory1, databaseSubcategory2)
-    private val subcategoriesList2 = arrayListOf(databaseSubcategory3, databaseSubcategory4)
-    private val subcategoriesList3 = arrayListOf(databaseSubcategory5, databaseSubcategory6)
+    private val category1 = Categories("Savings", 1300.00, 1300.00)
+    private val category2 = Categories("Frequent", 320.00, 320.00)
+    private val category3 = Categories("Shopping", 130.00, 130.00)
 
-    // Mock Categories
-    private val databaseCategory1 = Categories("Savings", subcategoriesList1)
-    private val databaseCategory2 = Categories("Frequent", subcategoriesList2)
-    private val databaseCategory3 = Categories("Shopping", subcategoriesList3)
+    private val account1 = Accounts("Checkings", "Checkings", 3000.00)
 
-    fun initializeMockDatabase() {
+    private val budget0 = Budgets("Test Budget", 1250.00)
 
-        // Initialize Budget
-        databaseBudget.accounts = arrayListOf(databaseAccount)
-        databaseBudget.categories = arrayListOf(databaseCategory1, databaseCategory2, databaseCategory3)
+    private val user0 = Users("Anjelo", "password")
 
-        // Initialize Accounts
-        databaseAccount.transactions = transactionsList
+    // Data for previous months
+    private val subcategoryB1 = Categories("Rent", 0.00, 0.00, null, false)
+    private val subcategoryB2 = Categories("Student Loans", 0.00, 0.00, null, false)
+    private val subcategoryB3 = Categories("Groceries", 0.00, 0.00, null, false)
+    private val subcategoryB4 = Categories("Gas", 0.00, 0.00, null, false)
+    private val subcategoryB5 = Categories("Toiletries", 0.00, 0.00, null, false)
+    private val subcategoryB6 = Categories("Clothes", 0.00, 0.00, null, false)
+
+    private val categoryB1 = Categories("Savings", 0.00, 0.00)
+    private val categoryB2 = Categories("Frequent", 0.00, 0.00)
+    private val categoryB3 = Categories("Shopping", 0.00, 0.00)
+
+
+    // Data for April
+    private val subcategoryC1 = Categories("Rent", 0.00, 1000.00, null, false)
+    private val subcategoryC2 = Categories("Student Loans", 0.00, 300.00, null, false)
+    private val subcategoryC3 = Categories("Groceries", 0.00, 200.00, null, false)
+    private val subcategoryC4 = Categories("Gas", 0.00, 120.00, null, false)
+    private val subcategoryC5 = Categories("Toiletries", 0.00, 30.00, null, false)
+    private val subcategoryC6 = Categories("Clothes", 0.00, 100.00, null, false)
+
+    private val categoryC1 = Categories("Savings", 0.00, 1300.00)
+    private val categoryC2 = Categories("Frequent", 0.00, 320.00)
+    private val categoryC3 = Categories("Shopping", 0.00, 1300.00)
+
+
+
+
+    fun getMockUser(): Users {
+
+        category1.setSubcategories(arrayListOf(subcategory1, subcategory2))
+        category2.setSubcategories(arrayListOf(subcategory3, subcategory4))
+        category3.setSubcategories(arrayListOf(subcategory5, subcategory6))
+
+        categoryB1.setSubcategories(arrayListOf(subcategoryB1, subcategoryB2))
+        categoryB2.setSubcategories(arrayListOf(subcategoryB3, subcategoryB4))
+        categoryB3.setSubcategories(arrayListOf(subcategoryB5, subcategoryB6))
+
+        categoryC1.setSubcategories(arrayListOf(subcategoryC1, subcategoryC2))
+        categoryC2.setSubcategories(arrayListOf(subcategoryC3, subcategoryC4))
+        categoryC3.setSubcategories(arrayListOf(subcategoryC5, subcategoryC6))
+
+        budget0.setAccounts(arrayListOf(account1))
+        budget0.setTransactions(arrayListOf())
+
+        val fiscalYear2022 = FiscalYear(2022, arrayListOf(arrayListOf(categoryB1, categoryB2, categoryB3),arrayListOf(categoryB1, categoryB2, categoryB3),arrayListOf(category1, category2, category3),arrayListOf(categoryC1, categoryC2, categoryC3),arrayListOf(), arrayListOf(), arrayListOf(), arrayListOf(), arrayListOf(), arrayListOf(), arrayListOf() , arrayListOf()))
+        budget0.addYearlyBudget(fiscalYear2022)
+
+
+        user0.setBudgets(arrayListOf(budget0))
+        user0.setCurrentBudget(budget0)
+
+        return user0
     }
-
-    fun getMockBudget(): Budgets {
-        return databaseBudget
-    }
-
 }

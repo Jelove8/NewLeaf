@@ -1,14 +1,20 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'com.google.gms.google-services'
 }
 
 android {
     compileSdk 31
 
-    viewBinding{
-        enabled true
+    dataBinding {
+        //noinspection DataBindingWithoutKapt
+        android.buildFeatures.dataBinding = true
     }
+
+   viewBinding {
+       enabled true
+   }
 
     defaultConfig {
         applicationId "com.example.newleaf2022"
@@ -19,6 +25,8 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+
+
 
     buildTypes {
         release {
@@ -52,6 +60,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-database-ktx:20.0.3'
     implementation 'androidx.navigation:navigation-fragment-ktx:2.4.1'
     implementation 'androidx.navigation:navigation-ui-ktx:2.4.1'
+    implementation platform('com.google.firebase:firebase-bom:29.1.0')
+    implementation 'com.google.firebase:firebase-analytics'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

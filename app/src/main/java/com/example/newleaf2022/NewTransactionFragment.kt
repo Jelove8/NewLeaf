@@ -5,28 +5,79 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import com.example.newleaf2022.databinding.FragmentNewTransactionBinding
+import com.example.newleaf2022.models.dataclasses.Transactions
+import com.example.newleaf2022.viewmodels.BudgetsViewModel
 
 class NewTransactionFragment : Fragment() {
 
     private var fragmentBinding: FragmentNewTransactionBinding? = null
     private val binding get() = fragmentBinding!!
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         fragmentBinding = FragmentNewTransactionBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val mainActivity = context as MainActivity
+        val budgetsVM: BudgetsViewModel by activityViewModels()
+
+
+        var signCheck = false
+        var clearedCheck = false
 
         binding.btnCancelTransaction.setOnClickListener {
-            (context as MainActivity).changeFragment("remove", this)
+            mainActivity.changeFragment("remove", this)
         }
+
+        binding.btnChangeSign.setOnClickListener {
+            signCheck = !signCheck
+        }
+
+        binding.btnCleared.setOnClickListener {
+            clearedCheck = !clearedCheck
+        }
+
+        binding.btnAddTransaction.setOnClickListener {
+            var amount = 0.00
+            amount = if (signCheck) {
+                binding.inputAmount.text.toString().toDouble()
+            }
+            else {
+                ("-${binding.inputAmount.text}").toDouble()
+            }
+
+            var payee = binding.inputPayee.text.toString()
+            var newSubcategory = binding.inputSubcategory1.toString()
+            var account = binding.inputAccount.text.toString()
+            var cleared = clearedCheck
+            var memo = binding.inputMemo.text.toString()
+
+            val newTransaction = Transactions(amount, payee, newSubcategory, cleared, memo)
+
+            // Adding transaction to the appropriate account's list of transactions
+            for (item in budgetsVM.getCurrentBudget().getAccounts()) {
+                if (account == item.getName()) {
+                    item.getTransactions().add(newTransaction)
+                }
+            }
+
+            // Adding transaction to the appropriate subcategory's list of transactions
+            /*
+            for (category in budgetsVM.getCurrentBudget().getMainCategories()) {
+                for (subcategory in category.getSubcategories()) {
+                    if (newSubcategory == subcategory.getName()) {
+                        subcategory.addTransaction(newTransaction)
+                    }
+                }
+            }
+*/
+
+        }
+
 
     }
 

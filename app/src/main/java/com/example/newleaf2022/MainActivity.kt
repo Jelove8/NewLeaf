@@ -4,16 +4,17 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import com.example.newleaf2022.databinding.ActivityMainBinding
 import com.example.newleaf2022.models.Model
-import com.example.newleaf2022.viewmodels.AccountsViewModel
-import com.example.newleaf2022.viewmodels.Budgets
 import com.example.newleaf2022.viewmodels.BudgetsViewModel
 
 class MainActivity : AppCompatActivity() {
+
+    lateinit var model: Model
+    private lateinit var budgetsVM: BudgetsViewModel
 
     fun changeFragment(container: String, fragment: Fragment) {
         val fragmentManager = supportFragmentManager
@@ -42,25 +43,23 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityMainBinding.inflate(layoutInflater)
-        val model = Model()
-        val budgetsVM = ViewModelProvider(this)[BudgetsViewModel::class.java]
         setContentView(binding.root)
 
-
-        // Initializing Data
-        model.initializeModel()
-        budgetsVM.currentBudget.value = model.getCurrentBudget()
-        budgetsVM.currentAccounts.value = model.getCurrentAccounts()
-        budgetsVM.currentCategories.value = model.getCurrentCategories()
+        // Initializing Model & ViewModel
+        model = Model()
+        budgetsVM  = ViewModelProvider(this)[BudgetsViewModel::class.java]
+        budgetsVM.initializeUser(model)
 
 
         // Main Button Logic
         binding.mainButton1.setOnClickListener {
-            changeFragment("main", BudgetsFragment())
+            changeFragment("main", BudgetFragment())
+            binding.subFragment.visibility = View.GONE
         }
 
         binding.mainButton2.setOnClickListener {
             changeFragment("main", AccountsFragment())
+            binding.subFragment.visibility = View.GONE
         }
 
         binding.mainButton3.setOnClickListener {

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TransactionsFragment" >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/fragTransactionsHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/accountNameTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Account Name"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btnEditAccount"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toEndOf="@+id/btnBack1"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.523" />
+
+        <Button
+            android:id="@+id/btnBack1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="misc"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btnEditAccount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="edit"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fragTransactionsHeader">
+
+        <TextView
+            android:id="@+id/clearedTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cleared"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/outputCleared"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="80dp"
+            android:text="0.00"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/clearedTV"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/unclearedTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Uncleared"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/clearedTV" />
+
+        <TextView
+            android:id="@+id/outputUncleared"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0.00"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/outputCleared" />
+
+        <TextView
+            android:id="@+id/workingbalanceTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Working Balance"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/unclearedTV" />
+
+        <TextView
+            android:id="@+id/outputWorkingbalance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0.00"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/outputUncleared" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/fragTransactionsRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
+        tools:layout_editor_absoluteX="16dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

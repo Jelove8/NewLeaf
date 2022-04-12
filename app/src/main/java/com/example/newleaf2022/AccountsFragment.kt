@@ -9,13 +9,10 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newleaf2022.adapters.AccountsAdapter
 import com.example.newleaf2022.databinding.FragmentAccountsBinding
-import com.example.newleaf2022.viewmodels.AccountsViewModel
-import com.example.newleaf2022.viewmodels.Budgets
-import com.example.newleaf2022.viewmodels.BudgetsViewModel
+import com.example.newleaf2022.viewmodels.*
 
 class AccountsFragment : Fragment() {
 
-    private lateinit var currentBudget: Budgets
     private var fragmentBinding: FragmentAccountsBinding? = null
     private val binding get() = fragmentBinding!!
 
@@ -26,18 +23,14 @@ class AccountsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val accountsVM: AccountsViewModel by activityViewModels()
         val budgetsVM: BudgetsViewModel by activityViewModels()
         val mainActivity = (context as MainActivity)
         binding.fragAccountsRecycler.layoutManager = LinearLayoutManager(activity)
 
+        val currentAccounts = budgetsVM.getCurrentBudget().getAccounts()
+        binding.fragAccountsRecycler.adapter = AccountsAdapter(currentAccounts, mainActivity)
 
-        budgetsVM.currentBudget
-
-
-
-        binding.fragAccountsRecycler.adapter = AccountsAdapter(accountsVM.accounts.value)
-
+        // Button: Confirms the new account
         binding.btnAddAccount.setOnClickListener {
             mainActivity.changeFragment("main", NewAccountFragment())
         }

@@ -14,7 +14,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <Button
-            android:id="@+id/btnMisc2"
+            android:id="@+id/btnCancelNewAccount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Cancel"
@@ -29,14 +29,14 @@
             android:text="Add Account"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btnEditBranches"
+            app:layout_constraintEnd_toStartOf="@+id/btnEditBudget"
             app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/btnMisc2"
+            app:layout_constraintStart_toEndOf="@+id/btnCancelNewAccount"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.523" />
 
         <Button
-            android:id="@+id/btnEditBranches"
+            android:id="@+id/btnEditBudget"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="edit"
@@ -71,17 +71,6 @@
         tools:ignore="SpeakableTextPresentCheck,TextContrastCheck" />
 
     <TextView
-        android:id="@+id/fragNewAccountTV3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="Enter this account's balance..."
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputAccountName" />
-
-    <TextView
         android:id="@+id/fragNewAccountTV2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -107,6 +96,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fragNewAccountTV2"
         tools:ignore="SpeakableTextPresentCheck,TextContrastCheck" />
+
+    <TextView
+        android:id="@+id/fragNewAccountTV3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Enter this account's balance..."
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/inputAccountName" />
 
     <EditText
         android:id="@+id/inputBalance"

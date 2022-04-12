@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "701317194908",
+    "project_id": "new-leaf-c8ce9",
+    "storage_bucket": "new-leaf-c8ce9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:701317194908:android:5774dfe4502ac36aa9f959",
+        "android_client_info": {
+          "package_name": "com.example.newleaf2022"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "701317194908-8hr7bcjqk2us88772027r1j3qs91m2kr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAPEXtEKYNFrI3HswR9QFmtd50nyPoxnU0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "701317194908-8hr7bcjqk2us88772027r1j3qs91m2kr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BudgetsFragment">
+    tools:context=".BudgetFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/fragNewAccountHeader"
@@ -25,12 +25,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="feb2022"
-            app:layout_constraintEnd_toStartOf="@+id/btnEditBranches"
+            app:layout_constraintEnd_toStartOf="@+id/btnEditBudget"
             app:layout_constraintStart_toEndOf="@+id/btnMisc1"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/btnEditBranches"
+            android:id="@+id/btnEditBudget"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="edit"
@@ -48,10 +48,9 @@
         tools:layout_editor_absoluteX="411dp">
 
         <TextView
-            android:id="@+id/tvTotalUnassigned"
+            android:id="@+id/outputTotalUnassigned"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="$1,785.18"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -63,16 +62,8 @@
             android:text="Ready to Assign"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvTotalUnassigned" />
+            app:layout_constraintTop_toBottomOf="@+id/outputTotalUnassigned" />
 
-        <Button
-            android:id="@+id/btnAssignMoney"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Assign Money"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
