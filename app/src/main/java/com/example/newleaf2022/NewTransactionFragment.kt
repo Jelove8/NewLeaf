@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.newleaf2022.databinding.FragmentNewTransactionBinding
-import com.example.newleaf2022.models.dataclasses.Transactions
 import com.example.newleaf2022.viewmodels.BudgetsViewModel
 
 class NewTransactionFragment : Fragment() {

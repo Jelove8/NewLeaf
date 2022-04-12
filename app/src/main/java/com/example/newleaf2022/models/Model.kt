@@ -1,24 +1,27 @@
 package com.example.newleaf2022.models
 
-import android.annotation.SuppressLint
 import android.util.Log
 import com.example.newleaf2022.models.dataclasses.Budgets
-import com.example.newleaf2022.models.dataclasses.Categories
+import com.example.newleaf2022.models.dataclasses.Category
+import com.example.newleaf2022.models.dataclasses.MonthlyBudget
 import com.example.newleaf2022.models.dataclasses.Users
+import com.example.newleaf2022.viewmodels.BudgetsViewModel
 import com.google.firebase.database.FirebaseDatabase
+import java.time.Month
 
 class Model {
     private val database = FirebaseDatabase.getInstance()
 
     private lateinit var currentUser : Users
 
+
     fun initializeUser(type: Int) {
 
         when (type) {
             0 -> {
                 val guestUser = Users("Guest User")
-                guestUser.setBudgets(arrayListOf(Budgets("Guest Budget")))
-                guestUser.setCurrentBudget(guestUser.getBudget(0))
+                guestUser.setUserBudget(mutableListOf(Budgets("Guest Budget")))
+                guestUser.setUserCurrentBudget(guestUser.getUserBudgets(0))
                 currentUser = guestUser
             }
             1 -> {
@@ -34,56 +37,92 @@ class Model {
     }
 
     fun getCurrentBudget(): Budgets {
-        return currentUser.getCurrentBudget()
-    }
-
-
-    fun updateCurrentBudget(newBudget: Budgets) {
-        currentUser.setCurrentBudget(newBudget)
+        return currentUser.userBudgets[currentUser.currentlyDisplayedBudgetIndex]
     }
 
 
     // Category Adapter
+    fun updateSubcategoryAssignedValue(newSubAssigned: Double, targetCategory: Category, targetSubcategory: Category, targetMonth: Int, targetYear: Int, budgetsVM: BudgetsViewModel) {
+        // Updating values of the current month
+        var oldUnassigned = getCurrentBudget().bdgtUnassignedMoney
+        var oldSubAssigned = 0.00
+        var oldSubAvailable = 0.00
+        var oldTotalAssigned = 0.00
+        var oldTotalAvailable = 0.00
 
-    @SuppressLint("LongLogTag")
-    fun updateSubcategoryAssignedValue(
-        newValues: ArrayList<Double>,
-        oldValues: ArrayList<Double>,
-        targetCategory: Categories,
-        targetSubcategory: Categories,
-        currentMonthDisplay: Int,
-        currentYear: Int
-    ) {
-        // Updating the current budget's unassigned value
-        getCurrentBudget().setUnassigned(newValues[0])
+        var newSubAvailable = 0.00
+        var newTotalAssigned = 0.00
+        var newTotalAvailable = 0.00
+        var newUnassigned = 0.00
+        var newValues = mutableListOf<Double>()
 
+        // Populating lists of old & new values
+        // And then updating the target categories & subcategories (with respect to the current month displayed)
+        for (monthlyBdgt in getCurrentBudget().bdgtAllMonthlyBudgets) {
+            if (monthlyBdgt.bdgtYear == targetYear && monthlyBdgt.bdgtMonth == targetMonth) {
+                for (category in monthlyBdgt.bdgtCategories) {
+                    if (category == targetCategory) {
+                        oldTotalAssigned = category.catAssignedMoney
+                        oldTotalAvailable = category.catAvailableMoney
+                        for (subcategory in category.subcategories) {
+                            if (subcategory == targetSubcategory) {
+                                oldSubAssigned = subcategory.catAssignedMoney
+                                oldSubAvailable = subcategory.catAvailableMoney
 
-        // This will loop N times, where N equals the number of affected monthlyBudgets
-        for (i in currentMonthDisplay..11) {
-            // Tracking the target budgetYear
-            for (yearlyBudget in getCurrentBudget().getYearlyBudgets()) {
-                if (yearlyBudget.getYear() == currentYear) {
-                    val targetMonthlyBudget = yearlyBudget.getMonthlyBudgets()[i]
-                    // Tracking which category will be affected
-                    for (category in targetMonthlyBudget) {
-                        if (category.getName() == targetCategory.getName()) {
-                            // Updating the category's available values
-                            category.setAvailable(category.getAvailable() - oldValues[4] + newValues[4])
-                            Log.d("Model.updateSubcategoryAssignedValue", "Month: $i, AvailableValue: ${category.getAvailable()}")
-                            // Updating the targetSubcategory's assigned and available values
-                            for (subcategory in category.getSubcategories()) {
-                                if (subcategory.getName() == targetSubcategory.getName()) {
-                                    subcategory.setAvailable(subcategory.getAvailable() - oldValues[1] + newValues[2])
-                                    break
-                                }
+                                newSubAvailable = oldSubAvailable - oldSubAssigned + newSubAssigned
+                                newTotalAssigned = oldTotalAssigned - oldSubAssigned + newSubAssigned
+                                newTotalAvailable = oldTotalAvailable - oldTotalAssigned + newTotalAssigned
+                                newUnassigned = oldUnassigned + oldTotalAssigned - newTotalAssigned
+                                newValues = mutableListOf(
+                                    newUnassigned,
+                                    newSubAssigned,
+                                    newSubAvailable,
+                                    newTotalAssigned,
+                                    newTotalAvailable
+                                )
+
+                                subcategory.catAssignedMoney = newSubAssigned
+                                subcategory.catAvailableMoney = newSubAvailable
+                                category.catAssignedMoney = newTotalAssigned
+                                category.catAvailableMoney = newTotalAvailable
+                                getCurrentBudget().bdgtUnassignedMoney = newUnassigned
                             }
-                            break
                         }
                     }
-                    break
                 }
             }
         }
-        Log.d("Model.updateSubcategoryAssignedValue", "April.Savings.AvailableValue: ${getCurrentBudget().getYearlyBudgets()[0].getMonthlyBudgets()[3][0]}")
+        budgetsVM.updateCategoryRecyclerView(newValues)
+
+        // Getting a list of monthlyBudgets that need updating.
+        val listOfTargetMonthlyBudgets: MutableList<MonthlyBudget> = mutableListOf()
+        for (monthlyBdgt in getCurrentBudget().bdgtAllMonthlyBudgets) {
+            // Updating monthlyBudgets within the target year
+            if (monthlyBdgt.bdgtYear == targetYear && monthlyBdgt.bdgtMonth > targetMonth) {
+                listOfTargetMonthlyBudgets.add(monthlyBdgt)
+            }
+            else if (monthlyBdgt.bdgtYear > targetYear) {
+                listOfTargetMonthlyBudgets.add(monthlyBdgt)
+            }
+        }
+
+        // Updating the list of target monthly budgets
+        for (monthlyBdgt in listOfTargetMonthlyBudgets) {
+            for (cat in monthlyBdgt.bdgtCategories) {
+                if (cat.catName == targetCategory.catName) {
+                    // Updating category's monetary values
+                    cat.catAvailableMoney += newTotalAvailable - oldTotalAvailable
+                    for (subcat in cat.subcategories) {
+                        // Updating subcategory's monetary values
+                        if (subcat.catName == targetSubcategory.catName) {
+                            subcat.catAvailableMoney += newSubAvailable - oldSubAvailable
+                        }
+                    }
+                }
+            }
+        }
+
+
+
     }
 }

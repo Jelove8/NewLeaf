@@ -11,24 +11,24 @@
     tools:context=".MainActivity">
 
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/mainFragment"
-        android:name="com.example.newleaf2022.BudgetFragment"
+        android:id="@+id/frag_main"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/buttonConstraint"
+        app:layout_constraintBottom_toTopOf="@+id/cnst_navbar"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="8dp" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/buttonConstraint"
+        android:id="@+id/cnst_navbar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
         <Button
-            android:id="@+id/mainButton1"
+            android:id="@+id/btn_navbar1"
             android:layout_width="64dp"
             android:layout_height="wrap_content"
             android:text="1"
@@ -36,53 +36,51 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/mainButton2"
+            android:id="@+id/btn_navbar2"
             android:layout_width="64dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:text="2"
-            app:layout_constraintStart_toEndOf="@+id/mainButton1"
+            app:layout_constraintStart_toEndOf="@+id/btn_navbar1"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/mainButton3"
+            android:id="@+id/btn_navbar3"
             android:layout_width="64dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:text="3"
-            app:layout_constraintStart_toEndOf="@+id/mainButton2"
+            app:layout_constraintStart_toEndOf="@+id/btn_navbar2"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/mainButton4"
+            android:id="@+id/btn_navbar4"
             android:layout_width="64dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:text="4"
-            app:layout_constraintStart_toEndOf="@+id/mainButton3"
+            app:layout_constraintStart_toEndOf="@+id/btn_navbar3"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/mainButton5"
+            android:id="@+id/btn_navbar5"
             android:layout_width="64dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:text="5"
-            app:layout_constraintStart_toEndOf="@+id/mainButton4"
+            app:layout_constraintStart_toEndOf="@+id/btn_navbar4"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/subFragment"
-        android:name="com.example.newleaf2022.NewTransactionFragment"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="32dp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@+id/buttonConstraint"
+        android:id="@+id/frag_numpad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/frag_main"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

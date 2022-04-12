@@ -4,13 +4,16 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/jelov/AndroidStudioProjects/NewLeaf2022/app/src/main/res/layout/activity_main.xml" value="0.5208333333333334" />
-        <entry key="..\:/Users/jelov/AndroidStudioProjects/NewLeaf2022/app/src/main/res/layout/fragment_accounts.xml" value="0.5208333333333334" />
+        <entry key="..\:/Users/jelov/AndroidStudioProjects/NewLeaf2022/app/src/main/res/layout/fragment_accounts.xml" value="0.5" />
+        <entry key="..\:/Users/jelov/AndroidStudioProjects/NewLeaf2022/app/src/main/res/layout/fragment_blank.xml" value="0.39351851851851855" />
         <entry key="..\:/Users/jelov/AndroidStudioProjects/NewLeaf2022/app/src/main/res/layout/fragment_budget.xml" value="0.5208333333333334" />
         <entry key="..\:/Users/jelov/AndroidStudioProjects/NewLeaf2022/app/src/main/res/layout/fragment_budgets.xml" value="0.5" />
+        <entry key="..\:/Users/jelov/AndroidStudioProjects/NewLeaf2022/app/src/main/res/layout/fragment_display_categories.xml" value="0.4166666666666667" />
         <entry key="..\:/Users/jelov/AndroidStudioProjects/NewLeaf2022/app/src/main/res/layout/fragment_edit_budgets.xml" value="0.5208333333333334" />
         <entry key="..\:/Users/jelov/AndroidStudioProjects/NewLeaf2022/app/src/main/res/layout/fragment_edit_categories.xml" value="0.5208333333333334" />
         <entry key="..\:/Users/jelov/AndroidStudioProjects/NewLeaf2022/app/src/main/res/layout/fragment_new_account.xml" value="0.5208333333333334" />
         <entry key="..\:/Users/jelov/AndroidStudioProjects/NewLeaf2022/app/src/main/res/layout/fragment_new_transaction.xml" value="0.5208333333333334" />
+        <entry key="..\:/Users/jelov/AndroidStudioProjects/NewLeaf2022/app/src/main/res/layout/fragment_numpad.xml" value="0.49284984678243104" />
         <entry key="..\:/Users/jelov/AndroidStudioProjects/NewLeaf2022/app/src/main/res/layout/fragment_transactions.xml" value="0.5" />
         <entry key="..\:/Users/jelov/AndroidStudioProjects/NewLeaf2022/app/src/main/res/layout/fragment_userlogin.xml" value="0.5107252298263534" />
         <entry key="..\:/Users/jelov/AndroidStudioProjects/NewLeaf2022/app/src/main/res/layout/viewholder_accounts.xml" value="0.5208333333333334" />

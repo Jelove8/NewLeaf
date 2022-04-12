@@ -11,17 +11,32 @@ import com.example.newleaf2022.R
 import com.example.newleaf2022.TransactionsFragment
 import com.example.newleaf2022.models.dataclasses.Accounts
 
-class AccountsAdapter(private val accounts: ArrayList<Accounts>, private val mainActivity: MainActivity) : RecyclerView.Adapter<AccountsAdapter.AccountsViewHolder>() {
+class AccountsAdapter(private val accounts: MutableList<Accounts>, private val mainActivity: MainActivity) : RecyclerView.Adapter<AccountsAdapter.AccountsViewHolder>() {
 
-    class AccountsViewHolder(ItemView: View, mainActivity: MainActivity, accounts: ArrayList<Accounts>) : RecyclerView.ViewHolder(ItemView) {
-        val accountName: TextView = itemView.findViewById(R.id.accountName)
-        val accountBalance: TextView = itemView.findViewById(R.id.outputBalance)
-        val accountConstraint: ConstraintLayout = itemView.findViewById(R.id.accountsVHConstraint)
+    class AccountsViewHolder(ItemView: View, mainActivity: MainActivity, accounts: MutableList<Accounts>) : RecyclerView.ViewHolder(ItemView) {
+        private val tvAcctName: TextView = itemView.findViewById(R.id.tv_acctName)
+        private val tvAcctBalance: TextView = itemView.findViewById(R.id.tv_acctBalance)
+        private val cnstAccountVH: ConstraintLayout = itemView.findViewById(R.id.cnst_acctViewholder)
 
         init {
-            accountConstraint.setOnClickListener {
+
+            // Populating viewholder items
+            if (accounts.isEmpty()) {
+                tvAcctName.text = mainActivity.getString(R.string.add_a_new_account_to_start_budgeting)
+                tvAcctBalance.visibility = View.INVISIBLE
+                cnstAccountVH.isClickable = false
+            }
+            else {
+                tvAcctName.text = accounts[bindingAdapterPosition].acctName
+                tvAcctBalance.text = accounts[bindingAdapterPosition].acctBalance.toString()
+                cnstAccountVH.isClickable = true
+            }
+
+            // Go to --> TransactionsFragment()
+            cnstAccountVH.setOnClickListener {
                mainActivity.changeFragment("main", TransactionsFragment(accounts[bindingAdapterPosition]))
             }
+
         }
 
     }
@@ -33,14 +48,6 @@ class AccountsAdapter(private val accounts: ArrayList<Accounts>, private val mai
     }
 
     override fun onBindViewHolder(holder: AccountsViewHolder, position: Int) {
-
-        if (accounts[0].equals(null)) {
-            holder.accountConstraint.visibility = View.GONE
-        }
-        else {
-            holder.accountName.text = accounts[position].getName()
-            holder.accountBalance.text = accounts[position].getBalance().toString()
-        }
 
     }
 

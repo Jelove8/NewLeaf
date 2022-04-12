@@ -1,22 +1,39 @@
 package com.example.newleaf2022.viewmodels
 
 import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.newleaf2022.models.dataclasses.Accounts
+import com.example.newleaf2022.adapters.CategoryAdapter
 import com.example.newleaf2022.models.dataclasses.Budgets
-import com.example.newleaf2022.models.dataclasses.Categories
+import com.example.newleaf2022.models.dataclasses.Category
 import com.example.newleaf2022.models.Model
+import com.example.newleaf2022.models.dataclasses.Accounts
+import com.example.newleaf2022.models.dataclasses.MonthlyBudget
+import java.util.*
 
 class BudgetsViewModel : ViewModel() {
 
     private lateinit var model: Model
+    private val _currentMonthDisplayed: MutableLiveData<Int> = MutableLiveData(Calendar.getInstance().get(Calendar.MONTH))
+    private val _currentYearDisplayed: MutableLiveData<Int> = MutableLiveData(Calendar.getInstance().get(Calendar.YEAR))
+
+
+    // DATE
+    fun getCurrentMonthDisplayed(): Int {
+        return _currentMonthDisplayed.value!!
+    }
+    fun getCurrentYearDisplayed(): Int {
+        return _currentYearDisplayed.value!!
+    }
+
+
     private var currentFiscalYear: Int = 0
-    private  var currentMonthDisplay: Int = 0   // Need to find a way to init { get current month }
+    private var currentMonthDisplay: Int = 0   // Need to find a way to init { get current month }
     // 0 = Jan, 1 = Feb, ... 11 = Dec
 
     // General Functions
-    fun getCurrentMonthlyBudget(): ArrayList<Categories> {
-        var monthlyBudget = arrayListOf<Categories>()
+    fun getCurrentMonthlyBudget(): MutableList<Category> {
+        var monthlyBudget = mutableListOf<Category>()
         // Looping through all items within yearlyBudgets, until the corresponding FiscalYear object is found
         for (item in model.getCurrentBudget().getYearlyBudgets()) {
             if (item.getYear() == currentFiscalYear) {
@@ -27,10 +44,57 @@ class BudgetsViewModel : ViewModel() {
         return monthlyBudget
     }
 
+    fun getCurrentYear(): Int {
+        return currentFiscalYear
+    }
 
-    // Used in BudgetsFragment
-    fun getAllCategories(): ArrayList<Categories> {
-        val allCategories = arrayListOf<Categories>()
+    // Used in MainActivity
+    fun setCurrentDate(method: String, input: MutableList<Int>? = null) {
+        when (method) {
+            "realtime" -> {
+                val currentCalendar = Calendar.getInstance()
+                currentFiscalYear = currentCalendar.get(Calendar.YEAR)
+                currentMonthDisplay = currentCalendar.get(Calendar.MONTH)
+                Log.d("realtime","Month: $currentMonthDisplay")
+                Log.d("realtime","Year: $currentFiscalYear")
+            }
+            "custom" -> {
+                when (input!!.size) {
+                    1 -> {
+                        currentMonthDisplay = input[0]
+                    }
+                    2 -> {
+                        currentMonthDisplay = input[0]
+                        currentFiscalYear = input[1]
+                    }
+                }
+            }
+        }
+
+    }
+
+
+    // Display Monthly Budget
+    private lateinit var categoryAdapter: CategoryAdapter
+    private lateinit var selectedSubcategoryViewHolder: CategoryAdapter.BudgetsViewHolder
+    fun selectSubcategoryViewHolder(adapter: CategoryAdapter, categoryViewHolder: CategoryAdapter.BudgetsViewHolder) {
+        categoryAdapter = adapter
+        selectedSubcategoryViewHolder = categoryViewHolder
+    }
+    fun updateSubcategoryAssignedValue (newSubAssigned: Double) {
+        model.updateSubcategoryAssignedValue(newSubAssigned,selectedSubcategoryViewHolder.selectedCategory,selectedSubcategoryViewHolder.selectedSubcategory,currentMonthDisplay,currentFiscalYear, this)
+    }
+    fun updateCategoryRecyclerView(newValues: MutableList<Double>) {
+        selectedSubcategoryViewHolder.updateViewHolder(categoryAdapter)
+        categoryAdapter.updateUnassignedTV(newValues[0])
+    }
+    fun getSelectedSubcategoryViewholder(): CategoryAdapter.BudgetsViewHolder {
+        return selectedSubcategoryViewHolder
+    }
+
+    // Returns the current month's list of categories and subcategories (passed through a recycler view)
+    fun getAllCategories(): MutableList<Category> {
+        val allCategories = mutableListOf<Category>()
         for (category in getCurrentMonthlyBudget()) {
             allCategories.add(category)
             for (subcategory in category.getSubcategories()) {
@@ -39,8 +103,8 @@ class BudgetsViewModel : ViewModel() {
         }
         return allCategories
     }
-    fun getCategoryPositions(): ArrayList<Int> {
-        val categoryPositions = arrayListOf<Int>()
+    fun getCategoryPositions(): MutableList<Int> {
+        val categoryPositions = mutableListOf<Int>()
         var categoryCount = 0
         for (category in getCurrentMonthlyBudget()) {
             categoryPositions.add(categoryCount)
@@ -51,46 +115,6 @@ class BudgetsViewModel : ViewModel() {
         }
         return categoryPositions
     }
-
-
-
-    fun editSubassigned(newAssigned: Double, targetCategory: Categories, targetSubcategory: Categories ): ArrayList<Double> {
-
-        // Getting old values necessary for calculations
-        val oldUnassigned = getCurrentBudget().getUnassigned()
-        var oldAssigned = 0.00
-        var oldAvailable = 0.00
-        var oldTotalAssigned = 0.00
-        var oldTotalAvailable = 0.00
-        for (category in getAllCategories()) {
-            if (category.getName() == targetCategory.getName()) {
-                oldTotalAssigned = category.getAssigned()
-                oldTotalAvailable = category.getAvailable()
-                for (subcategory in category.getSubcategories()) {
-                    if (subcategory.getName() == targetSubcategory.getName()) {
-                        oldAssigned = subcategory.getAssigned()
-                        oldAvailable = subcategory.getAvailable()
-                        break
-                    }
-                }
-                break
-            }
-        }
-        val oldValues = arrayListOf(oldUnassigned, oldAssigned, oldAvailable, oldTotalAssigned, oldTotalAvailable)
-
-        // Creating the list of string that will be used to update the appropriate views and the Model
-        val newValues = arrayListOf<Double>()   // 0 = unassigned, 1 = subAssigned, 2 = subAvailable, 3 = totalAssigned, 4 = totalAvailable
-        newValues.add(oldUnassigned + oldAssigned - newAssigned)
-        newValues.add(newAssigned)
-        newValues.add(oldAvailable - oldAssigned + newAssigned)
-        newValues.add(oldTotalAssigned - oldAssigned + newAssigned)
-        newValues.add(oldTotalAvailable - oldAssigned + newAssigned)
-
-        model.updateSubcategoryAssignedValue(newValues, oldValues, targetCategory, targetSubcategory, currentMonthDisplay, currentFiscalYear)
-
-        return newValues
-    }
-
 
 
 
@@ -115,14 +139,26 @@ class BudgetsViewModel : ViewModel() {
         return model.getCurrentBudget()
     }
 
-    fun addAccount(newAccount: Accounts, model: Model) {
-        getCurrentBudget().getAccounts().add(newAccount)
-        getCurrentBudget().setUnassigned(getCurrentBudget().getUnassigned() + newAccount.getBalance())
-        model.updateCurrentBudget(getCurrentBudget())
+    // CATEGORIES
+    fun getCurrentMonthlyCategories(): MutableList<Category> {
+        var filteredListOfCategories = mutableListOf<Category>()
+        for (monthlyBdgt in model.getCurrentBudget().bdgtAllMonthlyBudgets) {
+            if (monthlyBdgt.bdgtYear == currentFiscalYear && monthlyBdgt.bdgtMonth == currentMonthDisplay) {
+                filteredListOfCategories = monthlyBdgt.bdgtCategories
+            }
+        }
+        return filteredListOfCategories
     }
 
-    fun getUnassignedValue(): Double {
-        return getCurrentBudget().getUnassigned()
+
+
+    // ACCOUNTS
+    fun getAllAccounts(): MutableList<Accounts> {
+        return model.getCurrentBudget().bdgtAllAccounts
+    }
+    fun addNewAccount(newAccount: Accounts) {
+        model.getCurrentBudget().bdgtAllAccounts.add(newAccount)
+        model.getCurrentBudget().bdgtAllAccounts.sortBy { it.acctName }
     }
 
 

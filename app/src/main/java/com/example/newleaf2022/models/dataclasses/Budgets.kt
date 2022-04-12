@@ -1,47 +1,49 @@
 package com.example.newleaf2022.models.dataclasses
 
-data class Budgets(private var name: String,
-                   private var unassigned: Double = 0.00,
-                   private var yearlyBudgets: ArrayList<FiscalYear> = arrayListOf()
-                   ) {
+data class Users(
+    var userName: String,
+    var userPassword: String? = null,
+    var userBudgets: MutableList<Budgets> = mutableListOf(),
+    var currentlyDisplayedBudgetIndex: Int = 0
+)
 
-    private lateinit var accounts: ArrayList<Accounts>
-    private lateinit var transactions: ArrayList<Transactions>
+data class Budgets(
+    var bdgtName: String,
+    var bdgtUnassignedMoney: Double = 0.00,
+    var bdgtAllMonthlyBudgets: MutableList<MonthlyBudget> = mutableListOf(),
+    var bdgtAllAccounts: MutableList<Accounts> = mutableListOf(),
+    var bdgtAllTransactions: MutableList<Transactions> = mutableListOf(),
+    var bdgtAllCategories: MutableList<Category> = mutableListOf(),
+)
 
-    fun getYearlyBudgets(): ArrayList<FiscalYear> {
-        return yearlyBudgets
-    }
-    fun addYearlyBudget(newYearlyBudgets: FiscalYear) {
-        yearlyBudgets.add(newYearlyBudgets)
-    }
+data class MonthlyBudget(
+    val bdgtYear: Int,
+    val bdgtMonth: Int, // 0 = January ... 11 = December
+    val bdgtCategories: MutableList<Category> = mutableListOf()
+)
 
-    fun setName(newName: String) {
-        name = newName
-    }
-    fun getName(): String {
-        return name
-    }
+data class Accounts(
+    var acctName: String,
+    var acctType: String,
+    var acctBalance: Double = 0.00,
+    var acctTransactionIDs: MutableList<String> = mutableListOf()
+)
 
-    fun setUnassigned(newValue: Double) {
-        unassigned = newValue
-    }
-    fun getUnassigned(): Double {
-        return unassigned
-    }
+data class Category(
+    var catName: String?,
+    var catType: Boolean = true,  // True = category, False = subcategory
+    var catAssignedMoney: Double = 0.00,
+    var catAvailableMoney: Double = 0.00,
+    var subcategories: MutableList<Category> = mutableListOf()
+)
 
-    fun setAccounts(newAccounts: ArrayList<Accounts>) {
-        accounts = newAccounts
-    }
+data class Transactions(
+    var amount: Double = 0.00,
+    var payee: String? = null,
+    var subcategory: String? = null,
+    var cleared: Boolean = false,
+    var memo: String? = null
+)
 
-    fun getAccounts(): ArrayList<Accounts> {
-        return accounts
-    }
 
-    fun setTransactions(newTransactions: ArrayList<Transactions>) {
-        transactions = newTransactions
-    }
 
-    fun getTransactions(): ArrayList<Transactions> {
-        return transactions
-    }
-}

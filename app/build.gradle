@@ -18,7 +18,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.newleaf2022"
-        minSdk 21
+        minSdk 24
         targetSdk 31
         versionCode 1
         versionName "1.0"
@@ -57,7 +57,7 @@ dependencies {
     implementation 'androidx.fragment:fragment-ktx:1.4.1'
     implementation platform('com.google.firebase:firebase-bom:29.0.4')
     implementation 'com.google.firebase:firebase-analytics-ktx'
-    implementation 'com.google.firebase:firebase-database-ktx:20.0.3'
+    implementation 'com.google.firebase:firebase-database-ktx:20.0.4'
     implementation 'androidx.navigation:navigation-fragment-ktx:2.4.1'
     implementation 'androidx.navigation:navigation-ui-ktx:2.4.1'
     implementation platform('com.google.firebase:firebase-bom:29.1.0')

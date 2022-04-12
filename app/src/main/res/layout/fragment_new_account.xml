@@ -8,13 +8,13 @@
     tools:context=".NewAccountFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/fragNewAccountHeader"
+        android:id="@+id/cnst_addAcctHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent">
 
         <Button
-            android:id="@+id/btnCancelNewAccount"
+            android:id="@+id/btn_addAcctCancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Cancel"
@@ -22,40 +22,53 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/addAccountTV"
+            android:id="@+id/tv_addAcctHeader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="60dp"
             android:text="Add Account"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btnEditBudget"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/btnCancelNewAccount"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.523" />
 
-        <Button
-            android:id="@+id/btnEditBudget"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="edit"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
-        android:id="@+id/fragNewAccountTV1"
+        android:id="@+id/tv_addAcct1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="What type of account are you creating?"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragNewAccountHeader" />
+        app:layout_constraintTop_toBottomOf="@+id/cnst_addAcctHeader" />
+
+    <TextView
+        android:id="@+id/tv_addAcct2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Give your account a nickname!"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_acctInitialType" />
+
+    <TextView
+        android:id="@+id/tv_addAcct3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Enter this account's balance..."
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_acctInitialNickname" />
 
     <EditText
-        android:id="@+id/inputAccountType"
+        android:id="@+id/tv_acctInitialType"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -67,22 +80,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragNewAccountTV1"
+        app:layout_constraintTop_toBottomOf="@+id/tv_addAcct1"
         tools:ignore="SpeakableTextPresentCheck,TextContrastCheck" />
 
-    <TextView
-        android:id="@+id/fragNewAccountTV2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="Give your account a nickname!"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputAccountType" />
-
     <EditText
-        android:id="@+id/inputAccountName"
+        android:id="@+id/tv_acctInitialNickname"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -94,22 +96,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragNewAccountTV2"
+        app:layout_constraintTop_toBottomOf="@+id/tv_addAcct2"
         tools:ignore="SpeakableTextPresentCheck,TextContrastCheck" />
 
-    <TextView
-        android:id="@+id/fragNewAccountTV3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="Enter this account's balance..."
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputAccountName" />
-
     <EditText
-        android:id="@+id/inputBalance"
+        android:id="@+id/tv_acctInitialBalance"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -121,11 +112,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragNewAccountTV3"
+        app:layout_constraintTop_toBottomOf="@+id/tv_addAcct3"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <Button
-        android:id="@+id/btnAddAcount"
+        android:id="@+id/btn_addAcctConfirm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"

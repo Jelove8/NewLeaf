@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DisplayCategoriesFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cnst_addAcctHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/btn_bdgtSelection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="misc"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btn_bdgtDateSelection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="feb2022"
+            app:layout_constraintEnd_toStartOf="@+id/btn_bdgtEditCategories"
+            app:layout_constraintStart_toEndOf="@+id/btn_bdgtSelection"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btn_bdgtEditCategories"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="edit"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cnst_unassigned"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:padding="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/cnst_addAcctHeader"
+        tools:layout_editor_absoluteX="411dp">
+
+        <TextView
+            android:id="@+id/tv_unassignedValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_unassignedText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ready to Assign"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_unassignedValue" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcy_monthlyCategories"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cnst_unassigned"
+        tools:layout_editor_absoluteX="1dp" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cnst_dateButtonsPerimeter"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cnst_addAcctHeader">
+
+        <TextView
+            android:id="@+id/tv_dateButtonsWhiteSpace"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="0dp" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cnst_dateButtons"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="#000000"
+            android:padding="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tv_selectedYear"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="2022"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/btn_yearBack"
+                app:layout_constraintEnd_toStartOf="@+id/btn_yearForward"
+                app:layout_constraintStart_toEndOf="@+id/btn_yearBack"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/btn_yearBack"
+                android:layout_width="48dp"
+                android:layout_height="40dp"
+                android:background="@android:drawable/ic_media_play"
+                android:rotation="180"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+            <Button
+                android:id="@+id/btn_yearForward"
+                android:layout_width="48dp"
+                android:layout_height="40dp"
+                android:background="@android:drawable/ic_media_play"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+            <Button
+                android:id="@+id/btn_jan"
+                android:layout_width="64dp"
+                android:layout_height="40dp"
+                android:text="Jan"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_selectedYear"
+                tools:ignore="TouchTargetSizeCheck" />
+
+            <Button
+                android:id="@+id/btn_feb"
+                android:layout_width="64dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="8dp"
+                android:text="Feb"
+                android:textSize="12sp"
+                app:layout_constraintStart_toEndOf="@+id/btn_jan"
+                app:layout_constraintTop_toBottomOf="@id/tv_selectedYear"
+                tools:ignore="TouchTargetSizeCheck" />
+
+            <Button
+                android:id="@+id/btn_mar"
+                android:layout_width="64dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="8dp"
+                android:text="Mar"
+                android:textSize="12sp"
+                app:layout_constraintStart_toEndOf="@+id/btn_feb"
+                app:layout_constraintTop_toBottomOf="@id/tv_selectedYear"
+                tools:ignore="TouchTargetSizeCheck" />
+
+            <Button
+                android:id="@+id/btn_apr"
+                android:layout_width="64dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="8dp"
+                android:text="Apr"
+                android:textSize="12sp"
+                app:layout_constraintStart_toEndOf="@+id/btn_mar"
+                app:layout_constraintTop_toBottomOf="@id/tv_selectedYear"
+                tools:ignore="TouchTargetSizeCheck" />
+
+            <Button
+                android:id="@+id/btn_may"
+                android:layout_width="64dp"
+                android:layout_height="40dp"
+                android:text="May"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_jan"
+                tools:ignore="TouchTargetSizeCheck" />
+
+            <Button
+                android:id="@+id/btn_jun"
+                android:layout_width="64dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="8dp"
+                android:text="Jun"
+                android:textSize="12sp"
+                app:layout_constraintStart_toEndOf="@+id/btn_may"
+                app:layout_constraintTop_toBottomOf="@+id/btn_feb"
+                tools:ignore="TouchTargetSizeCheck" />
+
+            <Button
+                android:id="@+id/btn_jul"
+                android:layout_width="64dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="8dp"
+                android:text="Jul"
+                android:textSize="12sp"
+                app:layout_constraintStart_toEndOf="@+id/btn_jun"
+                app:layout_constraintTop_toBottomOf="@+id/btn_mar"
+                tools:ignore="TouchTargetSizeCheck" />
+
+            <Button
+                android:id="@+id/btn_aug"
+                android:layout_width="64dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="8dp"
+                android:text="Aug"
+                android:textSize="12sp"
+                app:layout_constraintStart_toEndOf="@+id/btn_jul"
+                app:layout_constraintTop_toBottomOf="@+id/btn_apr"
+                tools:ignore="TouchTargetSizeCheck" />
+
+            <Button
+                android:id="@+id/btn_sep"
+                android:layout_width="64dp"
+                android:layout_height="40dp"
+                android:text="Sep"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_may"
+                tools:ignore="TouchTargetSizeCheck" />
+
+            <Button
+                android:id="@+id/btn_oct"
+                android:layout_width="64dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="8dp"
+                android:text="Oct"
+                android:textSize="12sp"
+                app:layout_constraintStart_toEndOf="@+id/btn_sep"
+                app:layout_constraintTop_toBottomOf="@+id/btn_jun"
+                tools:ignore="TouchTargetSizeCheck" />
+
+            <Button
+                android:id="@+id/btn_nov"
+                android:layout_width="64dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="8dp"
+                android:text="Nov"
+                android:textSize="12sp"
+                app:layout_constraintStart_toEndOf="@+id/btn_oct"
+                app:layout_constraintTop_toBottomOf="@+id/btn_jul"
+                tools:ignore="TouchTargetSizeCheck" />
+
+            <Button
+                android:id="@+id/btn_dec"
+                android:layout_width="64dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="8dp"
+                android:text="Dec"
+                android:textSize="12sp"
+                app:layout_constraintStart_toEndOf="@+id/btn_nov"
+                app:layout_constraintTop_toBottomOf="@+id/btn_aug"
+                tools:ignore="TouchTargetSizeCheck" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

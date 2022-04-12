@@ -2,5 +2,6 @@
     <string name="app_name">New Leaf 2022</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="add_a_new_account_to_start_budgeting">Add a new account to start budgeting!</string>
 
 </resources>
